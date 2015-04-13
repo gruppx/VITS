@@ -110,13 +110,10 @@ public class LogIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
-        
-        if(Validation.logInCheck(txt_loginUser.getText(), pass_loginPassword.getText()) == true){
-            JOptionPane.showMessageDialog(null, "Inloggad!");
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Det gick inte att logga in");
-        }
+        String username = txt_loginUser.getText();
+        String password = pass_loginPassword.getText();
+        Validation.logInCheck(username, password);
+                
     }//GEN-LAST:event_btn_loginActionPerformed
 
     /**
