@@ -32,39 +32,25 @@ public class UpdateUser extends javax.swing.JInternalFrame {
     public UpdateUser() {
         initComponents();
         boxaNamn();
+        
     }
     
-      public void query(String q){
-   
-     db.myConn = null;
-     db.myStmt = null;
      
-      try{
-        
-            
-            db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
-            db.myStmt = db.myConn.createStatement();
-            db.myStmt.executeUpdate(q);
-            JOptionPane.showMessageDialog(null, "Användare tillagd!");
-            
-      }
-      catch(Exception e){
-          JOptionPane.showMessageDialog(null, e.getMessage());
-      }
-    
-}
  public void boxaNamn() //"Boxar" fyller i Namn i ComboBOX
     {
         String sqlFraga = "Select users.username from users";
         try {
             lista = db.fetchRows(sqlFraga);
-            lista.stream().forEach((lista1) -> {
-                jComboBox1.addItem(lista1.get("namn"));
-            });
+           for (int i = 0; i < lista.size(); i++) {
+                jComboBox1.addItem(lista.get(i).get("username"));
+           }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+ 
+ 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
