@@ -15,19 +15,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MainFrameBoss extends javax.swing.JFrame {
-
+    AddTravelAdvances addTravelAdvances;
+    Boolean addTravelAdvancesStarted;
     AddUser addUser;
     AddAssigment addAss;
     Boolean addAssStarted;
     UpdateUser updateUser;
     Boolean updateUserStarted;
+    
     ConnectionClass db;
    
     public MainFrameBoss() {
         initComponents();
         addAssStarted = false;
         updateUserStarted = false;
-        
+        addTravelAdvancesStarted = false;
         db = new ConnectionClass();
         try {
             db.ConnectToDb();
@@ -74,6 +76,11 @@ public class MainFrameBoss extends javax.swing.JFrame {
         jButton4.setText("Write new report");
 
         jButton5.setText("Write new travel advance");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Search");
 
@@ -144,6 +151,11 @@ public class MainFrameBoss extends javax.swing.JFrame {
 showUpdateUser();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       showAddTravelAdvances();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -196,6 +208,14 @@ showUpdateUser();        // TODO add your handling code here:
           updateUserStarted = true;
         }
         updateUser.show();
+    }
+        private void showAddTravelAdvances(){
+        if(!addTravelAdvancesStarted){
+            addTravelAdvances = new AddTravelAdvances();
+            desktopPanel.add(addTravelAdvances);
+          addTravelAdvancesStarted = true;
+        }
+        addTravelAdvances.show();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPanel;
