@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
+
 /**
  *
  * @author josefin
@@ -31,6 +32,7 @@ public class UpdateUser extends javax.swing.JInternalFrame {
      */
     public UpdateUser() {
         initComponents();
+        model = new DefaultListModel();
         boxaNamn();
         
     }
@@ -38,7 +40,7 @@ public class UpdateUser extends javax.swing.JInternalFrame {
      
  public void boxaNamn() //"Boxar" fyller i Namn i ComboBOX
     {
-        String sqlFraga = "Select users.username from users";
+        String sqlFraga = "Select username from users";
         try {
             lista = db.fetchRows(sqlFraga);
            for (int i = 0; i < lista.size(); i++) {
@@ -48,7 +50,7 @@ public class UpdateUser extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
- 
+  
  
 
     /**
@@ -60,6 +62,9 @@ public class UpdateUser extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("vitsdb?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
+        usersQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT u FROM Users u");
+        usersList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : usersQuery.getResultList();
         jComboBox1 = new javax.swing.JComboBox();
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -76,7 +81,7 @@ public class UpdateUser extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(93, 93, 93)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
 
         pack();
@@ -84,6 +89,9 @@ public class UpdateUser extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.persistence.EntityManager entityManager;
     private javax.swing.JComboBox jComboBox1;
+    private java.util.List<Project.Users> usersList;
+    private javax.persistence.Query usersQuery;
     // End of variables declaration//GEN-END:variables
 }
