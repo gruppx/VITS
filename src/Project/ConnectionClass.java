@@ -10,12 +10,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Gaspar
  */
 public class ConnectionClass {
+    
     
     Connection myConn = null;
     Statement myStmt = null;
@@ -49,4 +51,22 @@ public class ConnectionClass {
         }
     }
     
+    public void query(String q){
+   
+     myConn = null;
+     myStmt = null;
+     
+      try{
+        
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            myStmt = myConn.createStatement();
+            myStmt.executeUpdate(q);
+            JOptionPane.showMessageDialog(null, "Användare tillagd!");
+            
+      }
+      catch(Exception e){
+          JOptionPane.showMessageDialog(null, e.getMessage());
+      }
+    
+}
 }
