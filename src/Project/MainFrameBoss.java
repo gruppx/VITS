@@ -19,11 +19,14 @@ public class MainFrameBoss extends javax.swing.JFrame {
     AddUser addUser;
     AddAssigment addAss;
     Boolean addAssStarted;
+    UpdateUser updateUser;
+    Boolean updateUserStarted;
     ConnectionClass db;
    
     public MainFrameBoss() {
         initComponents();
         addAssStarted = false;
+        updateUserStarted = false;
         
         db = new ConnectionClass();
         try {
@@ -45,10 +48,11 @@ public class MainFrameBoss extends javax.swing.JFrame {
         desktopPanel = new javax.swing.JDesktopPane();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,7 +60,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
         desktopPanel.setLayout(desktopPanelLayout);
         desktopPanelLayout.setHorizontalGroup(
             desktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 855, Short.MAX_VALUE)
         );
         desktopPanelLayout.setVerticalGroup(
             desktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -67,6 +71,12 @@ public class MainFrameBoss extends javax.swing.JFrame {
 
         jButton2.setText("Add new user");
 
+        jButton4.setText("Write new report");
+
+        jButton5.setText("Write new travel advance");
+
+        jButton6.setText("Search");
+
         jButton3.setText("Add assignment");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,11 +84,12 @@ public class MainFrameBoss extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Write new report");
-
-        jButton5.setText("Write new travel advance");
-
-        jButton6.setText("Search");
+        jButton7.setText("Manage User");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,13 +103,15 @@ public class MainFrameBoss extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(10, 10, 10)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
+                        .addGap(63, 63, 63)
                         .addComponent(jButton6)))
                 .addContainerGap())
         );
@@ -109,11 +122,12 @@ public class MainFrameBoss extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jButton5)
-                    .addComponent(jButton6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jButton6)
+                    .addComponent(jButton3)
+                    .addComponent(jButton7))
+                .addGap(11, 11, 11)
                 .addComponent(desktopPanel)
                 .addContainerGap())
         );
@@ -125,6 +139,10 @@ public class MainFrameBoss extends javax.swing.JFrame {
         showAddAss();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+showUpdateUser();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,8 +187,16 @@ public class MainFrameBoss extends javax.swing.JFrame {
             addAssStarted = true;
         }
         addAss.show();
+        
 }
-    
+    private void showUpdateUser(){
+        if(!updateUserStarted){
+            updateUser = new UpdateUser();
+            desktopPanel.add(updateUser);
+          updateUserStarted = true;
+        }
+        updateUser.show();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPanel;
     private javax.swing.JButton jButton1;
@@ -179,6 +205,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     // End of variables declaration//GEN-END:variables
 }
 
