@@ -5,17 +5,21 @@
  */
 package Project;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Musse
  */
 public class AddAssigment extends javax.swing.JInternalFrame {
-
+ConnectionClass db = new ConnectionClass(); //skapar connection till databas
     /**
      * Creates new form NewJInternalFrame
      */
     public AddAssigment() {
         initComponents();
+        String name = "";
+        String info = "";
     }
 
     /**
@@ -39,6 +43,11 @@ public class AddAssigment extends javax.swing.JInternalFrame {
         jLabel_Name.setText("Name");
 
         jButton_AddAssigment.setText("Add");
+        jButton_AddAssigment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_AddAssigmentActionPerformed(evt);
+            }
+        });
 
         jLabel_info.setText("Info");
 
@@ -77,6 +86,21 @@ public class AddAssigment extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton_AddAssigmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddAssigmentActionPerformed
+        try
+        {
+             db.query("insert into assignment (name, info) values ('test', 'test');");
+        }
+   
+       /* query("insert into users(name, email, username, password, status) values ('niklas', 'niklas', 'niklas', 'nilkas', 3);");*/
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Det gick inte att lägga till ett assignment");
+        }
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_AddAssigmentActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

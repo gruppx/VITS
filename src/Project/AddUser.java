@@ -5,16 +5,19 @@
  */
 package Project;
 
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Gaspar
  */
 public class AddUser extends javax.swing.JFrame {
-
+ConnectionClass db = new ConnectionClass();
+    
     /**
      * Creates new form AddUser
      */
@@ -134,29 +137,62 @@ public class AddUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void query(String q){
+   
+     db.myConn = null;
+     db.myStmt = null;
+     
+      try{
+        
+            db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            db.myStmt = db.myConn.createStatement();
+            db.myStmt.executeUpdate(q);
+            JOptionPane.showMessageDialog(null, "Användare tillagd!");
+            
+      }
+      catch(Exception e){
+          JOptionPane.showMessageDialog(null, e.getMessage());
+      }
+    
+}
+    
+    
+    
+    
+    
+    
+    
     private void btn_saveNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveNewUserActionPerformed
-        String name = txt_newName.getText();
+        /*String name = txt_newName.getText();
         String email = txt_newEmail.getText();
         String username = txt_newUsername.getText();
         String password = txt_newPassword.getText();
         String status = txt_newStatus.getText();
+        */
         
-        ConnectionClass db = new ConnectionClass();
-        try {
-            db.ConnectToDb();
-        } catch (SQLException ex) {
-            Logger.getLogger(AddUser.class.getName()).log(Level.SEVERE, null, ex);
+        
+        
+        try
+        {
+             query("insert into users(name, email, username, password, status) values ('" +txt_newName.getText()+ "', "
+                     + " '"+txt_newEmail.getText()+"',"
+                     + " '"+txt_newUsername.getText()+"',"
+                     + " '"+txt_newPassword.getText()+"',"
+                     + " '"+txt_newStatus.getText()+"')");
+        }
+   
+       /* query("insert into users(name, email, username, password, status) values ('niklas', 'niklas', 'niklas', 'nilkas', 3);");*/
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Det gick inte att lägga till en användare");
         }
         
-        String sql = "INSERT INTO Users(Name, Email, Username, Password, Status) "
+         
+         /*String sql = "INSERT INTO Users(Name, Email, Username, Password, Status) "
                 + "VALUES ("+name+", "+email+", "+username+","+password+","+status+")";
-        
-        try {
-            db.myStmt.executeQuery(sql);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+            
+            */
     }//GEN-LAST:event_btn_saveNewUserActionPerformed
 
     /**

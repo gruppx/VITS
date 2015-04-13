@@ -10,12 +10,16 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Gaspar
  */
 public class ConnectionClass {
+    
     
     Connection myConn = null;
     Statement myStmt = null;
@@ -49,4 +53,26 @@ public class ConnectionClass {
         }
     }
     
+    public void query(String q){
+   
+     myConn = null;
+     myStmt = null;
+     
+      try{
+        
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            myStmt = myConn.createStatement();
+            myStmt.executeUpdate(q);
+            JOptionPane.showMessageDialog(null, "Användare tillagd!");
+            
+      }
+      catch(Exception e){
+          JOptionPane.showMessageDialog(null, e.getMessage());
+      }
+    
+}
+
+    ArrayList<HashMap<String, String>> fetchRows(String sqlFraga) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

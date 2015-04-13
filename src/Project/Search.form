@@ -28,13 +28,20 @@
                       <Component id="btn_searchConsultant" min="-2" pref="75" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="label_searchReport" min="-2" pref="189" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btn_saveReportToPDF" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jScrollPane2" min="-2" pref="320" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="320" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jScrollPane2" min="-2" pref="320" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" min="-2" pref="320" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="label_searchConsultant" alignment="0" min="-2" pref="189" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="label_searchConsultant" alignment="0" min="-2" pref="189" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -50,10 +57,11 @@
                   <Component id="txt_searchConsultant" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_searchConsultant" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="label_searchReport" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_saveReportToPDF" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane2" pref="371" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" pref="375" max="32767" attributes="0"/>
                   <Component id="jScrollPane1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -121,6 +129,11 @@
     <Component class="javax.swing.JLabel" name="label_searchConsultant">
       <Properties>
         <Property name="text" type="java.lang.String" value="Search consultant"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btn_saveReportToPDF">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Save to PDF"/>
       </Properties>
     </Component>
   </SubComponents>
