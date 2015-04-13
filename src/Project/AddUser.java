@@ -145,7 +145,6 @@ ConnectionClass db = new ConnectionClass();
      
       try{
         
-            
             db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
             db.myStmt = db.myConn.createStatement();
             db.myStmt.executeUpdate(q);

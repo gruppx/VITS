@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 public class MainFrame extends javax.swing.JFrame {
 
     AddUser addUser;
+    AddAssigment addAss;
     ConnectionClass db;
    
     public MainFrame() {
@@ -40,6 +41,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         label_welcome = new javax.swing.JLabel();
         btn_addNewUser = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,6 +52,13 @@ public class MainFrame extends javax.swing.JFrame {
         btn_addNewUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_addNewUserActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -64,7 +73,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(label_welcome))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btn_addNewUser)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1)
+                            .addComponent(btn_addNewUser))))
                 .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -74,7 +85,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(label_welcome)
                 .addGap(71, 71, 71)
                 .addComponent(btn_addNewUser)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
@@ -84,6 +97,13 @@ public class MainFrame extends javax.swing.JFrame {
         addUser = new AddUser();
         addUser.setVisible(true);  
     }//GEN-LAST:event_btn_addNewUserActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       addAss = new AddAssigment();
+       addAss.setVisible(true);
+       
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -122,6 +142,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addNewUser;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel label_welcome;
     // End of variables declaration//GEN-END:variables
 }
