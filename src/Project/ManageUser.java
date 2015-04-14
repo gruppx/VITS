@@ -226,21 +226,6 @@ JOptionPane.showMessageDialog(null, e.getMessage());
         String sqlPassword = "Select password from  users where name ='" + cbox_names2.getSelectedItem() +"'";  
         String sqlStatus = "Select status from  users where name ='" + cbox_names2.getSelectedItem() +"'";  
   
-            String theName = db.fetchSingle(sqlName);
-            fieldName.setText(theName);
-
-            String theEmail = db.fetchSingle(sqlEmail);
-
-            fieldMail.setText(theEmail);
-
-            String theUserName = db.fetchSingle(sqlUserName);
-            fieldUserName.setText(theUserName);
-            
-            String thePassword = db.fetchSingle(sqlPassword);
-            fieldPassword.setText(thePassword);
-            
-            String theStatus = db.fetchSingle(sqlStatus);
-            fieldStatus.setText(theStatus);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
