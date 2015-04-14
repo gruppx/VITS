@@ -107,5 +107,9 @@ public class ConnectionClass {
     void delete(String sqlFraga) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    String fetchSingle(String sqlName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
