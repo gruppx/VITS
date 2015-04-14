@@ -175,7 +175,7 @@ ConnectionClass db = new ConnectionClass();
         
         try
         {
-             query("insert into users(name, email, username, password, status) values ('" +txt_newName.getText()+ "', "
+             db.query("insert into users(name, email, username, password, status) values ('" +txt_newName.getText()+ "', "
                      + " '"+txt_newEmail.getText()+"',"
                      + " '"+txt_newUsername.getText()+"',"
                      + " '"+txt_newPassword.getText()+"',"
