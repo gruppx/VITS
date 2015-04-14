@@ -71,8 +71,37 @@ public class ConnectionClass {
       }
     
 }
-
-    ArrayList<HashMap<String, String>> fetchRows(String sqlFraga) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     public ResultSet getColumn(String query){
+        ResultSet set = null;
+        try{
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
+            Statement stat = myConn.createStatement();
+            set = stat.executeQuery(query);
+        }
+          catch(Exception e){
+          JOptionPane.showMessageDialog(null, e.getMessage());
+      }
+        return set;
+        //Funktionen används för att hämta en lista på varje row i en viss kolumn. Exempelkod finns under 
+        //UpdateUser -> 
     }
+    public int getCount() throws Exception{
+        int count = 0;
+         try{
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
+            myStmt = myConn.createStatement();
+            myRs = myStmt.executeQuery("select * from users");
+         
+            while(myRs.next())
+            {
+                count++;
+            }
+          
+        }
+         catch(Exception e){
+          JOptionPane.showMessageDialog(null, e.getMessage());
+      }
+         return count;
+    }
+    
 }
