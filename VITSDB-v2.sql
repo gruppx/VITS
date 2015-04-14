@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `vitsdb` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `vitsdb`;
 -- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
 --
 -- Host: localhost    Database: vitsdb
@@ -50,11 +48,11 @@ DROP TABLE IF EXISTS `assignment`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `assignment` (
   `AssignmentID` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(20) NOT NULL,
+  `Name` varchar(50) NOT NULL,
   `Info` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`AssignmentID`),
   UNIQUE KEY `AssignmentID_UNIQUE` (`AssignmentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,6 +61,7 @@ CREATE TABLE `assignment` (
 
 LOCK TABLES `assignment` WRITE;
 /*!40000 ALTER TABLE `assignment` DISABLE KEYS */;
+INSERT INTO `assignment` VALUES (1,'Networking with Apple','Networking at the iPhone release event.'),(2,'Spy on Microsoft','Steal information about the new \"revolutionary\" Holo Lens.');
 /*!40000 ALTER TABLE `assignment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,7 +214,7 @@ CREATE TABLE `users` (
   `Status` int(11) NOT NULL,
   PRIMARY KEY (`UserID`),
   UNIQUE KEY `UserID_UNIQUE` (`UserID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,7 +223,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Gaspar','Gaspar@gmail.com','Gas','Gaspar',0);
+INSERT INTO `users` VALUES (1,'User','user@user.com','user','123456',1),(2,'Bob Karlsson','bobby@mail.com','bobtheman','123456',1),(3,'Lisa Smith','lisasmith@mail.com','lisasmith','123456',1),(4,'Mary Jane','maryjane@gmail.com','mary90','123456',0),(5,'Andy Page','andyp@mail.net','andypage','123456',0),(6,'Mike Hawk','hawkmike@gmail.com','mikehawk','123456',0),(7,'Ralf Svensson','raffe@gmail.com','raffeee','123456',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -237,4 +236,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-10  0:40:54
+-- Dump completed on 2015-04-14 10:54:28
