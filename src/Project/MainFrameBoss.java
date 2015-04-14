@@ -20,7 +20,6 @@ public class MainFrameBoss extends javax.swing.JFrame {
     AddUser addUser;
     AddAssigment addAss;
     Boolean addAssStarted;
-    UpdateUser updateUser;
     Boolean updateUserStarted;
     
     ConnectionClass db;
@@ -148,7 +147,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-showUpdateUser();        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -201,14 +200,7 @@ showUpdateUser();        // TODO add your handling code here:
         addAss.show();
         
 }
-    private void showUpdateUser(){
-        if(!updateUserStarted){
-            updateUser = new UpdateUser();
-            desktopPanel.add(updateUser);
-          updateUserStarted = true;
-        }
-        updateUser.show();
-    }
+   
         private void showAddTravelAdvances(){
         if(!addTravelAdvancesStarted){
             addTravelAdvances = new AddTravelAdvances();
