@@ -63,7 +63,7 @@ public class ConnectionClass {
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
             myStmt = myConn.createStatement();
             myStmt.executeUpdate(q);
-            JOptionPane.showMessageDialog(null, "Successfull");
+            JOptionPane.showMessageDialog(null, "Successful");
             
       }
       catch(Exception e){
