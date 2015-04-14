@@ -20,15 +20,19 @@ public class MainFrameBoss extends javax.swing.JFrame {
     AddUser addUser;
     AddAssigment addAss;
     Boolean addAssStarted;
-    Boolean updateUserStarted;
-    
+    Boolean manageUserStarted;
+    ManageUser manageUser;
+    AddNewUser addNewUser;
+    Boolean addNewUserStared;
     ConnectionClass db;
    
     public MainFrameBoss() {
         initComponents();
         addAssStarted = false;
-        updateUserStarted = false;
+        addNewUserStared = false;
+    
         addTravelAdvancesStarted = false;
+        manageUserStarted = false;
         db = new ConnectionClass();
         try {
             db.ConnectToDb();
@@ -71,6 +75,11 @@ public class MainFrameBoss extends javax.swing.JFrame {
         jButton1.setText("New reports");
 
         jButton2.setText("Add new user");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Write new report");
 
@@ -147,13 +156,17 @@ public class MainFrameBoss extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-
+showManageUser();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
        showAddTravelAdvances();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+showAddNewUser();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,6 +222,24 @@ public class MainFrameBoss extends javax.swing.JFrame {
         }
         addTravelAdvances.show();
     }
+        private void showManageUser(){
+        if(!manageUserStarted){
+            manageUser = new ManageUser();
+            desktopPanel.add(manageUser);
+            manageUserStarted = true;
+        }
+        manageUser.show();
+        
+}
+         private void showAddNewUser(){
+        if(!addNewUserStared){
+            addNewUser = new AddNewUser();
+            desktopPanel.add(addNewUser);
+            addNewUserStared = true;
+        }
+        addNewUser.show();
+        
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPanel;
     private javax.swing.JButton jButton1;
