@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class AddCountry extends javax.swing.JFrame {
     ConnectionClass db = new ConnectionClass();
+    
     /**
      * Creates new form AddCountry
      */

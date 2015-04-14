@@ -6,12 +6,10 @@
 package Project;
 
 import java.util.Properties;
-import javax.activation.ActivationDataFlavor;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +17,8 @@ import javax.swing.JOptionPane;
  * @author Henrik.ho
  */
 public class FillReport extends javax.swing.JFrame {
+    AddCountry AddCountry;
+    AddReciept AddReciept;
 
     /**
      * Creates new form FillReport
@@ -252,7 +252,10 @@ public class FillReport extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_KvittoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_KvittoActionPerformed
-        // TODO add your handling code here:
+        JFrame AddReciept = new AddReciept();
+        AddReciept.setVisible(true);
+        
+// TODO add your handling code here:
     }//GEN-LAST:event_btn_KvittoActionPerformed
 
     private void btn_SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SubmitActionPerformed
@@ -306,6 +309,8 @@ public class FillReport extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_SubmitActionPerformed
 
     private void btn_AddCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddCountryActionPerformed
+        JFrame AddCountry = new AddCountry();
+        AddCountry.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_AddCountryActionPerformed
 
@@ -351,6 +356,8 @@ public class FillReport extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ASS;
