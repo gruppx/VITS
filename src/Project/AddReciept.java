@@ -5,6 +5,9 @@
  */
 package Project;
 
+import java.io.File;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author Henrik.ho
@@ -34,13 +37,18 @@ public class AddReciept extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txt_FileName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Select reciept");
 
-        btn_SelectReciept.setText("jButton1");
+        btn_SelectReciept.setText("Attach");
+        btn_SelectReciept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_SelectRecieptActionPerformed(evt);
+            }
+        });
 
         box_ReceiptType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -52,10 +60,10 @@ public class AddReciept extends javax.swing.JFrame {
 
         jLabel3.setText("Info");
 
-        jTextField1.setText("Show Selected jpg file");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txt_FileName.setText("Path");
+        txt_FileName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txt_FileNameActionPerformed(evt);
             }
         });
 
@@ -73,10 +81,10 @@ public class AddReciept extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(btn_SelectReciept)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txt_FileName))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,7 +94,7 @@ public class AddReciept extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_SelectReciept)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_FileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -101,9 +109,21 @@ public class AddReciept extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txt_FileNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_FileNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txt_FileNameActionPerformed
+
+    private void btn_SelectRecieptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SelectRecieptActionPerformed
+        JFileChooser Chooser = new JFileChooser(); 
+            Chooser.showOpenDialog(null); 
+              File f = Chooser.getSelectedFile();
+                String filename = f.getAbsolutePath(); 
+                 txt_FileName.setText(filename);
+                 
+           
+    
+// TODO add your handling code here:
+    }//GEN-LAST:event_btn_SelectRecieptActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,6 +168,6 @@ public class AddReciept extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txt_FileName;
     // End of variables declaration//GEN-END:variables
 }
