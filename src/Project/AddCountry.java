@@ -5,17 +5,23 @@
  */
 package Project;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Henrik.ho
  */
 public class AddCountry extends javax.swing.JFrame {
-
+    ConnectionClass db = new ConnectionClass();
+    
     /**
      * Creates new form AddCountry
      */
     public AddCountry() {
         initComponents();
+        String CountryName = "";
+        String Amount = "";
+        
     }
 
     /**
@@ -96,7 +102,18 @@ public class AddCountry extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_CountryNameActionPerformed
 
     private void btn_AddCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddCountryActionPerformed
-        // TODO add your handling code here:
+        try {
+            db.query("insert into allowance(Country,Amount) values ('"+txt_CountryName.getText()+"'"
+             + " '"+txt_Amount.getText()+"',");
+        }
+         catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Det gick inte att lägga till detta Land");
+        }
+        
+
+
+// TODO add your handling code here:
     }//GEN-LAST:event_btn_AddCountryActionPerformed
 
     /**

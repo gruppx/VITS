@@ -20,15 +20,24 @@ public class MainFrameBoss extends javax.swing.JFrame {
     AddUser addUser;
     AddAssigment addAss;
     Boolean addAssStarted;
-    Boolean updateUserStarted;
-    
+    Boolean manageUserStarted;
+    ManageUser manageUser;
+    AddNewUser addNewUser;
+    Boolean addNewUserStared;
+    Search search;
+    Boolean searchStarted;
+    AddReport addReport;
+    Boolean addReportStarted;
     ConnectionClass db;
    
     public MainFrameBoss() {
         initComponents();
         addAssStarted = false;
-        updateUserStarted = false;
+        addNewUserStared = false;
+        searchStarted = false;
         addTravelAdvancesStarted = false;
+        manageUserStarted = false;
+        addReportStarted = false;
         db = new ConnectionClass();
         try {
             db.ConnectToDb();
@@ -69,8 +78,18 @@ public class MainFrameBoss extends javax.swing.JFrame {
         );
 
         jButton1.setText("New reports");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Add new user");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Write new report");
 
@@ -82,6 +101,11 @@ public class MainFrameBoss extends javax.swing.JFrame {
         });
 
         jButton6.setText("Search");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Add assignment");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -147,13 +171,25 @@ public class MainFrameBoss extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-
+showManageUser();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
        showAddTravelAdvances();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+showAddNewUser();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+ showSearch();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+     showAddReport();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,6 +234,25 @@ public class MainFrameBoss extends javax.swing.JFrame {
             addAssStarted = true;
         }
         addAss.show();
+    }
+         private void showAddReport(){
+        if(!addReportStarted){
+            addReport = new AddReport();
+            desktopPanel.add(addReport);
+            addReportStarted = true;
+        }
+        addReport.show();
+        
+
+        
+}
+     private void showSearch(){
+        if(!searchStarted){
+            search = new Search();
+            desktopPanel.add(search);
+            searchStarted = true;
+        }
+        search.show();
         
 }
    
@@ -209,6 +264,24 @@ public class MainFrameBoss extends javax.swing.JFrame {
         }
         addTravelAdvances.show();
     }
+        private void showManageUser(){
+        if(!manageUserStarted){
+            manageUser = new ManageUser();
+            desktopPanel.add(manageUser);
+            manageUserStarted = true;
+        }
+        manageUser.show();
+        
+}
+         private void showAddNewUser(){
+        if(!addNewUserStared){
+            addNewUser = new AddNewUser();
+            desktopPanel.add(addNewUser);
+            addNewUserStared = true;
+        }
+        addNewUser.show();
+        
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPanel;
     private javax.swing.JButton jButton1;

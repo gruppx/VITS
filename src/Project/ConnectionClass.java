@@ -63,7 +63,7 @@ public class ConnectionClass {
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
             myStmt = myConn.createStatement();
             myStmt.executeUpdate(q);
-            JOptionPane.showMessageDialog(null, "Användare tillagd!");
+            JOptionPane.showMessageDialog(null, "Successfull");
             
       }
       catch(Exception e){
@@ -105,43 +105,13 @@ public class ConnectionClass {
       }
          return count;
     }
-     //Funktionen räknar ut hur många rows det finns i vald kolumn. Stringen som anges
-    //är från vilken tabell man vill göra hämta antalet counts ifrån. 
-    
-    public int getID(String query) throws Exception{
-       
-        int getID = 0;
-        try{
-            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
-            myRs = myStmt.executeQuery(query);
-            while(myRs.next()){
-                getID = myRs.getInt(1);
-            }
-            
-        }
-        catch(Exception e){
-          JOptionPane.showMessageDialog(null, e.getMessage());
-      }
-        return getID;
-        //FUNKTIONEN används för att returera int värde (exempelvis ett ID).
+
+    void delete(String sqlFraga) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public String getString(String query) throws Exception{
-        String getString = "";
-        try{
-            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
-            myRs = myStmt.executeQuery(query);
-            while(myRs.next()){
-                getString = myRs.getString(1);
-            }
-            
-        }
-        catch(Exception e){
-          JOptionPane.showMessageDialog(null, e.getMessage());
-      }
-        return getString;
-        //samma funktion som ovan fast denna returnerar ett stringvärde.
+
+    String fetchSingle(String sqlName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-   
     
 }
