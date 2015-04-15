@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MainFrameBoss extends javax.swing.JFrame {
-    AddTravelAdvances addTravelAdvances;
+    AddTravelAdvances2 addTravelAdvances;
     Boolean addTravelAdvancesStarted;
     AddUser addUser;
     AddAssigment addAss;
@@ -281,7 +281,7 @@ showAddNewUser();        // TODO add your handling code here:
    
         private void showAddTravelAdvances(){
         if(!addTravelAdvancesStarted){
-            addTravelAdvances = new AddTravelAdvances();
+            addTravelAdvances = new AddTravelAdvances2();
             desktopPanel.add(addTravelAdvances);
           addTravelAdvancesStarted = true;
         }
