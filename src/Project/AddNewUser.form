@@ -34,9 +34,12 @@
                       </Group>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextField_AddNewUserName" max="32767" attributes="0"/>
-                          <Component id="jTextField_AddUserPassword" max="32767" attributes="0"/>
-                          <Component id="jTextField_addUserStatus" max="32767" attributes="0"/>
+                          <Component id="txt_UsernameName" max="32767" attributes="0"/>
+                          <Component id="txt_Password" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="box_Status" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -49,8 +52,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jTextField_UserNameEmail" pref="300" max="32767" attributes="0"/>
-                          <Component id="jTextField_UserNameName" max="32767" attributes="0"/>
+                          <Component id="txt_UserEmail" pref="300" max="32767" attributes="0"/>
+                          <Component id="txt_UserName" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -68,31 +71,31 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel_AddUserName" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField_UserNameName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_UserName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTextField_UserNameEmail" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_UserEmail" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel_AddUserNameEmail" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel_AddNewUserName" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField_AddNewUserName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_UsernameName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel_AddPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField_AddUserPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_Password" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel_AddUserNameStatus" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField_addUserStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="box_Status" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButton_AddUserSave" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="42" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="46" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -128,23 +131,37 @@
         <Property name="text" type="java.lang.String" value="Status"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField_UserNameName">
+    <Component class="javax.swing.JTextField" name="txt_UserName">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField_UserNameEmail">
+    <Component class="javax.swing.JTextField" name="txt_UserEmail">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField_AddNewUserName">
+    <Component class="javax.swing.JTextField" name="txt_UsernameName">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField_AddNewUserNameActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_UsernameNameActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField_AddUserPassword">
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField_addUserStatus">
+    <Component class="javax.swing.JTextField" name="txt_Password">
     </Component>
     <Component class="javax.swing.JButton" name="jButton_AddUserSave">
       <Properties>
         <Property name="text" type="java.lang.String" value="Save"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_AddUserSaveActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="box_Status">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="2">
+            <StringItem index="0" value="Boss"/>
+            <StringItem index="1" value="Konsultant"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="box_StatusActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
