@@ -245,6 +245,7 @@ showAddNewUser();        // TODO add your handling code here:
         if(!fillReportStarted){
             fillReport = new FillReport();
             desktopPanel.add(fillReport);
+            fillReport.setTitle("Report");
             fillReportStarted = true;
         }
         fillReport.show();
