@@ -254,6 +254,7 @@ showAddNewUser();        // TODO add your handling code here:
         if(!addAssStarted){
             addAss = new AddAssigment();
             desktopPanel.add(addAss);
+            addAss.setTitle("Add new Assigment");
             addAssStarted = true;
         }
         addAss.show();
@@ -262,6 +263,7 @@ showAddNewUser();        // TODO add your handling code here:
         if(!addReportStarted){
             addReport = new AddReport();
             desktopPanel.add(addReport);
+            addReport.setTitle("Write new Repport");
             addReportStarted = true;
         }
         addReport.show();
@@ -273,6 +275,7 @@ showAddNewUser();        // TODO add your handling code here:
         if(!searchStarted){
             search = new Search();
             desktopPanel.add(search);
+            search.setTitle("Search");
             searchStarted = true;
         }
         search.show();
@@ -283,6 +286,7 @@ showAddNewUser();        // TODO add your handling code here:
         if(!addTravelAdvancesStarted){
             addTravelAdvances = new AddTravelAdvances2();
             desktopPanel.add(addTravelAdvances);
+            addTravelAdvances.setTitle("Write new TravelAdvances");
           addTravelAdvancesStarted = true;
         }
         addTravelAdvances.show();
@@ -291,6 +295,7 @@ showAddNewUser();        // TODO add your handling code here:
         if(!manageUserStarted){
             manageUser = new ManageUser();
             desktopPanel.add(manageUser);
+            manageUser.setTitle("Manage Users Info");
             manageUserStarted = true;
         }
         manageUser.show();
@@ -300,6 +305,7 @@ showAddNewUser();        // TODO add your handling code here:
         if(!addNewUserStared){
             addNewUser = new AddNewUser();
             desktopPanel.add(addNewUser);
+            addNewUser.setTitle("Add User");
             addNewUserStared = true;
         }
         addNewUser.show();
