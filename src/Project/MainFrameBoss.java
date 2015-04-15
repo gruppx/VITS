@@ -28,6 +28,8 @@ public class MainFrameBoss extends javax.swing.JFrame {
     Boolean searchStarted;
     AddReport addReport;
     Boolean addReportStarted;
+    FillReport fillReport;
+    Boolean fillReportStarted;
     ConnectionClass db;
    
     public MainFrameBoss() {
@@ -38,6 +40,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
         addTravelAdvancesStarted = false;
         manageUserStarted = false;
         addReportStarted = false;
+        fillReportStarted = false;
         db = new ConnectionClass();
         try {
             db.ConnectToDb();
@@ -91,7 +94,12 @@ public class MainFrameBoss extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Write new report");
+        jButton4.setText("Fill report");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Write new travel advance");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -166,8 +174,11 @@ public class MainFrameBoss extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        showAddAss();
-        // TODO add your handling code here:
+       
+       showAddAss();
+      
+       
+       
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -190,6 +201,10 @@ showAddNewUser();        // TODO add your handling code here:
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
      showAddReport();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+     showFillReport();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,7 +241,15 @@ showAddNewUser();        // TODO add your handling code here:
             }
         });
     }
-
+ private void showFillReport(){
+        if(!fillReportStarted){
+            fillReport = new FillReport();
+            desktopPanel.add(fillReport);
+            fillReportStarted = true;
+        }
+        fillReport.show();
+        
+}
     private void showAddAss(){
         if(!addAssStarted){
             addAss = new AddAssigment();
