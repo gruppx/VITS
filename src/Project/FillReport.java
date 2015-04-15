@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author Henrik.ho
  */
-public class FillReport extends javax.swing.JFrame {
+public class FillReport extends javax.swing.JInternalFrame {
     AddCountry AddCountry;
     AddReciept AddReciept;
     
