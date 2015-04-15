@@ -5,6 +5,7 @@
  */
 package Project;
 
+import java.sql.ResultSet;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -19,12 +20,16 @@ import javax.swing.JOptionPane;
 public class FillReport extends javax.swing.JFrame {
     AddCountry AddCountry;
     AddReciept AddReciept;
+    
+    ConnectionClass db = new ConnectionClass();
 
     /**
      * Creates new form FillReport
      */
     public FillReport() {
         initComponents();
+        fillBoxes();
+        fillAssignment();
     }
 
     /**
@@ -36,7 +41,7 @@ public class FillReport extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        box_Assigment = new javax.swing.JComboBox();
+        box_Assignment = new javax.swing.JComboBox();
         ASS = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         box_Boss = new javax.swing.JComboBox();
@@ -65,7 +70,7 @@ public class FillReport extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        box_Assigment.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        box_Assignment.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         ASS.setText("Assignement ");
 
@@ -155,7 +160,7 @@ public class FillReport extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(box_Assigment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(box_Assignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(ASS)
                                         .addComponent(box_FromCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -204,7 +209,7 @@ public class FillReport extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(box_Assigment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(box_Assignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(box_Boss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
@@ -258,6 +263,46 @@ public class FillReport extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_btn_KvittoActionPerformed
 
+    private void fillAssignment(){
+        box_Assignment.removeAllItems();
+        ResultSet assignments = db.getColumn("select * from assignment");
+        int numOfAssignments;
+        
+        try
+        {
+            numOfAssignments = db.getCount("assignment"); 
+            for(int i = 0; i < numOfAssignments; i++) {
+                assignments.next();
+                box_Assignment.addItem(assignments.getString("Name"));
+            }
+            
+        }
+        catch(Exception e)
+        {
+             JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        }
+    
+    private void fillBoxes(){
+        box_FromCountry.removeAllItems();
+        box_ToCountry.removeAllItems();
+        ResultSet countries = db.getColumn("select * from allowance");
+        int numOfCountries;
+        try{
+        numOfCountries = db.getCount("allowance");
+        for (int i=0; i<numOfCountries; i++)
+        {
+            countries.next();
+            box_FromCountry.addItem(countries.getString("Country"));
+            box_ToCountry.addItem(countries.getString("Country"));
+        }
+            }
+                catch(Exception e)
+                {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                }
+    }
+    
     private void btn_SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SubmitActionPerformed
         
         
@@ -361,7 +406,7 @@ public class FillReport extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ASS;
-    private javax.swing.JComboBox box_Assigment;
+    private javax.swing.JComboBox box_Assignment;
     private javax.swing.JComboBox box_Boss;
     private javax.swing.JComboBox box_FromCountry;
     private javax.swing.JComboBox box_ToCountry;
