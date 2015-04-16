@@ -14,13 +14,25 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+
 public class MainFrameConsultant extends javax.swing.JFrame {
 
     AddUser addUser;
     ConnectionClass db;
+    
+    AddTravelAdvances2 addTravelAdvances;
+    Boolean addTravelAdvancesStarted;
    
+    FillReport addFillReport;
+    Boolean addFillReportStarted;
+    
     public MainFrameConsultant() {
         initComponents();
+       
+        addTravelAdvancesStarted = false;
+        addFillReportStarted = false;
+        
         db = new ConnectionClass();
         try {
             db.ConnectToDb();
@@ -39,8 +51,8 @@ public class MainFrameConsultant extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btn_newTravelAdvance = new javax.swing.JButton();
+        btn_newReport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,9 +67,19 @@ public class MainFrameConsultant extends javax.swing.JFrame {
             .addGap(0, 472, Short.MAX_VALUE)
         );
 
-        jButton4.setText("Write new report");
+        btn_newTravelAdvance.setText("Write new travel advance");
+        btn_newTravelAdvance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_newTravelAdvanceActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Write new travel advance");
+        btn_newReport.setText("Write new report");
+        btn_newReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_newReportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -68,9 +90,9 @@ public class MainFrameConsultant extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDesktopPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton4)
+                        .addComponent(btn_newTravelAdvance)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5)
+                        .addComponent(btn_newReport)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -79,8 +101,8 @@ public class MainFrameConsultant extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(btn_newTravelAdvance)
+                    .addComponent(btn_newReport))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jDesktopPane1)
                 .addContainerGap())
@@ -88,6 +110,15 @@ public class MainFrameConsultant extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_newTravelAdvanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newTravelAdvanceActionPerformed
+        showAddTravelAdvances();  // TODO add your handling code here:
+    }//GEN-LAST:event_btn_newTravelAdvanceActionPerformed
+
+    private void btn_newReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newReportActionPerformed
+        showAddFillReport();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_newReportActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,10 +157,30 @@ public class MainFrameConsultant extends javax.swing.JFrame {
             }
         });
     }
+    
+        private void showAddFillReport(){
+        if(!addFillReportStarted){
+            addFillReport = new FillReport();
+            jDesktopPane1.add(addFillReport);
+            addFillReport.setTitle("Write new report");
+          addFillReportStarted = true;
+        }
+        addFillReport.show();
+        }
+    
+    private void showAddTravelAdvances(){
+        if(!addTravelAdvancesStarted){
+            addTravelAdvances = new AddTravelAdvances2();
+            jDesktopPane1.add(addTravelAdvances);
+            addTravelAdvances.setTitle("Write new TravelAdvances");
+          addTravelAdvancesStarted = true;
+        }
+        addTravelAdvances.show();
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btn_newReport;
+    private javax.swing.JButton btn_newTravelAdvance;
     private javax.swing.JDesktopPane jDesktopPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,12 +5,15 @@
  */
 package Project;
 
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Musse
  */
 public class AddNewUser extends javax.swing.JInternalFrame {
-
+    ConnectionClass db = new ConnectionClass();
     /**
      * Creates new form AddNewUser
      */
@@ -33,12 +36,12 @@ public class AddNewUser extends javax.swing.JInternalFrame {
         jLabel_AddNewUserName = new javax.swing.JLabel();
         jLabel_AddPassword = new javax.swing.JLabel();
         jLabel_AddUserNameStatus = new javax.swing.JLabel();
-        jTextField_UserNameName = new javax.swing.JTextField();
-        jTextField_UserNameEmail = new javax.swing.JTextField();
-        jTextField_AddNewUserName = new javax.swing.JTextField();
-        jTextField_AddUserPassword = new javax.swing.JTextField();
-        jTextField_addUserStatus = new javax.swing.JTextField();
+        txt_UserName = new javax.swing.JTextField();
+        txt_UserEmail = new javax.swing.JTextField();
+        txt_UsernameName = new javax.swing.JTextField();
+        txt_Password = new javax.swing.JTextField();
         jButton_AddUserSave = new javax.swing.JButton();
+        box_Status = new javax.swing.JComboBox();
 
         jLabel_NewUser.setText("Add a new user");
 
@@ -52,13 +55,25 @@ public class AddNewUser extends javax.swing.JInternalFrame {
 
         jLabel_AddUserNameStatus.setText("Status");
 
-        jTextField_AddNewUserName.addActionListener(new java.awt.event.ActionListener() {
+        txt_UsernameName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_AddNewUserNameActionPerformed(evt);
+                txt_UsernameNameActionPerformed(evt);
             }
         });
 
         jButton_AddUserSave.setText("Save");
+        jButton_AddUserSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_AddUserSaveActionPerformed(evt);
+            }
+        });
+
+        box_Status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Boss", "Konsultant" }));
+        box_Status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                box_StatusActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,9 +92,11 @@ public class AddNewUser extends javax.swing.JInternalFrame {
                             .addComponent(jLabel_AddNewUserName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField_AddNewUserName)
-                            .addComponent(jTextField_AddUserPassword)
-                            .addComponent(jTextField_addUserStatus)))
+                            .addComponent(txt_UsernameName)
+                            .addComponent(txt_Password)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(box_Status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -88,8 +105,8 @@ public class AddNewUser extends javax.swing.JInternalFrame {
                             .addComponent(jLabel_AddUserNameEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField_UserNameEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                            .addComponent(jTextField_UserNameName)))
+                            .addComponent(txt_UserEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                            .addComponent(txt_UserName)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton_AddUserSave))))
@@ -101,37 +118,79 @@ public class AddNewUser extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_AddUserName)
-                    .addComponent(jTextField_UserNameName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_UserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel_AddUserNameEmail)
-                    .addComponent(jTextField_UserNameEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_UserEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_AddUserNameEmail))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_AddNewUserName)
-                    .addComponent(jTextField_AddNewUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_UsernameName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_AddPassword)
-                    .addComponent(jTextField_AddUserPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_AddUserNameStatus)
-                    .addComponent(jTextField_addUserStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(box_Status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_AddUserSave)
-                .addGap(0, 42, Short.MAX_VALUE))
+                .addGap(0, 46, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField_AddNewUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_AddNewUserNameActionPerformed
+    private void txt_UsernameNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_UsernameNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_AddNewUserNameActionPerformed
+    }//GEN-LAST:event_txt_UsernameNameActionPerformed
+
+    private void box_StatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_box_StatusActionPerformed
+        /*Object SelectedItem = box_Status.getSelectedItem();
+        String Boss = "Boss";
+        
+        // SelectedItem = SelectedItem.toString();
+        if(SelectedItem.equals(Boss)){
+         int Bossvalue = Integer.parseInt(Boss);
+            System.out.println(Boss);
+         }
+        */
+        // TODO add your handling code here:
+    }//GEN-LAST:event_box_StatusActionPerformed
+
+    private void jButton_AddUserSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddUserSaveActionPerformed
+           
+        int Status = 0;
+        if (box_Status.getSelectedItem().toString() == "Boss"){
+            Status = 1;
+            System.out.println("Motha");
+           }
+        
+             try
+        {
+             db.query("insert into users(name, email, username, password, status) values ('" +txt_UserName.getText()+ "', "
+                     + " '"+txt_UserEmail.getText()+"',"
+                     + " '"+txt_UsernameName.getText()+"',"
+                     + " '"+txt_Password.getText()+"',"
+                     + " '"+Status+"')");
+        }
+   
+       /* query("insert into users(name, email, username, password, status) values ('niklas', 'niklas', 'niklas', 'nilkas', 3);");*/
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Det gick inte att lägga till en användare");
+        }
+        
+
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButton_AddUserSaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox box_Status;
     private javax.swing.JButton jButton_AddUserSave;
     private javax.swing.JLabel jLabel_AddNewUserName;
     private javax.swing.JLabel jLabel_AddPassword;
@@ -139,10 +198,9 @@ public class AddNewUser extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel_AddUserNameEmail;
     private javax.swing.JLabel jLabel_AddUserNameStatus;
     private javax.swing.JLabel jLabel_NewUser;
-    private javax.swing.JTextField jTextField_AddNewUserName;
-    private javax.swing.JTextField jTextField_AddUserPassword;
-    private javax.swing.JTextField jTextField_UserNameEmail;
-    private javax.swing.JTextField jTextField_UserNameName;
-    private javax.swing.JTextField jTextField_addUserStatus;
+    private javax.swing.JTextField txt_Password;
+    private javax.swing.JTextField txt_UserEmail;
+    private javax.swing.JTextField txt_UserName;
+    private javax.swing.JTextField txt_UsernameName;
     // End of variables declaration//GEN-END:variables
 }
