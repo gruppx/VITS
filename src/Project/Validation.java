@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 public class Validation {
     
-    public static String currentID;
+    
     
     static ConnectionClass db = new ConnectionClass();
     
@@ -37,7 +37,6 @@ public class Validation {
                         MainFrameBoss mainFrameBoss = new MainFrameBoss();
                         mainFrameBoss.setVisible(true);
                         mainFrameBoss.setLoggedInBossInfo(name, String.valueOf(id));
-                        currentID = String.valueOf(id);
                         return true;
                     }
                     else if(status == 0 && username.equals(user) && password.equals(pass)){
@@ -45,7 +44,7 @@ public class Validation {
                         MainFrameConsultant mainFrameConsultant = new MainFrameConsultant();
                         mainFrameConsultant.setVisible(true);
                         mainFrameConsultant.setLoggedInConsultantInfo(name, String.valueOf(id));
-                        currentID = String.valueOf(id);
+                        MainFrameConsultant.currentConsultantID = String.valueOf(id);
                         return true;
                     }
                     else{

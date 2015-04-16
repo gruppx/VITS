@@ -5,7 +5,10 @@
  */
 package Project;
 
-import javax.swing.JOptionPane;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  *
@@ -18,6 +21,7 @@ public class LogIn extends javax.swing.JFrame {
      */
     public LogIn() {
         initComponents();
+        Internet();
     }
 
     /**
@@ -54,7 +58,7 @@ public class LogIn extends javax.swing.JFrame {
         btn_writeReport.setText("Write a report!");
 
         label_offline.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        label_offline.setText("Offline?");
+        label_offline.setText("You do not have internet");
 
         label_welcome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         label_welcome.setText("Welcome to vITs");
@@ -64,25 +68,27 @@ public class LogIn extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(74, 74, 74)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btn_login)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(label_loginUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txt_loginUser)
-                            .addComponent(pass_loginPassword)
-                            .addComponent(label_loginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(label_welcome)))
+                        .addGap(74, 74, 74)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btn_login)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(label_loginUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txt_loginUser)
+                                    .addComponent(pass_loginPassword)
+                                    .addComponent(label_loginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(label_welcome))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(btn_writeReport))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(label_offline, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(80, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_writeReport, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(label_offline, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,8 +105,8 @@ public class LogIn extends javax.swing.JFrame {
                 .addComponent(pass_loginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_login)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(label_offline)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(label_offline, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_writeReport)
                 .addContainerGap())
@@ -109,6 +115,44 @@ public class LogIn extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void Showbtn(){
+    
+        label_offline.setVisible(true);
+        btn_writeReport.setVisible(true);
+    
+    }
+    
+    private void Hidebtn(){
+    
+        label_offline.setVisible(false);
+        btn_writeReport.setVisible(false);
+    }
+    
+    
+    
+    public boolean Internet() { 
+    try {                                                                                                                                                                                                                                 
+        final URL url = new URL("http://www.google.com");                                                                                                                                                                                 
+        final URLConnection check = url.openConnection();                                                                                                                                                                                  
+             check.connect();
+               System.out.println("har internet");      
+               Hidebtn();
+                       
+    }   
+    catch (MalformedURLException e) { 
+        System.out.println("Har inte internet");
+        Showbtn();
+        throw new RuntimeException(e);                                                                                                                                                                                                    
+    } catch (IOException e) {                
+        System.out.println("har inte internet");
+           return false;                                                                                                                                                                                                                   
+    }    
+       return false;         
+ }  
+
+    
+    
+    
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         String username = txt_loginUser.getText();
         String password = pass_loginPassword.getText();
