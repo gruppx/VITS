@@ -6,6 +6,7 @@
 package Project;
 
 import java.sql.ResultSet;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -35,8 +36,6 @@ public class Search extends javax.swing.JInternalFrame {
         label_searchConsultant = new javax.swing.JLabel();
         btn_saveReportToPDF = new javax.swing.JButton();
         cbox_alternative = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
-        cbox_result = new javax.swing.JComboBox();
         btn_showInfo = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         panel_user = new javax.swing.JPanel();
@@ -80,6 +79,8 @@ public class Search extends javax.swing.JInternalFrame {
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        list_result = new javax.swing.JList();
 
         btn_searchConsultant.setText("Search");
         btn_searchConsultant.addActionListener(new java.awt.event.ActionListener() {
@@ -94,9 +95,12 @@ public class Search extends javax.swing.JInternalFrame {
 
         cbox_alternative.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Users", "Report", "Assignment" }));
 
-        jLabel1.setText("Result:");
-
         btn_showInfo.setText("Show info");
+        btn_showInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_showInfoActionPerformed(evt);
+            }
+        });
 
         panel_user.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -196,7 +200,7 @@ public class Search extends javax.swing.JInternalFrame {
                     .addComponent(cbox_reports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
                     .addComponent(btn_showReports))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         panel_report.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -258,7 +262,7 @@ public class Search extends javax.swing.JInternalFrame {
                             .addComponent(txt_approved)
                             .addComponent(txt_date)
                             .addComponent(txt_sent))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         panel_reportLayout.setVerticalGroup(
             panel_reportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,7 +297,7 @@ public class Search extends javax.swing.JInternalFrame {
                 .addGroup(panel_reportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(txt_assignment))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(227, Short.MAX_VALUE))
         );
 
         panel_assignment.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -331,7 +335,7 @@ public class Search extends javax.swing.JInternalFrame {
                             .addComponent(jLabel29)
                             .addComponent(jLabel30)))
                     .addComponent(jLabel17))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(202, Short.MAX_VALUE))
         );
         panel_assignmentLayout.setVerticalGroup(
             panel_assignmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,8 +354,10 @@ public class Search extends javax.swing.JInternalFrame {
                 .addGroup(panel_assignmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
                     .addComponent(jLabel30))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jScrollPane1.setViewportView(list_result);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -360,32 +366,29 @@ public class Search extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbox_result, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(label_searchConsultant)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_search, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btn_showInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbox_alternative, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_searchConsultant, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
-                        .addComponent(btn_saveReportToPDF))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(panel_assignment, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panel_user, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(btn_showInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(panel_report, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panel_report, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panel_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panel_assignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(label_searchConsultant)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_search, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbox_alternative, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_searchConsultant, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_saveReportToPDF)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -396,32 +399,34 @@ public class Search extends javax.swing.JInternalFrame {
                     .addComponent(label_searchConsultant)
                     .addComponent(txt_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbox_alternative, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_searchConsultant))
+                    .addComponent(btn_searchConsultant)
+                    .addComponent(btn_saveReportToPDF))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_saveReportToPDF)
-                    .addComponent(jLabel1)
-                    .addComponent(cbox_result, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_showInfo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panel_user, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel_report, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel_assignment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btn_showInfo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1))
+                            .addComponent(panel_report, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(panel_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panel_assignment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(22, 22, 22))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_searchConsultantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchConsultantActionPerformed
-        cbox_result.removeAllItems(); //rensar alla objekt i comboboxen
+         //rensar alla objekt i comboboxen
         
         String alternative = cbox_alternative.getSelectedItem().toString();
-        String column = "username"; //standard för sökning av users
+        String column = "name"; //standard för sökning av users
         
         int numOfAlternatives;
         
@@ -435,13 +440,14 @@ public class Search extends javax.swing.JInternalFrame {
         }
         
         try{
+            DefaultListModel DLM = new DefaultListModel();
             ResultSet search = db.getColumn("select * from "+alternative+" where "+column+" like '"+txt_search.getText()+"%'");
             numOfAlternatives = db.getCount(alternative);
             while(search.next()) //Använd ALLTID while av denna typ! annars stöter du på "after end och result set"
             {
-            cbox_result.addItem(search.getString(column));
+            DLM.addElement(search.getString(column));
             }
-          
+            list_result.setModel(DLM);
         }
         catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
@@ -451,6 +457,43 @@ public class Search extends javax.swing.JInternalFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_btn_searchConsultantActionPerformed
 
+    private void btn_showInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showInfoActionPerformed
+        String table = cbox_alternative.getSelectedItem().toString();
+        String alternative = cbox_alternative.getSelectedItem().toString();
+        String column = "Date";
+        String row = "name";
+        
+        if (table.equals("Users")){
+            column = "username";
+        }
+        else if (table.equals("Assignment"))
+        {
+            column = "info";
+        }
+     
+        if (alternative.equals("Assignment"))
+        {
+            row = "name";
+        }
+        else if(alternative.equals("Report"))
+        {
+            row = "ReportID";
+        }
+        
+    
+        String object = list_result.getSelectedValue().toString();
+                try{
+           String result = db.getString("select "+column+" from "+table+" where "+row+"= '"+object+"'");
+                 txt_username.setText(result);
+                 
+        }
+        catch(Exception e){
+          JOptionPane.showMessageDialog(null, e.getMessage());
+      }
+        
+// TODO add your handling code here:
+    }//GEN-LAST:event_btn_showInfoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_saveReportToPDF;
@@ -459,8 +502,6 @@ public class Search extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_showReports;
     private javax.swing.JComboBox cbox_alternative;
     private javax.swing.JComboBox cbox_reports;
-    private javax.swing.JComboBox cbox_result;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -483,9 +524,11 @@ public class Search extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel label_reportInformation;
     private javax.swing.JLabel label_searchConsultant;
+    private javax.swing.JList list_result;
     private javax.swing.JPanel panel_assignment;
     private javax.swing.JPanel panel_report;
     private javax.swing.JPanel panel_user;
