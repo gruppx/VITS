@@ -34,6 +34,7 @@ public class AddTravelAdvances2 extends javax.swing.JInternalFrame {
         btn_send = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txt_info = new javax.swing.JTextArea();
+        cbox_boss = new javax.swing.JComboBox();
 
         cbox_assignment.setMaximumRowCount(999);
         cbox_assignment.setToolTipText("");
@@ -53,6 +54,13 @@ public class AddTravelAdvances2 extends javax.swing.JInternalFrame {
         txt_info.setRows(5);
         jScrollPane1.setViewportView(txt_info);
 
+        cbox_boss.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbox_boss.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbox_bossActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -61,14 +69,16 @@ public class AddTravelAdvances2 extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txt_amount, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cbox_assignment, javax.swing.GroupLayout.Alignment.LEADING, 0, 129, Short.MAX_VALUE)))
+                        .addComponent(jLabel1)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txt_amount, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbox_assignment, javax.swing.GroupLayout.Alignment.LEADING, 0, 129, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(cbox_boss, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(btn_send)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel2)
@@ -79,7 +89,9 @@ public class AddTravelAdvances2 extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(cbox_assignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbox_assignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbox_boss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -108,6 +120,10 @@ public class AddTravelAdvances2 extends javax.swing.JInternalFrame {
       }
     }//GEN-LAST:event_btn_sendActionPerformed
 
+    private void cbox_bossActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_bossActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbox_bossActionPerformed
+
     private void fillBoxes(){
         ResultSet names = db.getColumn("select * from assignment");
         int numOfUsers;
@@ -127,6 +143,7 @@ public class AddTravelAdvances2 extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_send;
     private javax.swing.JComboBox cbox_assignment;
+    private javax.swing.JComboBox cbox_boss;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
