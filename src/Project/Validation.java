@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 
 public class Validation {
     
+    public static String currentID;
+    
     static ConnectionClass db = new ConnectionClass();
     
     static public boolean logInCheck(String username, String password){   
@@ -34,14 +36,16 @@ public class Validation {
                         JOptionPane.showMessageDialog(null, "Inloggad som chef!");
                         MainFrameBoss mainFrameBoss = new MainFrameBoss();
                         mainFrameBoss.setVisible(true);
-                        mainFrameBoss.setLoggedInInfo(name, String.valueOf(id));
-                        mainFrameBoss.currentID = String.valueOf(id);
+                        mainFrameBoss.setLoggedInBossInfo(name, String.valueOf(id));
+                        currentID = String.valueOf(id);
                         return true;
                     }
                     else if(status == 0 && username.equals(user) && password.equals(pass)){
                         JOptionPane.showMessageDialog(null, "Inloggad som konsult!");
                         MainFrameConsultant mainFrameConsultant = new MainFrameConsultant();
                         mainFrameConsultant.setVisible(true);
+                        mainFrameConsultant.setLoggedInConsultantInfo(name, String.valueOf(id));
+                        currentID = String.valueOf(id);
                         return true;
                     }
                     else{
@@ -60,4 +64,5 @@ public class Validation {
         }
         return false;
     }
+    
 }

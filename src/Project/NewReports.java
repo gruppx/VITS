@@ -5,7 +5,7 @@
  */
 package Project;
 
-import static Project.MainFrameBoss.currentID;
+import static Project.Validation.currentID;
 import static Project.Validation.db;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,13 +19,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Gaspar
  */
-public class BossFrame extends javax.swing.JInternalFrame {
+public class NewReports extends javax.swing.JInternalFrame {
 
     static ConnectionClass db = new ConnectionClass();
     /**
      * Creates new form BossFrame
      */
-    public BossFrame() {
+    public NewReports() {
         initComponents();
         getReportList();
         

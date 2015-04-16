@@ -8,12 +8,12 @@ import javax.swing.JOptionPane;
  *
  * @author Henrik
  */
-public class AddTravelAdvances2 extends javax.swing.JInternalFrame {
+public class AddTravelAdvances extends javax.swing.JInternalFrame {
     ConnectionClass db = new ConnectionClass();
     /**
      * Creates new form NewJInternalFrame
      */
-    public AddTravelAdvances2() {
+    public AddTravelAdvances() {
         initComponents();
         fillBoxes();
     }

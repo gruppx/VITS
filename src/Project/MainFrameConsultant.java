@@ -10,28 +10,23 @@ package Project;
  * @author Gaspar
  */
 
+import java.beans.PropertyVetoException;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 
 public class MainFrameConsultant extends javax.swing.JFrame {
-
-    AddUser addUser;
     ConnectionClass db;
     
-    AddTravelAdvances2 addTravelAdvances;
-    Boolean addTravelAdvancesStarted;
-   
-    FillReport addFillReport;
-    Boolean addFillReportStarted;
+    AddTravelAdvances addTravelAdvances;   
+    FillReport fillReport;
     
     public MainFrameConsultant() {
         initComponents();
-       
-        addTravelAdvancesStarted = false;
-        addFillReportStarted = false;
+        addAllFramesToPane();
         
         db = new ConnectionClass();
         try {
@@ -39,6 +34,12 @@ public class MainFrameConsultant extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(MainFrameConsultant.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    
+    public void setLoggedInConsultantInfo(String loggedInName, String loggedInID){
+        label_loggedInName.setText(loggedInName);
+        label_loggedInID.setText(loggedInID);        
     }
 
     /**
@@ -50,21 +51,26 @@ public class MainFrameConsultant extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        desktopPanel = new javax.swing.JDesktopPane();
         btn_newTravelAdvance = new javax.swing.JButton();
         btn_newReport = new javax.swing.JButton();
+        label_loggedInName = new javax.swing.JLabel();
+        label_loggedInID = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1000, 600));
+        setResizable(false);
+        setSize(new java.awt.Dimension(1000, 600));
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout desktopPanelLayout = new javax.swing.GroupLayout(desktopPanel);
+        desktopPanel.setLayout(desktopPanelLayout);
+        desktopPanelLayout.setHorizontalGroup(
+            desktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 855, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
+        desktopPanelLayout.setVerticalGroup(
+            desktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 445, Short.MAX_VALUE)
         );
 
         btn_newTravelAdvance.setText("Write new travel advance");
@@ -81,6 +87,14 @@ public class MainFrameConsultant extends javax.swing.JFrame {
             }
         });
 
+        label_loggedInName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label_loggedInName.setText("jLabel1");
+
+        label_loggedInID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label_loggedInID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        label_loggedInID.setText("jLabel1");
+        label_loggedInID.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,12 +102,16 @@ public class MainFrameConsultant extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDesktopPane1)
+                    .addComponent(desktopPanel)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btn_newTravelAdvance)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_newReport)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(label_loggedInName, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(label_loggedInID, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -101,10 +119,14 @@ public class MainFrameConsultant extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_loggedInID)
+                    .addComponent(label_loggedInName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_newTravelAdvance)
                     .addComponent(btn_newReport))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jDesktopPane1)
+                .addComponent(desktopPanel)
                 .addContainerGap())
         );
 
@@ -112,17 +134,15 @@ public class MainFrameConsultant extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_newTravelAdvanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newTravelAdvanceActionPerformed
-        showAddTravelAdvances();  // TODO add your handling code here:
+        hideAllFrames();
+        showAddTravelAdvances();
     }//GEN-LAST:event_btn_newTravelAdvanceActionPerformed
 
     private void btn_newReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newReportActionPerformed
-        showAddFillReport();
-        // TODO add your handling code here:
+        hideAllFrames();
+        showFillReport();
     }//GEN-LAST:event_btn_newReportActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -158,29 +178,49 @@ public class MainFrameConsultant extends javax.swing.JFrame {
         });
     }
     
-        private void showAddFillReport(){
-        if(!addFillReportStarted){
-            addFillReport = new FillReport();
-            jDesktopPane1.add(addFillReport);
-            addFillReport.setTitle("Write new report");
-          addFillReportStarted = true;
-        }
-        addFillReport.show();
-        }
+    private void addAllFramesToPane() {      
+        addTravelAdvances = new AddTravelAdvances();
+        desktopPanel.add(addTravelAdvances);
+        fillReport = new FillReport();
+        desktopPanel.add(fillReport);
+    }   
     
     private void showAddTravelAdvances(){
-        if(!addTravelAdvancesStarted){
-            addTravelAdvances = new AddTravelAdvances2();
-            jDesktopPane1.add(addTravelAdvances);
-            addTravelAdvances.setTitle("Write new TravelAdvances");
-          addTravelAdvancesStarted = true;
-        }
         addTravelAdvances.show();
+        try {
+            addTravelAdvances.setMaximum(true);
+            addTravelAdvances.setSelected(rootPaneCheckingEnabled);
+        } catch (PropertyVetoException e) {
+          JOptionPane.showMessageDialog(null, e.getMessage());    // Ev. errormeddelande
         }
+    }
+    
+    private void showFillReport(){
+        fillReport.show();
+        try {     
+            fillReport.setMaximum(true);
+            fillReport.setSelected(rootPaneCheckingEnabled);
+        } catch (PropertyVetoException e) {
+          JOptionPane.showMessageDialog(null, e.getMessage());    // Ev. errormeddelande
+        }
+    }
+    
+    private void hideAllFrames(){        
+        try {  
+                addTravelAdvances.hide();
+                fillReport.hide();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }    
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_newReport;
     private javax.swing.JButton btn_newTravelAdvance;
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JDesktopPane desktopPanel;
+    private javax.swing.JLabel label_loggedInID;
+    private javax.swing.JLabel label_loggedInName;
     // End of variables declaration//GEN-END:variables
 }
