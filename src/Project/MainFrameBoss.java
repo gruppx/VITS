@@ -26,10 +26,12 @@ public class MainFrameBoss extends javax.swing.JFrame {
     FillReport fillReport;
     ManageUser manageUser;
     NewReports newReports;
-    Search search;
-   
+    Search search;   
+    public static String currentBossID;
+       
     public MainFrameBoss() {
-        initComponents();   
+        initComponents();
+        
         addAllFramesToPane();
         
         db = new ConnectionClass();
@@ -43,9 +45,9 @@ public class MainFrameBoss extends javax.swing.JFrame {
     
     public void setLoggedInBossInfo(String loggedInName, String loggedInID){
         label_loggedInName.setText(loggedInName);
-        label_loggedInID.setText(loggedInID);        
+        label_loggedInBossID.setText(loggedInID);
+        currentBossID = loggedInID;
     }
-    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -59,13 +61,11 @@ public class MainFrameBoss extends javax.swing.JFrame {
         btn_search = new javax.swing.JButton();
         btn_addAssignment = new javax.swing.JButton();
         btn_manageUser = new javax.swing.JButton();
-        label_loggedInID = new javax.swing.JLabel();
+        label_loggedInBossID = new javax.swing.JLabel();
         label_loggedInName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1000, 600));
         setMinimumSize(new java.awt.Dimension(1000, 600));
-        setPreferredSize(new java.awt.Dimension(1000, 600));
         setResizable(false);
         setSize(new java.awt.Dimension(1000, 600));
 
@@ -129,11 +129,11 @@ public class MainFrameBoss extends javax.swing.JFrame {
             }
         });
 
-        label_loggedInID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        label_loggedInID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        label_loggedInID.setLabelFor(label_loggedInID);
-        label_loggedInID.setText("jLabel1");
-        label_loggedInID.setToolTipText("");
+        label_loggedInBossID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label_loggedInBossID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        label_loggedInBossID.setLabelFor(label_loggedInBossID);
+        label_loggedInBossID.setText("jLabel1");
+        label_loggedInBossID.setToolTipText("");
 
         label_loggedInName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label_loggedInName.setLabelFor(label_loggedInName);
@@ -164,7 +164,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(label_loggedInName, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(label_loggedInID, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(label_loggedInBossID, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -172,7 +172,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_loggedInID)
+                    .addComponent(label_loggedInBossID)
                     .addComponent(label_loggedInName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -188,7 +188,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        label_loggedInID.getAccessibleContext().setAccessibleName("txt_loggedInName");
+        label_loggedInBossID.getAccessibleContext().setAccessibleName("txt_loggedInName");
         label_loggedInName.getAccessibleContext().setAccessibleName("txt_loggedInID");
 
         pack();
@@ -213,6 +213,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
     private void btn_showNewReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showNewReportsActionPerformed
         hideAllFrames();
         showNewReports();
+        newReports.updateReportList();
     }//GEN-LAST:event_btn_showNewReportsActionPerformed
 
     private void btn_addNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addNewUserActionPerformed
@@ -397,7 +398,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
     private javax.swing.JButton btn_writeNewReport;
     private javax.swing.JButton btn_writeNewTravelAdvance;
     private javax.swing.JDesktopPane desktopPanel;
-    private javax.swing.JLabel label_loggedInID;
+    private javax.swing.JLabel label_loggedInBossID;
     private javax.swing.JLabel label_loggedInName;
     // End of variables declaration//GEN-END:variables
 }
