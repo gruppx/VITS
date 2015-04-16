@@ -86,6 +86,21 @@ public class ConnectionClass {
         //Funktionen används för att hämta en lista på varje row i en viss kolumn. Exempelkod finns under 
         //UpdateUser -> 
     }
+     
+     public ResultSet getRow(String fromTable, String fromType, String fromObject){
+         ResultSet rs = null;
+         try{
+             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
+            Statement stat = myConn.createStatement();
+            rs = stat.executeQuery("select * from "+fromTable+" where "+fromType+"='"+fromObject+"'");
+         }
+         catch(Exception e){
+          JOptionPane.showMessageDialog(null, e.getMessage());
+      }
+         
+         return rs;
+     }
+     
     public int getCount(String fromWhere) throws Exception{
         int count = 0;
        
