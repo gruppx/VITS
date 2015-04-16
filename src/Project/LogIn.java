@@ -5,7 +5,10 @@
  */
 package Project;
 
-import javax.swing.JOptionPane;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  *
@@ -18,6 +21,7 @@ public class LogIn extends javax.swing.JFrame {
      */
     public LogIn() {
         initComponents();
+        Internet();
     }
 
     /**
@@ -109,6 +113,44 @@ public class LogIn extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void Showbtn(){
+    
+        label_offline.setVisible(true);
+        btn_writeReport.setVisible(true);
+    
+    }
+    
+    private void Hidebtn(){
+    
+        label_offline.setVisible(false);
+        btn_writeReport.setVisible(false);
+    }
+    
+    
+    
+    public boolean Internet() { 
+    try {                                                                                                                                                                                                                                 
+        final URL url = new URL("http://www.google.com");                                                                                                                                                                                 
+        final URLConnection check = url.openConnection();                                                                                                                                                                                  
+             check.connect();
+               System.out.println("har internet");      
+               Hidebtn();
+                       
+    }   
+    catch (MalformedURLException e) { 
+        System.out.println("Har inte internet");
+        Showbtn();
+        throw new RuntimeException(e);                                                                                                                                                                                                    
+    } catch (IOException e) {                
+        System.out.println("har inte internet");
+           return false;                                                                                                                                                                                                                   
+    }    
+       return false;         
+ }  
+
+    
+    
+    
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         String username = txt_loginUser.getText();
         String password = pass_loginPassword.getText();
