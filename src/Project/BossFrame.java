@@ -5,18 +5,91 @@
  */
 package Project;
 
+import static Project.MainFrameBoss.currentID;
+import static Project.Validation.db;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Gaspar
  */
 public class BossFrame extends javax.swing.JInternalFrame {
 
+    static ConnectionClass db = new ConnectionClass();
     /**
      * Creates new form BossFrame
      */
     public BossFrame() {
         initComponents();
+        getReportList();
+        
     }
+    
+    public void getReportList(){
+        db.myConn = null;
+        db.myStmt = null;
+        
+        String currID = currentID;
+        
+        String[] columnNames = {"Sender", "Date"};
+        
+        
+        String query = "SELECT Users.Name as senderName, Report.Date as rDate "
+                + "FROM Report "
+                + "JOIN Users on Users.UserID = Report.SenderID "
+                + "WHERE Report.ReceiverID = " + currID + " "
+                + "AND Report.Approved = 0";
+        try {               
+            db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            Statement statement = db.myConn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+                                   
+            ArrayList<Object[]> data = new ArrayList<>();            
+            
+            while (rs.next()) {
+                String senderName = rs.getString(1);
+                String rDate = String.valueOf(rs.getDate(2));
+                
+                Object[] row = new Object[]{senderName, rDate};
+                data.add(row);                
+            }
+            
+            Object[][] dataForTabell = data.toArray(new Object[data.size()][]);
+            
+            DefaultTableModel model = new DefaultTableModel(dataForTabell, columnNames){      //Lägger till resultaten (dataForTabell) och kolumnnamnen i tabellmodellen.
+                @Override
+                public boolean isCellEditable(int row, int column) {          // En inbyggd metod som tar bort möjligheten till redigering i tabeller
+                    return false;
+                }
+            };
+            table_reportList.setModel(model);
+            table_reportListDesign();
+            
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }     
+        
+    }
+    
+    /*DefaultTableModel model = new DefaultTableModel(null, columnNames);
+                table_reportList.setModel(model);
+                table_reportListDesign();*/
+    
+    
+    private void table_reportListDesign()
+    {
+        table_reportList.getColumn("Sender").setMaxWidth(150);
+        table_reportList.getColumn("Date").setMaxWidth(100);
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,19 +100,12 @@ public class BossFrame extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        list_bossReports = new javax.swing.JList();
         label_listReports = new javax.swing.JLabel();
         cb_reportType = new javax.swing.JComboBox();
         btn_approveReport = new javax.swing.JButton();
         btn_denyReport = new javax.swing.JButton();
-
-        list_bossReports.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(list_bossReports);
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table_reportList = new javax.swing.JTable();
 
         label_listReports.setText("Reports");
 
@@ -49,21 +115,38 @@ public class BossFrame extends javax.swing.JInternalFrame {
 
         btn_denyReport.setText("Deny");
 
+        table_reportList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3"
+            }
+        ));
+        jScrollPane2.setViewportView(table_reportList);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(label_listReports, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1)
-                    .addComponent(cb_reportType, 0, 346, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label_listReports, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cb_reportType, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(112, 112, 112))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_approveReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_denyReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -72,16 +155,17 @@ public class BossFrame extends javax.swing.JInternalFrame {
                 .addComponent(label_listReports)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cb_reportType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(295, 295, 295)
                         .addComponent(btn_approveReport)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_denyReport)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btn_denyReport)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         pack();
@@ -92,8 +176,8 @@ public class BossFrame extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_approveReport;
     private javax.swing.JButton btn_denyReport;
     private javax.swing.JComboBox cb_reportType;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel label_listReports;
-    private javax.swing.JList list_bossReports;
+    private javax.swing.JTable table_reportList;
     // End of variables declaration//GEN-END:variables
 }

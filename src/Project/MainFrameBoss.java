@@ -19,16 +19,22 @@ public class MainFrameBoss extends javax.swing.JFrame {
     Boolean addTravelAdvancesStarted;
     AddUser addUser;
     AddAssigment addAss;
+    BossFrame bossFrame;
     Boolean addAssStarted;
     Boolean updateUserStarted;
+    Boolean bossFrameStarted;
+    public static String currentID;
     
+        
     ConnectionClass db;
    
     public MainFrameBoss() {
-        initComponents();
+        initComponents();   
         addAssStarted = false;
         updateUserStarted = false;
         addTravelAdvancesStarted = false;
+        bossFrameStarted = false;
+        
         db = new ConnectionClass();
         try {
             db.ConnectToDb();
@@ -36,7 +42,15 @@ public class MainFrameBoss extends javax.swing.JFrame {
             Logger.getLogger(MainFrameBoss.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    
+    public void setLoggedInInfo(String loggedInName, String loggedInID){
+        label_loggedInName.setText(loggedInName);
+        label_loggedInID.setText(loggedInID);        
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,6 +68,8 @@ public class MainFrameBoss extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        label_loggedInID = new javax.swing.JLabel();
+        label_loggedInName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,10 +81,15 @@ public class MainFrameBoss extends javax.swing.JFrame {
         );
         desktopPanelLayout.setVerticalGroup(
             desktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGap(0, 464, Short.MAX_VALUE)
         );
 
         jButton1.setText("New reports");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Add new user");
 
@@ -97,6 +118,16 @@ public class MainFrameBoss extends javax.swing.JFrame {
             }
         });
 
+        label_loggedInID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label_loggedInID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        label_loggedInID.setLabelFor(label_loggedInID);
+        label_loggedInID.setText("jLabel1");
+        label_loggedInID.setToolTipText("");
+
+        label_loggedInName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        label_loggedInName.setLabelFor(label_loggedInName);
+        label_loggedInName.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,13 +149,21 @@ public class MainFrameBoss extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton5)
                         .addGap(63, 63, 63)
-                        .addComponent(jButton6)))
+                        .addComponent(jButton6))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(label_loggedInName, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(label_loggedInID, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_loggedInID)
+                    .addComponent(label_loggedInName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -133,10 +172,13 @@ public class MainFrameBoss extends javax.swing.JFrame {
                     .addComponent(jButton6)
                     .addComponent(jButton3)
                     .addComponent(jButton7))
-                .addGap(11, 11, 11)
-                .addComponent(desktopPanel)
+                .addGap(13, 13, 13)
+                .addComponent(desktopPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        label_loggedInID.getAccessibleContext().setAccessibleName("txt_loggedInName");
+        label_loggedInName.getAccessibleContext().setAccessibleName("txt_loggedInID");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -154,6 +196,10 @@ public class MainFrameBoss extends javax.swing.JFrame {
        showAddTravelAdvances();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        showBossFrame();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,15 +237,26 @@ public class MainFrameBoss extends javax.swing.JFrame {
         });
     }
 
+    
+    
     private void showAddAss(){
         if(!addAssStarted){
             addAss = new AddAssigment();
             desktopPanel.add(addAss);
             addAssStarted = true;
         }
-        addAss.show();
-        
-}
+        addAss.show();        
+    }
+    
+    private void showBossFrame(){
+        if(!bossFrameStarted){
+            bossFrame = new BossFrame();
+            desktopPanel.add(bossFrame);
+            bossFrameStarted = true;
+        }
+        bossFrame.show();
+    }
+    
    
         private void showAddTravelAdvances(){
         if(!addTravelAdvancesStarted){
@@ -218,6 +275,8 @@ public class MainFrameBoss extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JLabel label_loggedInID;
+    private javax.swing.JLabel label_loggedInName;
     // End of variables declaration//GEN-END:variables
 }
 

@@ -112,7 +112,12 @@ public class LogIn extends javax.swing.JFrame {
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         String username = txt_loginUser.getText();
         String password = pass_loginPassword.getText();
-        Validation.logInCheck(username, password);
+        
+        if(Validation.logInCheck(username, password)){
+            this.dispose();
+        }
+        
+        
                 
     }//GEN-LAST:event_btn_loginActionPerformed
 
