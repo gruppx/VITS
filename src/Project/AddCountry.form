@@ -25,13 +25,13 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt_CountryName" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt_Amount" alignment="0" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_Amount" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txt_CountryName" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="318" max="32767" attributes="0"/>
+              <EmptySpace pref="320" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
@@ -65,17 +65,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txt_CountryName">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="CountryName"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_CountryNameActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txt_Amount">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField1"/>
-      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_AmountActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>

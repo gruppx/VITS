@@ -43,14 +43,17 @@ public class AddCountry extends javax.swing.JFrame {
 
         jLabel1.setText("Country Name");
 
-        txt_CountryName.setText("CountryName");
         txt_CountryName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_CountryNameActionPerformed(evt);
             }
         });
 
-        txt_Amount.setText("jTextField1");
+        txt_Amount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_AmountActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Amount");
 
@@ -67,12 +70,12 @@ public class AddCountry extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(txt_CountryName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_Amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addContainerGap(318, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(txt_Amount)
+                    .addComponent(txt_CountryName))
+                .addContainerGap(320, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_AddCountry)
@@ -103,18 +106,22 @@ public class AddCountry extends javax.swing.JFrame {
 
     private void btn_AddCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddCountryActionPerformed
         try {
-            db.query("insert into allowance(Country,Amount) values ('"+txt_CountryName.getText()+"'"
-             + " '"+txt_Amount.getText()+"',");
+            db.query("insert into allowance(Country , Amount) values ('"+txt_CountryName.getText()+"' , '"+txt_Amount.getText()+"')");
+                                                                                                                  
         }
          catch(Exception e)
         {
             JOptionPane.showMessageDialog(null, "Det gick inte att lägga till detta Land");
         }
-        
+        /* +Status+"')"); */
 
 
 // TODO add your handling code here:
     }//GEN-LAST:event_btn_AddCountryActionPerformed
+
+    private void txt_AmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_AmountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_AmountActionPerformed
 
     /**
      * @param args the command line arguments
