@@ -30,6 +30,10 @@ public class FillReport extends javax.swing.JInternalFrame {
         initComponents();
         fillBoxes();
         fillAssignment();
+        fillDay();
+        fillMonth();
+        fillYear();
+        
     }
 
     /**
@@ -45,7 +49,6 @@ public class FillReport extends javax.swing.JInternalFrame {
         ASS = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         box_Boss = new javax.swing.JComboBox();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -54,7 +57,6 @@ public class FillReport extends javax.swing.JInternalFrame {
         btn_AddCountry = new javax.swing.JButton();
         cbx_Transport = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         btn_Kvitto = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -65,6 +67,14 @@ public class FillReport extends javax.swing.JInternalFrame {
         txt_reportTo = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        cbx_DYear = new javax.swing.JComboBox();
+        cbx_DMonth = new javax.swing.JComboBox();
+        cbx_DDay = new javax.swing.JComboBox();
+        cbx_AYear = new javax.swing.JComboBox();
+        cbx_AMonth = new javax.swing.JComboBox();
+        cbx_ADay = new javax.swing.JComboBox();
+        txt_VacationDays = new javax.swing.JTextField();
+        vacationdays = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -73,10 +83,6 @@ public class FillReport extends javax.swing.JInternalFrame {
         ASS.setText("Assignement ");
 
         jLabel1.setText("Boss");
-
-        box_Boss.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel2.setText("Land");
 
         jLabel3.setText("From");
 
@@ -104,9 +110,7 @@ public class FillReport extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Transport");
 
-        jLabel10.setText("To");
-
-        btn_Kvitto.setText("Add");
+        btn_Kvitto.setText("Add Reciept");
         btn_Kvitto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_KvittoActionPerformed(evt);
@@ -136,9 +140,11 @@ public class FillReport extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel9.setText("Start Date");
+        jLabel9.setText("Departure Date: ");
 
-        jLabel14.setText("End Date");
+        jLabel14.setText("Arrival Date:");
+
+        vacationdays.setText("Vacation Days:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,11 +154,11 @@ public class FillReport extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbx_Transport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                        .addComponent(vacationdays)
+                        .addGap(18, 18, 18)
+                        .addComponent(txt_VacationDays, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btn_Submit)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -169,33 +175,40 @@ public class FillReport extends javax.swing.JInternalFrame {
                                 .addGap(41, 41, 41)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
-                                    .addComponent(box_ToCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(box_ToCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 283, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(btn_AddCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(box_Boss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbx_AYear, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel13)
-                                        .addComponent(txt_reportTo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING))))
-                        .addGap(449, 449, 449))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbx_DYear, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(54, 54, 54)
-                                .addComponent(jLabel10)
-                                .addGap(94, 94, 94)
-                                .addComponent(btn_Kvitto))
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel9))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(cbx_DMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbx_DDay, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cbx_AMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbx_ADay, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(cbx_Transport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1)
+                        .addComponent(btn_AddCountry, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                        .addComponent(box_Boss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_Kvitto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel13)
+                        .addComponent(txt_reportTo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(140, 140, 140)
+                .addComponent(jLabel11)
+                .addGap(258, 258, 258))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,36 +217,51 @@ public class FillReport extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ASS)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(box_Assignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(box_Boss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(box_Assignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(box_Boss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel11)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(box_FromCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(box_ToCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_AddCountry))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbx_Transport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbx_Transport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_Kvitto)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel10)
-                    .addComponent(btn_Kvitto))
+                    .addComponent(cbx_DYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbx_DMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbx_DDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(cbx_AYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbx_AMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbx_ADay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_VacationDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vacationdays))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel13))
@@ -296,10 +324,83 @@ public class FillReport extends javax.swing.JInternalFrame {
                 }
     }
     
+     private void fillDay(){
+        int [] date = new int[32];
+        cbx_ADay.removeAllItems();
+        cbx_DDay.removeAllItems();
+       
+        for(int i = 1; i < 32; i++)
+        {
+            if(i < 10){
+            date[i] = i + 1;
+            cbx_ADay.addItem("0" + i);
+            cbx_DDay.addItem("0" + i);
+        }
+        else if(i >= 10)
+        {
+             date[i] = i + 1;
+            cbx_ADay.addItem(i);
+            cbx_DDay.addItem(i); 
+        }
+       }
+    }
+      
+
+  private void fillMonth(){
+       int [] month = new int[13];
+       cbx_AMonth.removeAllItems();
+       cbx_DMonth.removeAllItems();
+       
+       for(int i = 1; i < 13; i++){
+           if(i < 10){
+           cbx_AMonth.addItem("0" + i);
+           cbx_DMonth.addItem("0" + i);
+           month[i] = i + 1;
+           }
+           else if(i >= 10)
+           {
+           cbx_AMonth.addItem(i);
+           cbx_DMonth.addItem(i); 
+           month[i] = i + 1;
+           }
+       }
+       
+    }
+        
+  
+   
+    private void fillYear(){
+       int [] year = new int[99];
+       cbx_AYear.removeAllItems();
+       cbx_DYear.removeAllItems();
+       
+       for(int i = 1; i < 99; i++){
+           if(i < 10){
+           cbx_AYear.addItem("200" + i);
+           cbx_DYear.addItem("200" + i);
+           year[i] = i + 1;
+           }
+           else if(i >= 10)
+           {
+           cbx_AYear.addItem("20" + i);
+           cbx_DYear.addItem("20" + i); 
+           year[i] = i + 1;
+           }
+       }
+       
+    }
+
+    
+    
+    
+    
+    
+    
+    
     private void btn_SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SubmitActionPerformed
         
         
-        Properties props = new Properties();
+          Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
@@ -327,12 +428,49 @@ public class FillReport extends javax.swing.JInternalFrame {
         message.setFrom(new InternetAddress("vitstest1@gmail.com"));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(txt_reportTo.getText()));
         message.setSubject("Rapport");
-        message.setText(txt_reportInfo.getText() + cbx_Transport.getSelectedItem().toString());
+        message.setText(txt_reportInfo.getText() + "\n" + "\n" + "Assignment: " + box_Assignment.getSelectedItem().toString() + "\n" + "From: " +
+        box_FromCountry.getSelectedItem().toString() + " " + "To: " + box_ToCountry.getSelectedItem() + "\n" +
+        "Transport: " + cbx_Transport.getSelectedItem().toString() + "\n" + "Departure Date: )");  
+        
+        
+        String departureYear = cbx_DYear.getSelectedItem().toString();
+        String departureMonth = cbx_DMonth.getSelectedItem().toString();
+        String departureDay = cbx_DDay.getSelectedItem().toString();
+
+        String arrivalYear = cbx_AYear.getSelectedItem().toString();
+        String arrivalMonth = cbx_AMonth.getSelectedItem().toString();
+        String arrivalDay = cbx_ADay.getSelectedItem().toString();
+
+      
+        
+        int departure = Integer.parseInt( departureYear + departureMonth + departureDay);
+        int arrival = Integer.parseInt(arrivalYear + arrivalMonth  + arrivalDay );
+        
+        
+        
+         
+        try
+        {
+             db.query("insert into Trip (FromCountry, ToCountry, Transport, DepartureDate, ArrivalDate, VacationDays, UserID, AssignmentID) values ('"+box_FromCountry.getSelectedItem()+"', "
+                + "'"+box_ToCountry.getSelectedItem()+"' , '"+cbx_Transport.getSelectedItem()+"' , '"+departure+"', '"+arrival+"', '"+txt_VacationDays.getText()+"', 1, 1)");
+        
+        }
+        
+         /*db.query("insert into allowance(Country, Amount) values ('"+txt_CountryName.getText()+"', '"+txt_Amount.getText()+"')");*/
+       catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+         
+            
+     
+      
        
         
         
         Transport.send(message);
-        JOptionPane.showMessageDialog(rootPane, "Meddelande skickat!");
+        JOptionPane.showMessageDialog(rootPane, "Rapport skickad!");
         
         
         }
@@ -341,8 +479,7 @@ public class FillReport extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, e);
         }
         
-      
-    
+
 
     }//GEN-LAST:event_btn_SubmitActionPerformed
 
@@ -406,21 +543,27 @@ public class FillReport extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_AddCountry;
     private javax.swing.JButton btn_Kvitto;
     private javax.swing.JButton btn_Submit;
+    private javax.swing.JComboBox cbx_ADay;
+    private javax.swing.JComboBox cbx_AMonth;
+    private javax.swing.JComboBox cbx_AYear;
+    private javax.swing.JComboBox cbx_DDay;
+    private javax.swing.JComboBox cbx_DMonth;
+    private javax.swing.JComboBox cbx_DYear;
     private javax.swing.JComboBox cbx_Transport;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField txt_VacationDays;
     private javax.swing.JTextArea txt_reportInfo;
     private javax.swing.JTextField txt_reportTo;
+    private javax.swing.JLabel vacationdays;
     // End of variables declaration//GEN-END:variables
 }
