@@ -155,6 +155,31 @@ public class ConnectionClass {
         return getID;
         //FUNKTIONEN används för att returera int värde (exempelvis ett ID).
     }
+   /**
+    * kör flera sql frågor samtidigt
+    */
+   public void executeMultiple(String[] Queries)
+   {
+       try
+       {
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            myStmt = myConn.createStatement();
+            
+            for(String query : Queries)
+            {
+                myStmt.addBatch(query);
+            }
+            
+            myStmt.executeBatch();
+            
+            JOptionPane.showMessageDialog(null, ""
+                    + "Success");
+       }
+       catch(Exception e)
+       {
+           JOptionPane.showMessageDialog(null, e.getMessage());
+       }
+   }
     
     
   
