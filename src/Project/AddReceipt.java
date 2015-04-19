@@ -7,6 +7,8 @@ package Project;
 
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -145,6 +147,20 @@ public class AddReceipt extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_SelectRecieptActionPerformed
 
     private void btn_SubmitRecieptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SubmitRecieptActionPerformed
+ try {
+            
+     
+            db.query( " insert into images(photo) values ('"+txt_FileName.getText()+"')");
+           
+ 
+           
+                System.out.println("A photo was inserted.");
+           }
+      catch(Exception e){
+          JOptionPane.showMessageDialog(null, e.getMessage());
+      }
+    
+
 
         
 // TODO add your handling code here:
