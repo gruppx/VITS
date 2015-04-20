@@ -447,12 +447,13 @@ public class FillReport extends javax.swing.JInternalFrame {
         int arrival = Integer.parseInt(arrivalYear + arrivalMonth  + arrivalDay );
         
         
+        String currID = LogIn.currentLoggedInID;
         
          
         try
         {
              db.query("insert into Trip (FromCountry, ToCountry, Transport, DepartureDate, ArrivalDate, VacationDays, UserID, AssignmentID) values ('"+box_FromCountry.getSelectedItem()+"', "
-                + "'"+box_ToCountry.getSelectedItem()+"' , '"+cbx_Transport.getSelectedItem()+"' , '"+departure+"', '"+arrival+"', '"+txt_VacationDays.getText()+"', 1, 1)");
+                + "'"+box_ToCountry.getSelectedItem()+"' , '"+cbx_Transport.getSelectedItem()+"' , '"+departure+"', '"+arrival+"', '"+txt_VacationDays.getText()+"', " + currID + ", 1)");
         
         }
         
