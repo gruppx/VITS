@@ -124,6 +124,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Write a report!"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_writeReportActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="label_offline">
       <Properties>
