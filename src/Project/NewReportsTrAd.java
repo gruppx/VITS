@@ -36,7 +36,7 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
         db.myConn = null;
         db.myStmt = null;
         
-        String currID = MainFrameBoss.currentBossID;
+        String currID = LogIn.currentLoggedInID;
         
         
         String[] columnNames = {"Sender", "Date"};
@@ -95,7 +95,7 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
         db.myConn = null;
         db.myStmt = null;
         
-        String currID = MainFrameBoss.currentBossID;
+        String currID = LogIn.currentLoggedInID;
         
         
         String[] columnNames = {"Sender", "Amount"};

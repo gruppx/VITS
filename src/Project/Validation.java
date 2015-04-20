@@ -44,7 +44,6 @@ public class Validation {
                         MainFrameConsultant mainFrameConsultant = new MainFrameConsultant();
                         mainFrameConsultant.setVisible(true);
                         mainFrameConsultant.setLoggedInConsultantInfo(name, String.valueOf(id));
-                        MainFrameConsultant.currentConsultantID = String.valueOf(id);
                         return true;
                     }
                     else{

@@ -26,8 +26,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
     FillReport fillReport;
     ManageUser manageUser;
     NewReportsTrAd newReportsTrAd;
-    Search search;   
-    public static String currentBossID;
+    Search search;
        
     public MainFrameBoss() {
         initComponents();
@@ -46,7 +45,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
     public void setLoggedInBossInfo(String loggedInName, String loggedInID){
         label_loggedInName.setText(loggedInName);
         label_loggedInBossID.setText(loggedInID);
-        currentBossID = loggedInID;
+        LogIn.currentLoggedInID = loggedInID;
     }
     
     public void NoInternetAccess(){
