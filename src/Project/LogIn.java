@@ -154,7 +154,7 @@ public class LogIn extends javax.swing.JFrame {
     
     public boolean Internet() { 
     try {                                                                                                                                                                                                                                 
-        final URL url = new URL("http://www.google.coms");                                                                                                                                                                                 
+        final URL url = new URL("http://www.google.com");                                                                                                                                                                                 
         final URLConnection check = url.openConnection();                                                                                                                                                                                  
              check.connect();
                System.out.println("har internet");      

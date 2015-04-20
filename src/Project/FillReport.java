@@ -280,6 +280,8 @@ public class FillReport extends javax.swing.JInternalFrame {
     private void btn_KvittoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_KvittoActionPerformed
         JFrame AddReciept = new AddReceipt();
         AddReciept.setVisible(true);
+       
+    
         
 // TODO add your handling code here:
     }//GEN-LAST:event_btn_KvittoActionPerformed
