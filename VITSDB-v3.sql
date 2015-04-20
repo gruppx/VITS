@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `vitsdb` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `vitsdb`;
 -- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
 --
 -- Host: localhost    Database: vitsdb
@@ -51,7 +53,8 @@ CREATE TABLE `assignment` (
   `Name` varchar(50) NOT NULL,
   `Info` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`AssignmentID`),
-  UNIQUE KEY `AssignmentID_UNIQUE` (`AssignmentID`)
+  UNIQUE KEY `AssignmentID_UNIQUE` (`AssignmentID`),
+  UNIQUE KEY `Name_UNIQUE` (`Name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -63,6 +66,30 @@ LOCK TABLES `assignment` WRITE;
 /*!40000 ALTER TABLE `assignment` DISABLE KEYS */;
 INSERT INTO `assignment` VALUES (1,'Networking with Apple','Networking at the iPhone release event.'),(2,'Spy on Microsoft','Steal information about the new \"revolutionary\" Holo Lens.');
 /*!40000 ALTER TABLE `assignment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `images`
+--
+
+DROP TABLE IF EXISTS `images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `images` (
+  `ImageID` int(11) NOT NULL AUTO_INCREMENT,
+  `Photo` mediumblob,
+  PRIMARY KEY (`ImageID`),
+  UNIQUE KEY `ImageID_UNIQUE` (`ImageID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `images`
+--
+
+LOCK TABLES `images` WRITE;
+/*!40000 ALTER TABLE `images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -121,7 +148,7 @@ CREATE TABLE `report` (
   CONSTRAINT `ReceiverID` FOREIGN KEY (`ReceiverID`) REFERENCES `users` (`UserID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `ReportAssignmentID` FOREIGN KEY (`AssignmentID`) REFERENCES `assignment` (`AssignmentID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `SenderID` FOREIGN KEY (`SenderID`) REFERENCES `users` (`UserID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,6 +157,7 @@ CREATE TABLE `report` (
 
 LOCK TABLES `report` WRITE;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
+INSERT INTO `report` VALUES (1,2,1,'0001-01-01',1,0,1),(2,3,2,'0002-02-02',1,0,2);
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,11 +174,17 @@ CREATE TABLE `traveladvances` (
   `Approved` int(11) NOT NULL,
   `AssignmentID` int(11) NOT NULL,
   `Reason` varchar(100) DEFAULT NULL,
+  `SenderID` int(11) NOT NULL,
+  `ReceiverID` int(11) NOT NULL,
   PRIMARY KEY (`TrAdID`),
   UNIQUE KEY `TrAdID_UNIQUE` (`TrAdID`),
   KEY `TravelAssignmentID_idx` (`AssignmentID`),
-  CONSTRAINT `TravelAssignmentID` FOREIGN KEY (`AssignmentID`) REFERENCES `assignment` (`AssignmentID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `TravelSenderID_idx` (`SenderID`),
+  KEY `TravelReceiverID_idx` (`ReceiverID`),
+  CONSTRAINT `TravelAssignmentID` FOREIGN KEY (`AssignmentID`) REFERENCES `assignment` (`AssignmentID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `TravelReceiverID` FOREIGN KEY (`ReceiverID`) REFERENCES `users` (`UserID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `TravelSenderID` FOREIGN KEY (`SenderID`) REFERENCES `users` (`UserID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,6 +193,7 @@ CREATE TABLE `traveladvances` (
 
 LOCK TABLES `traveladvances` WRITE;
 /*!40000 ALTER TABLE `traveladvances` DISABLE KEYS */;
+INSERT INTO `traveladvances` VALUES (1,123,0,1,'blablabla',2,1),(2,666,1,2,'hahaha',3,1),(3,1337,0,2,'lololol',2,1),(4,619,2,1,'omg',3,1);
 /*!40000 ALTER TABLE `traveladvances` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,11 +244,12 @@ CREATE TABLE `users` (
   `UserID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(30) DEFAULT NULL,
   `Email` varchar(30) DEFAULT NULL,
-  `Username` varchar(20) DEFAULT NULL,
+  `Username` varchar(20) NOT NULL,
   `Password` varchar(20) DEFAULT NULL,
   `Status` int(11) NOT NULL,
   PRIMARY KEY (`UserID`),
-  UNIQUE KEY `UserID_UNIQUE` (`UserID`)
+  UNIQUE KEY `UserID_UNIQUE` (`UserID`),
+  UNIQUE KEY `Username_UNIQUE` (`Username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -236,4 +272,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-14 10:54:28
+-- Dump completed on 2015-04-20 12:11:02

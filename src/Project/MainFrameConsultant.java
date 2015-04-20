@@ -24,7 +24,6 @@ public class MainFrameConsultant extends javax.swing.JFrame {
     AddTravelAdvances addTravelAdvances;   
     FillReport fillReport;
     
-    public static String currentConsultantID;
     
     public MainFrameConsultant() {
         initComponents();
@@ -41,7 +40,8 @@ public class MainFrameConsultant extends javax.swing.JFrame {
     
     public void setLoggedInConsultantInfo(String loggedInName, String loggedInID){
         label_loggedInName.setText(loggedInName);
-        label_loggedInID.setText(loggedInID);        
+        label_loggedInID.setText(loggedInID);
+        LogIn.currentLoggedInID = loggedInID;
     }
 
     

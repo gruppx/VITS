@@ -19,6 +19,10 @@ public class LogIn extends javax.swing.JFrame {
     /**
      * Creates new form LogIn
      */
+    
+    
+    public static String currentLoggedInID;
+    
     public LogIn() {
         initComponents();
         Internet();

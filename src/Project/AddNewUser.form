@@ -21,46 +21,41 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jLabel_NewUser" min="-2" pref="98" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="296" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel_AddUserNameStatus" max="32767" attributes="0"/>
-                          <Component id="jLabel_AddPassword" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jLabel_AddNewUserName" alignment="1" pref="50" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txt_UsernameName" max="32767" attributes="0"/>
-                          <Component id="txt_Password" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="box_Status" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel_AddUserNameStatus" min="-2" pref="67" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="box_Status" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jButton_AddUserSave" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel_AddUserName" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="jLabel_AddUserNameEmail" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel_AddPassword" min="-2" pref="64" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="txt_Password" min="-2" pref="200" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jLabel_AddNewUserName" min="-2" pref="64" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="txt_UsernameName" min="-2" pref="200" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txt_UserEmail" pref="300" max="32767" attributes="0"/>
+                          <Component id="jLabel_AddUserNameEmail" max="32767" attributes="0"/>
+                          <Component id="jLabel_AddUserName" pref="64" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="txt_UserEmail" pref="200" max="32767" attributes="0"/>
                           <Component id="txt_UserName" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="jButton_AddUserSave" min="-2" max="-2" attributes="0"/>
-                  </Group>
               </Group>
+              <EmptySpace pref="242" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -73,12 +68,12 @@
                   <Component id="jLabel_AddUserName" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txt_UserName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="txt_UserEmail" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel_AddUserNameEmail" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel_AddUserNameEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_UserEmail" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel_AddNewUserName" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txt_UsernameName" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -92,10 +87,9 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel_AddUserNameStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="box_Status" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButton_AddUserSave" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton_AddUserSave" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="46" max="32767" attributes="0"/>
+              <EmptySpace pref="76" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
