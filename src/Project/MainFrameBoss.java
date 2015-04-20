@@ -25,7 +25,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
     AddTravelAdvances addTravelAdvances;
     FillReport fillReport;
     ManageUser manageUser;
-    NewReports newReports;
+    NewReportsTrAd newReportsTrAd;
     Search search;   
     public static String currentBossID;
        
@@ -213,7 +213,8 @@ public class MainFrameBoss extends javax.swing.JFrame {
     private void btn_showNewReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showNewReportsActionPerformed
         hideAllFrames();
         showNewReports();
-        newReports.updateReportList();
+        newReportsTrAd.updateReportList();
+        newReportsTrAd.updateTravelAdvancesList();
     }//GEN-LAST:event_btn_showNewReportsActionPerformed
 
     private void btn_addNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addNewUserActionPerformed
@@ -282,8 +283,8 @@ public class MainFrameBoss extends javax.swing.JFrame {
         desktopPanel.add(fillReport);
         manageUser = new ManageUser();
         desktopPanel.add(manageUser);
-        newReports = new NewReports();
-        desktopPanel.add(newReports);
+        newReportsTrAd = new NewReportsTrAd();
+        desktopPanel.add(newReportsTrAd);
         search = new Search();
         desktopPanel.add(search);
     }   
@@ -349,10 +350,10 @@ public class MainFrameBoss extends javax.swing.JFrame {
     }
     
     private void showNewReports(){
-        newReports.show();
+        newReportsTrAd.show();
         try {
-            newReports.setMaximum(true);
-            newReports.setSelected(rootPaneCheckingEnabled);
+            newReportsTrAd.setMaximum(true);
+            newReportsTrAd.setSelected(rootPaneCheckingEnabled);
         } catch (PropertyVetoException e) {
           JOptionPane.showMessageDialog(null, e.getMessage());    // Ev. errormeddelande
         }
@@ -379,7 +380,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
                 addTravelAdvances.hide();
                 fillReport.hide();
                 manageUser.hide();
-                newReports.hide();
+                newReportsTrAd.hide();
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
