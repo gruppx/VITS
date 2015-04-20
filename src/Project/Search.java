@@ -6,6 +6,7 @@
 package Project;
 
 import java.sql.ResultSet;
+import java.util.HashMap;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -36,7 +37,6 @@ public class Search extends javax.swing.JInternalFrame {
         label_searchConsultant = new javax.swing.JLabel();
         btn_saveReportToPDF = new javax.swing.JButton();
         cbox_alternative = new javax.swing.JComboBox();
-        btn_showInfo = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         panel_user = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -52,9 +52,6 @@ public class Search extends javax.swing.JInternalFrame {
         txt_username = new javax.swing.JLabel();
         txt_password = new javax.swing.JLabel();
         txt_status = new javax.swing.JLabel();
-        cbox_reports = new javax.swing.JComboBox();
-        jLabel16 = new javax.swing.JLabel();
-        btn_showReports = new javax.swing.JButton();
         panel_report = new javax.swing.JPanel();
         label_reportInformation = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -76,13 +73,23 @@ public class Search extends javax.swing.JInternalFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
+        txt_assID = new javax.swing.JLabel();
+        txt_aName = new javax.swing.JLabel();
+        txt_aInfo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         list_result = new javax.swing.JList();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table_reports = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        table_assignments = new javax.swing.JTable();
 
-        btn_searchConsultant.setText("Search");
+        txt_search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_searchKeyReleased(evt);
+            }
+        });
+
+        btn_searchConsultant.setText("List All");
         btn_searchConsultant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_searchConsultantActionPerformed(evt);
@@ -94,13 +101,6 @@ public class Search extends javax.swing.JInternalFrame {
         btn_saveReportToPDF.setText("Save to PDF");
 
         cbox_alternative.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Users", "Report", "Assignment" }));
-
-        btn_showInfo.setText("Show info");
-        btn_showInfo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_showInfoActionPerformed(evt);
-            }
-        });
 
         panel_user.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -131,16 +131,12 @@ public class Search extends javax.swing.JInternalFrame {
 
         txt_status.setText("jLabel14");
 
-        jLabel16.setText("Reports:");
-
-        btn_showReports.setText("Show");
-
         javax.swing.GroupLayout panel_userLayout = new javax.swing.GroupLayout(panel_user);
         panel_user.setLayout(panel_userLayout);
         panel_userLayout.setHorizontalGroup(
             panel_userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_userLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel_userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(panel_userLayout.createSequentialGroup()
@@ -150,8 +146,7 @@ public class Search extends javax.swing.JInternalFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel16))
+                            .addComponent(jLabel8))
                         .addGap(47, 47, 47)
                         .addGroup(panel_userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_status)
@@ -159,12 +154,8 @@ public class Search extends javax.swing.JInternalFrame {
                             .addComponent(txt_username)
                             .addComponent(txt_email)
                             .addComponent(txt_name)
-                            .addComponent(txt_userID)
-                            .addGroup(panel_userLayout.createSequentialGroup()
-                                .addComponent(cbox_reports, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_showReports)))))
-                .addContainerGap(38, Short.MAX_VALUE))
+                            .addComponent(txt_userID))))
+                .addGap(164, 164, 164))
         );
         panel_userLayout.setVerticalGroup(
             panel_userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,12 +186,7 @@ public class Search extends javax.swing.JInternalFrame {
                 .addGroup(panel_userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txt_status))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbox_reports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16)
-                    .addComponent(btn_showReports))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         panel_report.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -262,7 +248,7 @@ public class Search extends javax.swing.JInternalFrame {
                             .addComponent(txt_approved)
                             .addComponent(txt_date)
                             .addComponent(txt_sent))))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         panel_reportLayout.setVerticalGroup(
             panel_reportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -297,7 +283,7 @@ public class Search extends javax.swing.JInternalFrame {
                 .addGroup(panel_reportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(txt_assignment))
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panel_assignment.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -311,11 +297,11 @@ public class Search extends javax.swing.JInternalFrame {
 
         jLabel20.setText("Info:");
 
-        jLabel28.setText("jLabel28");
+        txt_assID.setText("jLabel28");
 
-        jLabel29.setText("jLabel29");
+        txt_aName.setText("jLabel29");
 
-        jLabel30.setText("jLabel30");
+        txt_aInfo.setText("jLabel30");
 
         javax.swing.GroupLayout panel_assignmentLayout = new javax.swing.GroupLayout(panel_assignment);
         panel_assignment.setLayout(panel_assignmentLayout);
@@ -331,11 +317,11 @@ public class Search extends javax.swing.JInternalFrame {
                             .addComponent(jLabel20))
                         .addGap(18, 18, 18)
                         .addGroup(panel_assignmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel28)
-                            .addComponent(jLabel29)
-                            .addComponent(jLabel30)))
+                            .addComponent(txt_assID)
+                            .addComponent(txt_aName)
+                            .addComponent(txt_aInfo)))
                     .addComponent(jLabel17))
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         panel_assignmentLayout.setVerticalGroup(
             panel_assignmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,19 +331,50 @@ public class Search extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_assignmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(jLabel28))
+                    .addComponent(txt_assID))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_assignmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
-                    .addComponent(jLabel29))
+                    .addComponent(txt_aName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_assignmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
-                    .addComponent(jLabel30))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txt_aInfo))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
 
+        list_result.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                list_resultMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(list_result);
+
+        table_reports.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(table_reports);
+
+        table_assignments.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(table_assignments);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -367,19 +384,6 @@ public class Search extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                    .addComponent(btn_showInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(panel_report, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panel_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(panel_assignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(label_searchConsultant)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt_search, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -387,8 +391,25 @@ public class Search extends javax.swing.JInternalFrame {
                         .addComponent(cbox_alternative, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_searchConsultant, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_saveReportToPDF)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 802, Short.MAX_VALUE)
+                        .addComponent(btn_saveReportToPDF))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator1)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(panel_user, javax.swing.GroupLayout.PREFERRED_SIZE, 249, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(panel_assignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(panel_report, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(361, 361, 361)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -402,32 +423,100 @@ public class Search extends javax.swing.JInternalFrame {
                     .addComponent(btn_searchConsultant)
                     .addComponent(btn_saveReportToPDF))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btn_showInfo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1))
-                            .addComponent(panel_report, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panel_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panel_assignment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(22, 22, 22))
+                    .addComponent(panel_report, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panel_assignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panel_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(216, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_searchConsultantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchConsultantActionPerformed
-         //rensar alla objekt i comboboxen
+searchIt();         //rensar alla objekt i comboboxen
         
+       
+        
+// TODO add your handling code here:
+    }//GEN-LAST:event_btn_searchConsultantActionPerformed
+
+    private void list_resultMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_resultMouseClicked
+        String namnet = list_result.getSelectedValue().toString();
+        String theResult = "";
+        String type = cbox_alternative.getSelectedItem().toString();
+        if(type.equals("Users")){
+        try{
+            theResult = db.getString("select username from users where name = '"+namnet+"'");
+            txt_username.setText(theResult);
+            theResult = db.getString("select email from users where name = '"+namnet+"'");
+            txt_email.setText(theResult);
+            txt_name.setText(namnet);
+            theResult = db.getString("select password from users where name = '"+namnet+"'");
+            txt_password.setText(theResult);
+            theResult = db.getString("select userid from users where name = '"+namnet+"'");
+            txt_userID.setText(theResult);
+            theResult = db.getString("select status from users where name = '"+namnet+"'");
+            txt_status.setText(theResult);
+            
+        }
+        catch(Exception e){
+          JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        }
+        else if(type.equals("Assignment")){
+            try{
+                theResult = db.getString("select assignmentid from assignment where name = '"+namnet+"'");
+            txt_assID.setText(theResult);
+            txt_aName.setText(namnet);
+            theResult = db.getString("select info from assignment where name = '"+namnet+"'");
+            txt_aInfo.setText(theResult);
+            }
+            catch(Exception e){
+          JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        }
+        else if(type.equals("Report")){
+            try{
+                theResult = db.getString("select reportid from report where date = '"+namnet+"'");
+            txt_reportID.setText(theResult);
+            theResult = db.getString("select senderid from report where date = '"+namnet+"'");
+            txt_senderID.setText(theResult);
+            theResult = db.getString("select receiverID from report where date = '"+namnet+"'");
+            txt_receiverID.setText(theResult);
+            theResult = db.getString("select sent from report where date = '"+namnet+"'");
+            txt_sent.setText(theResult);
+            txt_date.setText(namnet);
+            theResult = db.getString("select approved from report where date = '"+namnet+"'");
+            txt_approved.setText(theResult);
+            theResult = db.getString("select assignmentid from report where date = '"+namnet+"'");
+            txt_assignment.setText(theResult);
+            
+            }
+            catch(Exception e){
+          JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        }
+    }//GEN-LAST:event_list_resultMouseClicked
+
+    private void txt_searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchKeyReleased
+
+        searchIt();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_searchKeyReleased
+
+    private void searchIt()
+    {
         String alternative = cbox_alternative.getSelectedItem().toString();
         String column = "name"; //standard för sökning av users
-        
+        String getUsers = "select * from users where username = '"+"'";
         int numOfAlternatives;
         
         if (alternative.equals("Assignment"))
@@ -452,72 +541,24 @@ public class Search extends javax.swing.JInternalFrame {
         catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
       }
-        
-
-// TODO add your handling code here:
-    }//GEN-LAST:event_btn_searchConsultantActionPerformed
-
-    private void btn_showInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showInfoActionPerformed
-        String table = cbox_alternative.getSelectedItem().toString();
-        String alternative = cbox_alternative.getSelectedItem().toString();
-        String column = "Date";
-        String row = "name";
-        
-        if (table.equals("Users")){
-            column = "username";
-        }
-        else if (table.equals("Assignment"))
-        {
-            column = "info";
-        }
-     
-        if (alternative.equals("Assignment"))
-        {
-            row = "name";
-        }
-        else if(alternative.equals("Report"))
-        {
-            row = "ReportID";
-        }
-        
+    }
     
-        String object = list_result.getSelectedValue().toString();
-                try{
-           String result = db.getString("select "+column+" from "+table+" where "+row+"= '"+object+"'");
-                 txt_username.setText(result);
-                 
-        }
-        catch(Exception e){
-          JOptionPane.showMessageDialog(null, e.getMessage());
-      }
-        
-// TODO add your handling code here:
-    }//GEN-LAST:event_btn_showInfoActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_saveReportToPDF;
     private javax.swing.JButton btn_searchConsultant;
-    private javax.swing.JButton btn_showInfo;
-    private javax.swing.JButton btn_showReports;
     private javax.swing.JComboBox cbox_alternative;
-    private javax.swing.JComboBox cbox_reports;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -525,6 +566,8 @@ public class Search extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel label_reportInformation;
     private javax.swing.JLabel label_searchConsultant;
@@ -532,7 +575,12 @@ public class Search extends javax.swing.JInternalFrame {
     private javax.swing.JPanel panel_assignment;
     private javax.swing.JPanel panel_report;
     private javax.swing.JPanel panel_user;
+    private javax.swing.JTable table_assignments;
+    private javax.swing.JTable table_reports;
+    private javax.swing.JLabel txt_aInfo;
+    private javax.swing.JLabel txt_aName;
     private javax.swing.JLabel txt_approved;
+    private javax.swing.JLabel txt_assID;
     private javax.swing.JLabel txt_assignment;
     private javax.swing.JLabel txt_date;
     private javax.swing.JLabel txt_email;
