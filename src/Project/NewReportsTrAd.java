@@ -46,7 +46,8 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
                 + "FROM Report "
                 + "JOIN Users on Users.UserID = Report.SenderID "
                 + "WHERE Report.ReceiverID = " + currID + " "
-                + "AND Report.Approved = 0";
+                + "AND Report.Approved = 0 "
+                + "AND Report.Sent = 1";
         try {               
             db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
             Statement statement = db.myConn.createStatement();
