@@ -49,6 +49,22 @@ public class MainFrameBoss extends javax.swing.JFrame {
         currentBossID = loggedInID;
     }
     
+    public void NoInternetAccess(){
+    
+              btn_showNewReports.setVisible(false);
+               btn_addNewUser.setVisible(false);
+                btn_manageUser.setVisible(false);
+                 btn_addAssignment.setVisible(false);
+                  btn_writeNewTravelAdvance.setVisible(false);
+                   btn_search.setVisible(false);
+                           
+                    label_loggedInName.setText("No internet access");
+                      
+        
+    
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

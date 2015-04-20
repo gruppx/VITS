@@ -58,6 +58,11 @@ public class LogIn extends javax.swing.JFrame {
         });
 
         btn_writeReport.setText("Write a report!");
+        btn_writeReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_writeReportActionPerformed(evt);
+            }
+        });
 
         label_offline.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label_offline.setText("You do not have internet");
@@ -149,7 +154,7 @@ public class LogIn extends javax.swing.JFrame {
     
     public boolean Internet() { 
     try {                                                                                                                                                                                                                                 
-        final URL url = new URL("http://www.google.com");                                                                                                                                                                                 
+        final URL url = new URL("http://www.google.coms");                                                                                                                                                                                 
         final URLConnection check = url.openConnection();                                                                                                                                                                                  
              check.connect();
                System.out.println("har internet");      
@@ -181,6 +186,14 @@ public class LogIn extends javax.swing.JFrame {
         
                 
     }//GEN-LAST:event_btn_loginActionPerformed
+
+    private void btn_writeReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_writeReportActionPerformed
+       MainFrameBoss Mainframe = new MainFrameBoss();
+        Mainframe.show();   
+            Mainframe.fillReport.setVisible(true);
+               Mainframe.NoInternetAccess();
+// TODO add your handling code here:
+    }//GEN-LAST:event_btn_writeReportActionPerformed
 
     /**
      * @param args the command line arguments
