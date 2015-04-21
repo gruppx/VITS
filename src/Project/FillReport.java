@@ -439,16 +439,9 @@ public class FillReport extends javax.swing.JInternalFrame {
        
     }
 
+    private void CreateReport(){
     
     
-    
-    
-    
-    
-    
-    private void btn_SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SubmitActionPerformed
-        
-        
           Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
@@ -498,12 +491,37 @@ public class FillReport extends javax.swing.JInternalFrame {
         
         String currID = LogIn.currentLoggedInID;
         
+        
+        String BossID = box_Boss.getSelectedItem().toString(); 
+             String query = "select UserID from users where Name ='"+ BossID +"' ";
+                  int ReciverID = db.getID(query);
+        // hämtar ReciverID från User tabellen
+                  
+        String Date = "2015-04-22";
+        // lägger ett värde på date, måste hämta värde på denna från klocka i framtiden
+        
+        int Sent = 0;
+        // värde på sent, 0 = inte skickas, 1 = skickad. om den är 0 så är den skriven i offline mode.
+        
+        int Approval = 0;
+        // Approval är om 0 = inte granskad , 1 = godkänd, 2 = icke godkänd , måste ändras senare i en annan klass.
+        
+        int AssignmentID = 1;
+        
+        
+        
+        
+        
+        
          
         try
         {
              db.query("insert into Trip (FromCountry, ToCountry, Transport, DepartureDate, ArrivalDate, VacationDays, UserID, AssignmentID) values ('"+box_FromCountry.getSelectedItem()+"', "
                 + "'"+box_ToCountry.getSelectedItem()+"' , '"+cbx_Transport.getSelectedItem()+"' , '"+departure+"', '"+arrival+"', '"+txt_VacationDays.getText()+"', " + currID + ", 1)");
         
+               db.query("insert into report (SenderID, ReceiverID, Date, Sent, Approved, AssignmentID) values ("+currID+","
+                       + " " + "'"+ReciverID+"' , '"+Date+"' , '"+Sent+"', '"+Approval+"', '"+ AssignmentID +"')");
+             
         }
         
          /*db.query("insert into allowance(Country, Amount) values ('"+txt_CountryName.getText()+"', '"+txt_Amount.getText()+"')");*/
@@ -530,6 +548,17 @@ public class FillReport extends javax.swing.JInternalFrame {
         }
         
 
+    
+    }
+    
+    
+    
+    
+    
+    
+    private void btn_SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SubmitActionPerformed
+        
+        CreateReport();
 
     }//GEN-LAST:event_btn_SubmitActionPerformed
 
