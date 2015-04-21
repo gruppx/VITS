@@ -39,10 +39,10 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
         String currID = LogIn.currentLoggedInID;
         
         
-        String[] columnNames = {"Sender", "Date"};
+        String[] columnNames = {"ID","Sender", "Date"};
         
         
-        String query = "SELECT Users.Name as senderName, Report.Date as rDate "
+        String query = "SELECT Report.ReportID as rID, Users.Name as senderName, Report.Date as rDate "
                 + "FROM Report "
                 + "JOIN Users on Users.UserID = Report.SenderID "
                 + "WHERE Report.ReceiverID = " + currID + " "
@@ -56,10 +56,11 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
             ArrayList<Object[]> data = new ArrayList<>();            
             
             while (rs.next()) {
-                String senderName = rs.getString(1);
-                String rDate = String.valueOf(rs.getDate(2));
+                int rID = rs.getInt(1);
+                String senderName = rs.getString(2);
+                String rDate = String.valueOf(rs.getDate(3));
                 
-                Object[] row = new Object[]{senderName, rDate};
+                Object[] row = new Object[]{rID, senderName, rDate};
                 data.add(row);                
             }
             
@@ -88,6 +89,7 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
     
     private void table_reportListDesign()
     {
+        table_reportList.getColumn("ID").setMaxWidth(30);
         table_reportList.getColumn("Sender").setMaxWidth(150);
         table_reportList.getColumn("Date").setMaxWidth(100);
     }
@@ -147,6 +149,33 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
     }
     
     
+    public void denyReport() {
+        String rID;
+        int selectedRow = table_reportList.getSelectedRow();
+        
+        if(selectedRow != -1) {    // om inte värdet är utanför (ingen markerad rad)
+            rID  = (String)table_reportList.getValueAt(selectedRow,0);    // hämtar värdet från vald rad i kolumn 0
+            
+        } else {
+            
+            JOptionPane.showMessageDialog(null, "Du måste välja en rad.");    // Om rad inte är vald, talar om detta 
+            rID = "";
+        }
+        
+        String query = "UPDATE report SET Approved = 2 WHERE ReportID = " + rID;
+        
+        try {               
+            db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            Statement statement = db.myConn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }     
+    }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -173,6 +202,11 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
         btn_approveReport.setText("Approve");
 
         btn_denyReport.setText("Deny");
+        btn_denyReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_denyReportActionPerformed(evt);
+            }
+        });
 
         table_reportList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -254,6 +288,11 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_denyReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_denyReportActionPerformed
+        denyReport();
+        updateReportList();
+    }//GEN-LAST:event_btn_denyReportActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
