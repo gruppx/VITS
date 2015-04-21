@@ -12,6 +12,8 @@ package Project;
 
 import java.beans.PropertyVetoException;
 import java.sql.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -27,11 +29,13 @@ public class MainFrameBoss extends javax.swing.JFrame {
     ManageUser manageUser;
     NewReportsTrAd newReportsTrAd;
     Search search;
+    
        
     public MainFrameBoss() {
         initComponents();
         
         addAllFramesToPane();
+        CurrentDate();
         
         db = new ConnectionClass();
         try {
@@ -63,6 +67,44 @@ public class MainFrameBoss extends javax.swing.JFrame {
     
     }
     
+    public void CurrentDate(){
+        
+        
+        Thread clock = new Thread(){
+        
+            public void run(){
+              for(;;){
+                  Calendar cal = new GregorianCalendar();
+                  int year = cal.get(Calendar.YEAR);
+                  int month = cal.get(Calendar.MONTH);
+                  int day = cal.get(Calendar.DAY_OF_MONTH);
+                  txt_currDate.setText("Date:  " + year + "/" + (month) + "/" +day);
+                     
+                  
+                  
+                  
+                     
+                     int second = cal.get(Calendar.SECOND);
+                     int minute = cal.get(Calendar.MINUTE);
+                     int hour = cal.get(Calendar.HOUR);
+                     txt_currTime.setText("Time:  " + hour + ":" + (minute) + ":" +second);
+                    
+                     
+                  try {
+                      sleep(1000);
+                  } catch (InterruptedException ex) {
+                      Logger.getLogger(MainFrameBoss.class.getName()).log(Level.SEVERE, null, ex);
+                  }
+              }
+            }
+            
+        };
+        clock.start();
+        
+        
+        
+    }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -78,6 +120,9 @@ public class MainFrameBoss extends javax.swing.JFrame {
         btn_manageUser = new javax.swing.JButton();
         label_loggedInBossID = new javax.swing.JLabel();
         label_loggedInName = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        txt_currDate = new javax.swing.JMenu();
+        txt_currTime = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 600));
@@ -92,7 +137,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
         );
         desktopPanelLayout.setVerticalGroup(
             desktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 516, Short.MAX_VALUE)
+            .addGap(0, 495, Short.MAX_VALUE)
         );
 
         btn_showNewReports.setText("Show new reports");
@@ -153,6 +198,14 @@ public class MainFrameBoss extends javax.swing.JFrame {
         label_loggedInName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label_loggedInName.setLabelFor(label_loggedInName);
         label_loggedInName.setText("jLabel1");
+
+        txt_currDate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jMenuBar1.add(txt_currDate);
+
+        txt_currTime.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jMenuBar1.add(txt_currTime);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -414,8 +467,11 @@ public class MainFrameBoss extends javax.swing.JFrame {
     private javax.swing.JButton btn_writeNewReport;
     private javax.swing.JButton btn_writeNewTravelAdvance;
     private javax.swing.JDesktopPane desktopPanel;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel label_loggedInBossID;
     private javax.swing.JLabel label_loggedInName;
+    private javax.swing.JMenu txt_currDate;
+    private javax.swing.JMenu txt_currTime;
     // End of variables declaration//GEN-END:variables
 }
 
