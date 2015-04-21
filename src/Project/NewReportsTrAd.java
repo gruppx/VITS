@@ -39,7 +39,7 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
         String currID = LogIn.currentLoggedInID;
         
         
-        String[] columnNames = {"ID","Sender", "Date"};
+        String[] columnNames = {"ID", "Sender", "Date"};
         
         
         String query = "SELECT Report.ReportID as rID, Users.Name as senderName, Report.Date as rDate "
@@ -101,10 +101,10 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
         String currID = LogIn.currentLoggedInID;
         
         
-        String[] columnNames = {"Sender", "Amount"};
+        String[] columnNames = {"ID", "Sender", "Amount"};
         
         
-        String query = "SELECT Users.Name as senderName, traveladvances.Amount as amount "
+        String query = "SELECT traveladvances.TrAdID as tID, Users.Name as senderName, traveladvances.Amount as amount "
                 + "FROM traveladvances "
                 + "JOIN Users on Users.UserID = traveladvances.SenderID "
                 + "WHERE traveladvances.ReceiverID = " + currID + " "
@@ -117,10 +117,11 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
             ArrayList<Object[]> data = new ArrayList<>();            
             
             while (rs.next()) {
-                String senderName = rs.getString(1);
-                String amount = String.valueOf(rs.getInt(2));
+                int tID = rs.getInt(1);
+                String senderName = rs.getString(2);
+                String amount = String.valueOf(rs.getInt(3));
                 
-                Object[] row = new Object[]{senderName, amount};
+                Object[] row = new Object[]{tID, senderName, amount};
                 data.add(row);                
             }
             
@@ -144,17 +145,63 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
     
     private void table_travelAdvancesListDesign()
     {
+        table_travelAdvanceList.getColumn("ID").setMaxWidth(30);
         table_travelAdvanceList.getColumn("Sender").setMaxWidth(150);
         table_travelAdvanceList.getColumn("Amount").setMaxWidth(100);
     }
     
+    public void approveReport() {
+        String rID;
+        int selectedRow = table_reportList.getSelectedRow();
+        
+        if(selectedRow != -1) {    // om inte värdet är utanför (ingen markerad rad)
+            rID  = table_reportList.getValueAt(selectedRow,0).toString();    // hämtar värdet från vald rad i kolumn 0
+            
+        } else {
+            
+            JOptionPane.showMessageDialog(null, "Du måste välja en rad.");    // Om rad inte är vald, talar om detta 
+            rID = "";
+        }
+        
+        String query = "UPDATE report SET Approved = 1 WHERE ReportID = " + rID;
+        
+        try {               
+            db.query(query);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }     
+    }
+    
+    public void approveTravelAdvance() {
+        String TrAdID;
+        int selectedRow = table_travelAdvanceList.getSelectedRow();
+        
+        if(selectedRow != -1) {    // om inte värdet är utanför (ingen markerad rad)
+            TrAdID  = table_travelAdvanceList.getValueAt(selectedRow,0).toString();    // hämtar värdet från vald rad i kolumn 0
+            
+        } else {
+            
+            JOptionPane.showMessageDialog(null, "Du måste välja en rad.");    // Om rad inte är vald, talar om detta 
+            TrAdID = "";
+        }
+        
+        String query = "UPDATE traveladvances SET Approved = 1 WHERE TrAdID = " + TrAdID;
+        
+        try {               
+            db.query(query);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }     
+    }
     
     public void denyReport() {
         String rID;
         int selectedRow = table_reportList.getSelectedRow();
         
         if(selectedRow != -1) {    // om inte värdet är utanför (ingen markerad rad)
-            rID  = (String)table_reportList.getValueAt(selectedRow,0);    // hämtar värdet från vald rad i kolumn 0
+            rID  = table_reportList.getValueAt(selectedRow,0).toString();    // hämtar värdet från vald rad i kolumn 0
             
         } else {
             
@@ -165,15 +212,35 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
         String query = "UPDATE report SET Approved = 2 WHERE ReportID = " + rID;
         
         try {               
-            db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
-            Statement statement = db.myConn.createStatement();
-            ResultSet rs = statement.executeQuery(query);
+            db.query(query);
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }     
     }
     
+    public void denyTravelAdvance() {
+        String TrAdID;
+        int selectedRow = table_travelAdvanceList.getSelectedRow();
+        
+        if(selectedRow != -1) {    // om inte värdet är utanför (ingen markerad rad)
+            TrAdID  = table_travelAdvanceList.getValueAt(selectedRow,0).toString();    // hämtar värdet från vald rad i kolumn 0
+            
+        } else {
+            
+            JOptionPane.showMessageDialog(null, "Du måste välja en rad.");    // Om rad inte är vald, talar om detta 
+            TrAdID = "";
+        }
+        
+        String query = "UPDATE traveladvances SET Approved = 2 WHERE TrAdID = " + TrAdID;
+        
+        try {               
+            db.query(query);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }     
+    }
     
     
 
@@ -200,6 +267,11 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
         label_listReports.setText("Reports");
 
         btn_approveReport.setText("Approve");
+        btn_approveReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_approveReportActionPerformed(evt);
+            }
+        });
 
         btn_denyReport.setText("Deny");
         btn_denyReport.addActionListener(new java.awt.event.ActionListener() {
@@ -235,8 +307,18 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(table_travelAdvanceList);
 
         btn_denyTravelAdvance.setText("Deny");
+        btn_denyTravelAdvance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_denyTravelAdvanceActionPerformed(evt);
+            }
+        });
 
         btn_approveTravelAdvance.setText("Approve");
+        btn_approveTravelAdvance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_approveTravelAdvanceActionPerformed(evt);
+            }
+        });
 
         label_listTravelAdvance.setText("Travel advances");
 
@@ -277,12 +359,13 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane2)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_denyReport)
-                    .addComponent(btn_approveReport)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btn_denyTravelAdvance)
-                        .addComponent(btn_approveTravelAdvance)))
+                        .addComponent(btn_approveTravelAdvance))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_denyReport)
+                        .addComponent(btn_approveReport)))
                 .addContainerGap())
         );
 
@@ -293,6 +376,21 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
         denyReport();
         updateReportList();
     }//GEN-LAST:event_btn_denyReportActionPerformed
+
+    private void btn_denyTravelAdvanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_denyTravelAdvanceActionPerformed
+        denyTravelAdvance();
+        updateTravelAdvancesList();
+    }//GEN-LAST:event_btn_denyTravelAdvanceActionPerformed
+
+    private void btn_approveReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_approveReportActionPerformed
+        approveReport();
+        updateReportList();
+    }//GEN-LAST:event_btn_approveReportActionPerformed
+
+    private void btn_approveTravelAdvanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_approveTravelAdvanceActionPerformed
+        approveTravelAdvance();
+        updateTravelAdvancesList();
+    }//GEN-LAST:event_btn_approveTravelAdvanceActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

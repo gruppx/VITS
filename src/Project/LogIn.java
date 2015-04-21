@@ -5,6 +5,7 @@
  */
 package Project;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,6 +27,7 @@ public class LogIn extends javax.swing.JFrame {
     public LogIn() {
         initComponents();
         Internet();
+        this.getRootPane().setDefaultButton(btn_login);
     }
 
     /**
@@ -186,9 +188,6 @@ public class LogIn extends javax.swing.JFrame {
         if(Validation.logInCheck(username, password)){
             this.dispose();
         }
-        
-        
-                
     }//GEN-LAST:event_btn_loginActionPerformed
 
     private void btn_writeReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_writeReportActionPerformed

@@ -19,37 +19,42 @@ public class Validation {
     static public boolean logInCheck(String username, String password){   
         db.myConn = null;
         db.myStmt = null;
-
+        
+        boolean logInStatus = false;
+        
         String query = "SELECT * FROM users where username ='" + username + "' and password = '" + password + "'";
         if(username.length() != 0 && password.length() != 0){
             try {               
                 db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
                 Statement statement = db.myConn.createStatement();
                 ResultSet rs = statement.executeQuery(query);
-                while (rs.next()) {
+                
+                if(rs.next()) {
                     int id = rs.getInt(1);
                     String name = rs.getString(2);
                     String user = rs.getString(4);
                     String pass = rs.getString(5);
                     int status = rs.getInt(6);
-                    if(status == 1 && username.equals(user) && password.equals(pass)){
-                        JOptionPane.showMessageDialog(null, "Inloggad som chef!");
-                        MainFrameBoss mainFrameBoss = new MainFrameBoss();
-                        mainFrameBoss.setVisible(true);
-                        mainFrameBoss.setLoggedInBossInfo(name, String.valueOf(id));
-                        return true;
+                    
+                    if(username.equals(user) && password.equals(pass)){
+                        if(status == 1){
+                            JOptionPane.showMessageDialog(null, "Inloggad som chef!");
+                            MainFrameBoss mainFrameBoss = new MainFrameBoss();
+                            mainFrameBoss.setVisible(true);
+                            mainFrameBoss.setLoggedInBossInfo(name, String.valueOf(id));
+                            logInStatus = true;
+                        }
+                        else if(status == 0){
+                            JOptionPane.showMessageDialog(null, "Inloggad som konsult!");
+                            MainFrameConsultant mainFrameConsultant = new MainFrameConsultant();
+                            mainFrameConsultant.setVisible(true);
+                            mainFrameConsultant.setLoggedInConsultantInfo(name, String.valueOf(id));
+                            logInStatus = true;
+                        }                        
                     }
-                    else if(status == 0 && username.equals(user) && password.equals(pass)){
-                        JOptionPane.showMessageDialog(null, "Inloggad som konsult!");
-                        MainFrameConsultant mainFrameConsultant = new MainFrameConsultant();
-                        mainFrameConsultant.setVisible(true);
-                        mainFrameConsultant.setLoggedInConsultantInfo(name, String.valueOf(id));
-                        return true;
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(null, "Fel användarnamn eller lösenord!");
-                        return false;
-                    }
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Fel användarnamn eller lösenord!");
                 }
             }
             catch(Exception e){
@@ -58,9 +63,8 @@ public class Validation {
         }
         else{
             JOptionPane.showMessageDialog(null, "Fälten får inte vara tomma.");
-            return false;
         }
-        return false;
+        return logInStatus;
     }
     
 }

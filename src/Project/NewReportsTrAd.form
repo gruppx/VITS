@@ -62,12 +62,14 @@
                   <Component id="jScrollPane3" pref="437" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btn_denyReport" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn_approveReport" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="btn_denyTravelAdvance" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btn_approveTravelAdvance" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btn_denyReport" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_approveReport" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -85,6 +87,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Approve"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_approveReportActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_denyReport">
       <Properties>
@@ -182,11 +187,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Deny"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_denyTravelAdvanceActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_approveTravelAdvance">
       <Properties>
         <Property name="text" type="java.lang.String" value="Approve"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_approveTravelAdvanceActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="label_listTravelAdvance">
       <Properties>
