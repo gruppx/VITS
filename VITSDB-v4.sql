@@ -102,10 +102,8 @@ DROP TABLE IF EXISTS `receipt`;
 CREATE TABLE `receipt` (
   `ReceiptID` int(11) NOT NULL AUTO_INCREMENT,
   `TripID` int(11) NOT NULL,
-  `Picture` varchar(50) DEFAULT NULL,
   `Type` varchar(20) DEFAULT NULL,
   `Amount` int(11) NOT NULL,
-  `Taxes` int(11) DEFAULT NULL,
   `ReportID` int(11) NOT NULL,
   PRIMARY KEY (`ReceiptID`),
   UNIQUE KEY `ReceiptID_UNIQUE` (`ReceiptID`),
@@ -157,7 +155,7 @@ CREATE TABLE `report` (
 
 LOCK TABLES `report` WRITE;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
-INSERT INTO `report` VALUES (1,2,1,'0001-01-01',1,0,1),(2,3,2,'0002-02-02',1,0,2);
+INSERT INTO `report` VALUES (1,2,1,'0001-01-01',1,0,1),(2,3,1,'0002-02-02',1,0,2);
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,7 +191,7 @@ CREATE TABLE `traveladvances` (
 
 LOCK TABLES `traveladvances` WRITE;
 /*!40000 ALTER TABLE `traveladvances` DISABLE KEYS */;
-INSERT INTO `traveladvances` VALUES (1,123,0,1,'blablabla',2,1),(2,666,1,2,'hahaha',3,1),(3,1337,0,2,'lololol',2,1),(4,619,2,1,'omg',3,1);
+INSERT INTO `traveladvances` VALUES (1,123,0,1,'blablabla',2,1),(2,666,0,2,'hahaha',3,1),(3,1337,0,2,'lololol',2,1),(4,619,0,1,'omg',3,1);
 /*!40000 ALTER TABLE `traveladvances` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,4 +270,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-20 12:11:02
+-- Dump completed on 2015-04-21 13:16:44
