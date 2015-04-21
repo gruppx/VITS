@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,11 +17,13 @@ import javax.swing.JOptionPane;
  */
 public class Search extends javax.swing.JInternalFrame {
     ConnectionClass db = new ConnectionClass();
+    DefaultTableModel DTM;
     /**
      * Creates new form InternalFrameSearch
      */
     public Search() {
         initComponents();
+        DTM = (DefaultTableModel)table_assignments.getModel();
     }
 
     /**
@@ -358,20 +361,17 @@ public class Search extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Report ID", "Date", "Approved", "Sent"
             }
         ));
         jScrollPane2.setViewportView(table_reports);
 
         table_assignments.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Assignment ID", "Name"
             }
         ));
         jScrollPane3.setViewportView(table_assignments);
@@ -504,6 +504,7 @@ searchIt();         //rensar alla objekt i comboboxen
           JOptionPane.showMessageDialog(null, e.getMessage());
         }
         }
+        getAssignments();
     }//GEN-LAST:event_list_resultMouseClicked
 
     private void txt_searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchKeyReleased
@@ -512,6 +513,22 @@ searchIt();         //rensar alla objekt i comboboxen
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_searchKeyReleased
 
+    private void getAssignments(){
+        ResultSet name = db.getColumn("select * from assignment");
+      
+        try{
+            while(name.next()){
+              
+                DTM.insertRow(DTM.getColumnCount(), new Object[]{name.getString("assignmentid"), name.getString("name")});
+            }
+         
+        }
+        catch(Exception e){
+          JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
+    
     private void searchIt()
     {
         String alternative = cbox_alternative.getSelectedItem().toString();
