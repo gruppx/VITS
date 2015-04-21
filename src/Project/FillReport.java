@@ -5,6 +5,7 @@
  */
 package Project;
 
+import static java.lang.Integer.parseInt;
 import java.sql.ResultSet;
 import java.util.Properties;
 import javax.mail.*;
@@ -20,9 +21,9 @@ import javax.swing.JOptionPane;
 public class FillReport extends javax.swing.JInternalFrame {
     AddCountry AddCountry;
     AddReceipt AddReciept;
-    
+    double car, traktamente, receipts, reducedAmount, travelAdvances, vacationDays = 0; //beräkningsvariabler
     ConnectionClass db = new ConnectionClass();
-
+int temp = 0; 
     /**
      * Creates new form FillReport
      */
@@ -34,7 +35,8 @@ public class FillReport extends javax.swing.JInternalFrame {
         fillDay();
         fillMonth();
         fillYear();
-        
+     
+  
     }
 
     /**
@@ -76,6 +78,10 @@ public class FillReport extends javax.swing.JInternalFrame {
         cbx_ADay = new javax.swing.JComboBox();
         txt_VacationDays = new javax.swing.JTextField();
         vacationdays = new javax.swing.JLabel();
+        combobox_car = new javax.swing.JComboBox();
+        txt_kilometers = new javax.swing.JTextField();
+        lbl_mil = new javax.swing.JLabel();
+        lbl_test = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -94,6 +100,11 @@ public class FillReport extends javax.swing.JInternalFrame {
         box_FromCountry.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         box_ToCountry.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        box_ToCountry.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                box_ToCountryMouseExited(evt);
+            }
+        });
 
         btn_AddCountry.setText("Add Country");
         btn_AddCountry.addActionListener(new java.awt.event.ActionListener() {
@@ -153,6 +164,18 @@ public class FillReport extends javax.swing.JInternalFrame {
 
         vacationdays.setText("Vacation Days:");
 
+        combobox_car.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Own car", "Company car (diesel)", "Company car (other)" }));
+
+        txt_kilometers.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_kilometersKeyReleased(evt);
+            }
+        });
+
+        lbl_mil.setText("Mil:");
+
+        lbl_test.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -165,8 +188,17 @@ public class FillReport extends javax.swing.JInternalFrame {
                             .addComponent(jLabel6)
                             .addComponent(box_Assignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
-                            .addComponent(cbx_Transport, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 501, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cbx_Transport, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(combobox_car, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(lbl_mil)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt_kilometers, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(58, 58, 58)
+                                .addComponent(lbl_test)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -267,7 +299,12 @@ public class FillReport extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbx_Transport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbx_Transport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combobox_car, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_kilometers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_mil)
+                            .addComponent(lbl_test))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -295,7 +332,7 @@ public class FillReport extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_Submit))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
 
         pack();
@@ -573,12 +610,52 @@ public class FillReport extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_reportToActionPerformed
 
     private void cbx_TransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_TransportActionPerformed
-        // TODO add your handling code here:
+            if(cbx_Transport.getSelectedItem().toString().equals("Car"))
+            {
+                txt_kilometers.setEnabled(true);
+            }
+            else{
+                txt_kilometers.setEnabled(false);
+            }
+        
+// TODO add your handling code here:
     }//GEN-LAST:event_cbx_TransportActionPerformed
 
     private void cbx_DMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_DMonthActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbx_DMonthActionPerformed
+
+    private void txt_kilometersKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_kilometersKeyReleased
+     
+        if (!txt_kilometers.getText().equals("")){
+        temp = Integer.parseInt(txt_kilometers.getText());
+        }
+        if(combobox_car.getSelectedItem().equals("Own car") && !txt_kilometers.getText().equals(""))
+        {
+            car = temp * 18.5;
+        }
+        else if(combobox_car.getSelectedItem().equals("Company car (diesel)") && !txt_kilometers.getText().equals("")){
+            car = temp * 6.5;
+        }
+        else if(combobox_car.getSelectedItem().equals("Company car (other)") && !txt_kilometers.getText().equals("")){
+            car = temp * 9.5;
+        }
+        lbl_test.setText(String.valueOf(car));
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_kilometersKeyReleased
+
+    private void box_ToCountryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_box_ToCountryMouseExited
+        String country = box_ToCountry.getSelectedItem().toString();
+        try{
+            traktamente = db.getID("select amount from allowance where country = '"+country+"'");
+        }   
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+// TODO add your handling code here:
+    }//GEN-LAST:event_box_ToCountryMouseExited
 
     /**
      * @param args the command line arguments
@@ -633,6 +710,7 @@ public class FillReport extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox cbx_DMonth;
     private javax.swing.JComboBox cbx_DYear;
     private javax.swing.JComboBox cbx_Transport;
+    private javax.swing.JComboBox combobox_car;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -644,7 +722,10 @@ public class FillReport extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_mil;
+    private javax.swing.JLabel lbl_test;
     private javax.swing.JTextField txt_VacationDays;
+    private javax.swing.JTextField txt_kilometers;
     private javax.swing.JTextArea txt_reportInfo;
     private javax.swing.JTextField txt_reportTo;
     private javax.swing.JLabel vacationdays;
