@@ -1,6 +1,7 @@
 
 package Project;
 
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
@@ -52,6 +53,11 @@ public class AddTravelAdvances extends javax.swing.JInternalFrame {
 
         txt_info.setColumns(20);
         txt_info.setRows(5);
+        txt_info.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_infoKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(txt_info);
 
         cbox_boss.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -123,6 +129,23 @@ public class AddTravelAdvances extends javax.swing.JInternalFrame {
     private void cbox_bossActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_bossActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbox_bossActionPerformed
+
+    private void txt_infoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_infoKeyPressed
+if(evt.getKeyCode() ==KeyEvent.VK_ENTER){ 
+    
+int travelID;
+        String name = cbox_assignment.getSelectedItem().toString();
+        try{
+           travelID =  db.getID("select assignmentid from assignment where name = '"+name+"'");
+            db.query("insert into traveladvances(amount, approved, assignmentid, reason) values("+
+                    txt_amount.getText()+", 0, "+travelID+", '"+txt_info.getText()+"')");
+        }catch(Exception e){
+          JOptionPane.showMessageDialog(null, e.getMessage());
+      }
+
+
+}
+    }//GEN-LAST:event_txt_infoKeyPressed
 
     private void fillBoxes(){
         ResultSet names = db.getColumn("select * from assignment");

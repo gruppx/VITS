@@ -5,6 +5,7 @@
  */
 package Project;
 
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
@@ -62,6 +63,12 @@ public class ManageUser extends javax.swing.JInternalFrame {
 
         label2.setName(""); // NOI18N
         label2.setText("Select User for Update");
+
+        fieldPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                fieldPasswordKeyPressed(evt);
+            }
+        });
 
         jLabel2.setText("Name");
 
@@ -182,6 +189,40 @@ informationUser();        // TODO add your handling code here:
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
 updateUser();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void fieldPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldPasswordKeyPressed
+if(evt.getKeyCode() ==KeyEvent.VK_ENTER){      
+     String name = fieldName.getText();
+        String mail = fieldMail.getText();
+        String userName = fieldUserName.getText();
+        String password = fieldPassword.getText();
+        String status = fieldStatus.getText();
+
+        String sqlName = "update users set name = '" + name + "' where username ='" + cbox_names2.getSelectedItem() +"'"; 
+        String sqlMail = "update users set email = '" + mail + "' where username ='" + cbox_names2.getSelectedItem() +"'"; 
+        String sqluserName = "update users set username = '" + userName + "' where username ='" + cbox_names2.getSelectedItem() +"'"; 
+        String sqlPassword = "update users set password = '" + password + "' where username ='" + cbox_names2.getSelectedItem() +"'"; 
+        String sqlStatus = "update users set status = '" + status + "' where username ='" + cbox_names2.getSelectedItem() +"'";         
+        try {
+
+            db.query(sqlName);
+            db.query(sqlMail);
+            db.query(sqluserName);
+            db.query(sqlPassword);
+            db.query(sqlStatus);
+
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Meddelande",
+                    JOptionPane.ERROR_MESSAGE);
+
+        }
+    
+    
+
+        
+}
+    }//GEN-LAST:event_fieldPasswordKeyPressed
 
     private void fillBoxes(){
         cbox_names.removeAllItems();
