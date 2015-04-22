@@ -157,6 +157,9 @@
     <Component class="javax.swing.JTextField" name="fieldMail">
     </Component>
     <Component class="javax.swing.JTextField" name="fieldPassword">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="fieldPasswordKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>

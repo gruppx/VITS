@@ -65,7 +65,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txt_Amount">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_AmountActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_AmountKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
