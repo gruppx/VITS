@@ -21,9 +21,11 @@ import javax.swing.JOptionPane;
 public class FillReport extends javax.swing.JInternalFrame {
     AddCountry AddCountry;
     AddReceipt AddReciept;
-    double car, traktamente, receipts, reducedAmount, travelAdvances, vacationDays = 0; //beräkningsvariabler
+    double car, traktamente, receipts, reducedAmount, travelAdvances, result = 0; //beräkningsvariabler
     ConnectionClass db = new ConnectionClass();
 int temp = 0; 
+    int days = 10;
+    int vacationDays = 0;
     /**
      * Creates new form FillReport
      */
@@ -35,7 +37,8 @@ int temp = 0;
         fillDay();
         fillMonth();
         fillYear();
-     
+        
+        traktamente = 100;
   
     }
 
@@ -70,8 +73,6 @@ int temp = 0;
         txt_reportTo = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        txt_VacationDays = new javax.swing.JTextField();
-        vacationdays = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txt_reportInfo = new javax.swing.JTextArea();
@@ -89,6 +90,9 @@ int temp = 0;
         btn_AddCountry = new javax.swing.JButton();
         btn_Kvitto = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
+        vacationdays = new javax.swing.JLabel();
+        txt_VacationDays = new javax.swing.JTextField();
+        lbl_test3 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         checkbox_freeFood = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
@@ -100,6 +104,8 @@ int temp = 0;
         txt_dinnerAndLunch = new javax.swing.JTextField();
         txt_dinnerOrLunch = new javax.swing.JTextField();
         txt_breakfast = new javax.swing.JTextField();
+        lbl_test2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -259,27 +265,15 @@ int temp = 0;
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        vacationdays.setText("Vacation Days:");
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(vacationdays)
-                .addGap(18, 18, 18)
-                .addComponent(txt_VacationDays, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(vacationdays)
-                    .addComponent(txt_VacationDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 42, Short.MAX_VALUE)
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -288,7 +282,7 @@ int temp = 0;
         txt_reportInfo.setRows(5);
         jScrollPane1.setViewportView(txt_reportInfo);
 
-        jLabel12.setText("Info");
+        jLabel12.setText("Info:");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -343,9 +337,8 @@ int temp = 0;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(box_ToCountry, 0, 235, Short.MAX_VALUE)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(box_FromCountry, 0, 235, Short.MAX_VALUE)
-                        .addComponent(box_Assignment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(box_FromCountry, 0, 235, Short.MAX_VALUE)
+                    .addComponent(box_Assignment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -419,15 +412,38 @@ int temp = 0;
 
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        vacationdays.setText("Vacation Days:");
+
+        txt_VacationDays.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_VacationDaysKeyReleased(evt);
+            }
+        });
+
+        lbl_test3.setText("jLabel8");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(vacationdays)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_VacationDays, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(lbl_test3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 86, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(vacationdays)
+                    .addComponent(txt_VacationDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_test3))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -436,6 +452,9 @@ int temp = 0;
         checkbox_freeFood.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 checkbox_freeFoodMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                checkbox_freeFoodMouseExited(evt);
             }
         });
 
@@ -446,12 +465,18 @@ int temp = 0;
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 checkbox_dinnerAndLunchMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                checkbox_dinnerAndLunchMouseExited(evt);
+            }
         });
 
         checkbox_dinnerOrLunch.setText("Dinner or lunch (35%)");
         checkbox_dinnerOrLunch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 checkbox_dinnerOrLunchMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                checkbox_dinnerOrLunchMouseExited(evt);
             }
         });
 
@@ -460,17 +485,42 @@ int temp = 0;
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 checkbox_breakfastMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                checkbox_breakfastMouseExited(evt);
+            }
         });
 
         jLabel7.setText("Days:");
 
         txt_freeFood.setEnabled(false);
+        txt_freeFood.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_freeFoodKeyReleased(evt);
+            }
+        });
 
         txt_dinnerAndLunch.setEnabled(false);
+        txt_dinnerAndLunch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_dinnerAndLunchKeyReleased(evt);
+            }
+        });
 
         txt_dinnerOrLunch.setEnabled(false);
+        txt_dinnerOrLunch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_dinnerOrLunchKeyReleased(evt);
+            }
+        });
 
         txt_breakfast.setEnabled(false);
+        txt_breakfast.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_breakfastKeyReleased(evt);
+            }
+        });
+
+        lbl_test2.setText("jLabel8");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -478,19 +528,24 @@ int temp = 0;
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2)
-                    .addComponent(checkbox_dinnerOrLunch)
-                    .addComponent(checkbox_dinnerAndLunch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(checkbox_breakfast)
-                    .addComponent(checkbox_freeFood, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(46, 46, 46)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txt_freeFood)
-                    .addComponent(txt_dinnerAndLunch)
-                    .addComponent(txt_dinnerOrLunch)
-                    .addComponent(txt_breakfast))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(lbl_test2))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2)
+                            .addComponent(checkbox_dinnerOrLunch)
+                            .addComponent(checkbox_dinnerAndLunch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(checkbox_breakfast)
+                            .addComponent(checkbox_freeFood, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(46, 46, 46)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txt_freeFood)
+                            .addComponent(txt_dinnerAndLunch)
+                            .addComponent(txt_dinnerOrLunch)
+                            .addComponent(txt_breakfast))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
@@ -516,8 +571,17 @@ int temp = 0;
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkbox_breakfast)
                     .addComponent(txt_breakfast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbl_test2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jButton1.setText("jButton1");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -542,10 +606,15 @@ int temp = 0;
                             .addComponent(btn_Submit)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(jButton1)))
                 .addContainerGap(378, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -569,13 +638,15 @@ int temp = 0;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_Submit))
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         pack();
@@ -940,6 +1011,134 @@ if(checkbox_dinnerOrLunch.isSelected()){
        }          // TODO add your handling code here:
     }//GEN-LAST:event_checkbox_breakfastMouseClicked
 
+    private void txt_freeFoodKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_freeFoodKeyReleased
+ 
+        if (!txt_freeFood.getText().equals("")){
+        temp = Integer.parseInt(txt_freeFood.getText());
+        }
+        if(checkbox_freeFood.isSelected() && !txt_freeFood.getText().equals(""))
+        {
+            reducedAmount = temp * (traktamente*0.85);
+        }
+        lbl_test2.setText(String.valueOf(reducedAmount));
+// TODO add your handling code here:
+    }//GEN-LAST:event_txt_freeFoodKeyReleased
+
+    private void txt_dinnerAndLunchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_dinnerAndLunchKeyReleased
+               if (!txt_dinnerAndLunch.getText().equals("")){
+        temp = Integer.parseInt(txt_dinnerAndLunch.getText());
+        }
+        if(checkbox_dinnerAndLunch.isSelected() && !txt_dinnerAndLunch.getText().equals(""))
+        {
+            reducedAmount = reducedAmount + (temp * (traktamente*0.85));
+        }
+        lbl_test2.setText(String.valueOf(reducedAmount));
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_txt_dinnerAndLunchKeyReleased
+
+    private void txt_dinnerOrLunchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_dinnerOrLunchKeyReleased
+if (!txt_dinnerOrLunch.getText().equals("")){
+        temp = Integer.parseInt(txt_dinnerOrLunch.getText());
+        }
+        if(checkbox_dinnerOrLunch.isSelected() && !txt_dinnerOrLunch.getText().equals(""))
+        {
+            reducedAmount = reducedAmount + (temp * (traktamente*0.35));
+        }
+        lbl_test2.setText(String.valueOf(reducedAmount));        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_dinnerOrLunchKeyReleased
+
+    private void txt_breakfastKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_breakfastKeyReleased
+if (!txt_breakfast.getText().equals("")){
+        temp = Integer.parseInt(txt_breakfast.getText());
+        }
+        if(checkbox_breakfast.isSelected() && !txt_breakfast.getText().equals(""))
+        {
+            reducedAmount = reducedAmount + (temp * (traktamente*0.15));
+        }
+        lbl_test2.setText(String.valueOf(reducedAmount));           // TODO add your handling code here:
+    }//GEN-LAST:event_txt_breakfastKeyReleased
+
+    private void checkbox_freeFoodMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkbox_freeFoodMouseExited
+if(checkbox_freeFood.isSelected()){
+           txt_freeFood.setEnabled(true);
+       }
+        else
+       {
+           txt_freeFood.setEnabled(false);
+       }             // TODO add your handling code here:
+    }//GEN-LAST:event_checkbox_freeFoodMouseExited
+
+    private void checkbox_dinnerAndLunchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkbox_dinnerAndLunchMouseExited
+if(checkbox_dinnerAndLunch.isSelected()){
+           txt_dinnerAndLunch.setEnabled(true);
+       }
+        else
+       {
+           txt_dinnerAndLunch.setEnabled(false);
+       }            // TODO add your handling code here:
+    }//GEN-LAST:event_checkbox_dinnerAndLunchMouseExited
+
+    private void checkbox_dinnerOrLunchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkbox_dinnerOrLunchMouseExited
+if(checkbox_dinnerOrLunch.isSelected()){
+           txt_dinnerOrLunch.setEnabled(true);
+       }
+        else
+       {
+           txt_dinnerOrLunch.setEnabled(false);
+       }                  // TODO add your handling code here:
+    }//GEN-LAST:event_checkbox_dinnerOrLunchMouseExited
+
+    private void checkbox_breakfastMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkbox_breakfastMouseExited
+       if(checkbox_breakfast.isSelected()){
+           txt_breakfast.setEnabled(true);
+       }
+        else
+       {
+           txt_breakfast.setEnabled(false);
+       }           // TODO add your handling code here:
+    }//GEN-LAST:event_checkbox_breakfastMouseExited
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+int test = getTravelAdvance();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void txt_VacationDaysKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_VacationDaysKeyReleased
+      vacationDays = Integer.parseInt(txt_VacationDays.getText());
+      lbl_test3.setText(String.valueOf(vacationDays));
+// TODO add your handling code here:
+    }//GEN-LAST:event_txt_VacationDaysKeyReleased
+
+   private int getTravelAdvance(){
+       int amount = 0;
+       try{
+           String senderID = LogIn.currentLoggedInID;
+           int sender = db.getID("select userid from users where userid = "+senderID);
+           amount = db.getID("select amount from traveladvances where assignmentid = (select assignmentid from report where senderID = "+sender+") and senderID = "+sender+";");
+       }
+       catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
+      
+       lbl_test2.setText(String.valueOf(amount));
+       return amount;
+   }
+   
+   private int getReceipts(){
+       int receipts = 0;
+       try{
+           String senderID = LogIn.currentLoggedInID;
+           receipts = db.getID("select SUM(amount) as totalAmount from receipt where reportid = (select reportid from report where senderid = "+senderID+") and tripid = (select tripid from trip where userid = "+senderID+")");
+       } 
+       catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
+       return receipts;
+   }
+  
+    
     /**
      * @param args the command line arguments
      */
@@ -998,6 +1197,7 @@ if(checkbox_dinnerOrLunch.isSelected()){
     private javax.swing.JCheckBox checkbox_dinnerOrLunch;
     private javax.swing.JCheckBox checkbox_freeFood;
     private javax.swing.JComboBox combobox_car;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1021,6 +1221,8 @@ if(checkbox_dinnerOrLunch.isSelected()){
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_mil;
     private javax.swing.JLabel lbl_test;
+    private javax.swing.JLabel lbl_test2;
+    private javax.swing.JLabel lbl_test3;
     private javax.swing.JTextField txt_VacationDays;
     private javax.swing.JTextField txt_breakfast;
     private javax.swing.JTextField txt_dinnerAndLunch;
