@@ -5,6 +5,7 @@
  */
 package Project;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -47,9 +48,9 @@ public class AddCountry extends javax.swing.JFrame {
             }
         });
 
-        txt_Amount.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_AmountActionPerformed(evt);
+        txt_Amount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_AmountKeyPressed(evt);
             }
         });
 
@@ -115,9 +116,19 @@ public class AddCountry extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_btn_AddCountryActionPerformed
 
-    private void txt_AmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_AmountActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_AmountActionPerformed
+    private void txt_AmountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_AmountKeyPressed
+if(evt.getKeyCode() ==KeyEvent.VK_ENTER){ 
+    try {
+            db.query("insert into allowance(Country , Amount) values ('"+txt_CountryName.getText()+"' , '"+txt_Amount.getText()+"')");
+                                                                                                                  
+        }
+         catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Det gick inte att lägga till detta Land");
+        }
+
+}
+    }//GEN-LAST:event_txt_AmountKeyPressed
 
     /**
      * @param args the command line arguments

@@ -5,6 +5,7 @@
  */
 package Project;
 
+import java.awt.event.KeyEvent;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
@@ -118,6 +119,11 @@ ConnectionClass db = new ConnectionClass(); //skapar connection till databas
 
         jTextField_info.setColumns(20);
         jTextField_info.setRows(5);
+        jTextField_info.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_infoKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextField_info);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -265,6 +271,30 @@ ConnectionClass db = new ConnectionClass(); //skapar connection till databas
             JOptionPane.showMessageDialog(null, "Please choose an assignment");
         }
     }//GEN-LAST:event_ShowInfoActionPerformed
+
+    private void jTextField_infoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_infoKeyPressed
+if(evt.getKeyCode() ==KeyEvent.VK_ENTER){       
+     try
+        { 
+            String Query = "insert into assignment(name, info) values('" + jTextField_Name.getText() + "', '" + jTextField_info.getText() + "')";
+             db.query(Query);
+             
+             fillAssignmentCMB();
+             
+             jTextField_Name.setText("");
+             jTextField_info.setText("");
+        }
+   
+       /* query("insert into users(name, email, username, password, status) values ('niklas', 'niklas', 'niklas', 'nilkas', 3);");*/
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "Det gick inte att lägga till ett assignment");
+        }
+       
+
+
+}
+    }//GEN-LAST:event_jTextField_infoKeyPressed
 
 
     /**

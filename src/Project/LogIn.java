@@ -52,6 +52,12 @@ public class LogIn extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        pass_loginPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pass_loginPasswordKeyPressed(evt);
+            }
+        });
+
         label_loginUsername.setText("Username");
 
         label_loginPassword.setText("Password");
@@ -197,6 +203,18 @@ public class LogIn extends javax.swing.JFrame {
                Mainframe.NoInternetAccess();
 // TODO add your handling code here:
     }//GEN-LAST:event_btn_writeReportActionPerformed
+
+    private void pass_loginPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pass_loginPasswordKeyPressed
+if(evt.getKeyCode() ==KeyEvent.VK_ENTER){      
+    String username = txt_loginUser.getText();
+        String password = pass_loginPassword.getText();
+        
+        if(Validation.logInCheck(username, password)){
+            this.dispose();
+        }
+    
+}
+    }//GEN-LAST:event_pass_loginPasswordKeyPressed
 
     /**
      * @param args the command line arguments
