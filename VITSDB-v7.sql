@@ -146,7 +146,7 @@ CREATE TABLE `report` (
   CONSTRAINT `ReceiverID` FOREIGN KEY (`ReceiverID`) REFERENCES `users` (`UserID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `ReportAssignmentID` FOREIGN KEY (`AssignmentID`) REFERENCES `assignment` (`AssignmentID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `SenderID` FOREIGN KEY (`SenderID`) REFERENCES `users` (`UserID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,7 +155,7 @@ CREATE TABLE `report` (
 
 LOCK TABLES `report` WRITE;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
-INSERT INTO `report` VALUES (1,2,1,'0001-01-01',1,0,1),(2,3,1,'0002-02-02',1,0,2);
+INSERT INTO `report` VALUES (1,2,1,'0001-01-01',1,0,1),(2,3,1,'0002-02-02',1,0,2),(3,2,1,'0004-03-03',1,1,2),(4,4,1,'0002-10-21',1,2,1);
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -214,7 +214,6 @@ CREATE TABLE `travelorder` (
   UNIQUE KEY `TravelOrderID_UNIQUE` (`TravelOrderID`),
   KEY `TrOrUserID_idx` (`UserID`),
   KEY `TrOrCountry_idx` (`Country`),
-  CONSTRAINT `TrOrCountry` FOREIGN KEY (`Country`) REFERENCES `allowance` (`Country`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `TrOrUserID` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -244,13 +243,15 @@ CREATE TABLE `trip` (
   `ArrivalDate` datetime NOT NULL,
   `VacationDays` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
+  `ReportID` int(11) NOT NULL,
   `AssignmentID` int(11) NOT NULL,
   PRIMARY KEY (`TripID`),
   UNIQUE KEY `TripID_UNIQUE` (`TripID`),
   KEY `UserId_idx` (`UserID`),
-  KEY `AssignmentID_idx` (`AssignmentID`),
-  KEY `TripAssignmentID_idx` (`AssignmentID`),
-  CONSTRAINT `TripAssignmentID` FOREIGN KEY (`AssignmentID`) REFERENCES `assignment` (`AssignmentID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `TripReportID_idx` (`ReportID`),
+  KEY `Assignment_idx` (`AssignmentID`),
+  CONSTRAINT `Assignment` FOREIGN KEY (`AssignmentID`) REFERENCES `assignment` (`AssignmentID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `TripReportID` FOREIGN KEY (`ReportID`) REFERENCES `report` (`ReportID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `UserID` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -303,4 +304,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-22 13:54:10
+-- Dump completed on 2015-04-23 14:43:10
