@@ -6,6 +6,7 @@
 package Project;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -17,13 +18,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Search extends javax.swing.JInternalFrame {
     ConnectionClass db = new ConnectionClass();
-    DefaultTableModel DTM;
     /**
      * Creates new form InternalFrameSearch
      */
     public Search() {
         initComponents();
-        DTM = (DefaultTableModel)table_assignments.getModel();
+        
     }
 
     /**
@@ -441,7 +441,7 @@ public class Search extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_searchConsultantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchConsultantActionPerformed
-searchIt();         //rensar alla objekt i comboboxen
+        searchIt();         //rensar alla objekt i comboboxen
         
        
         
@@ -514,23 +514,38 @@ searchIt();         //rensar alla objekt i comboboxen
     }//GEN-LAST:event_txt_searchKeyReleased
 
     private void getAssignments(){
-        ResultSet name = db.getColumn("select * from assignment");
-      
+        ResultSet rs = db.getColumn("select * from assignment");        
+        ArrayList<Object[]> data = new ArrayList<>();
+        String[] columnNames = {"ID", "Name"};
         try{
-            while(name.next()){
-              
-                DTM.insertRow(DTM.getColumnCount(), new Object[]{name.getString("assignmentid"), name.getString("name")});
+            while(rs.next()){
+                int aID = rs.getInt(1);
+                String name = rs.getString(2);
+                Object[] row = new Object[]{aID, name};
+                data.add(row);
             }
-         
+            Object[][] dataForTabell = data.toArray(new Object[data.size()][]);
+            DefaultTableModel model = new DefaultTableModel(dataForTabell, columnNames){      //Lägger till resultaten (dataForTabell) och kolumnnamnen i tabellmodellen.
+                @Override
+                public boolean isCellEditable(int row, int column) {          // En inbyggd metod som tar bort möjligheten till redigering i tabeller
+                    return false;
+                }
+            };
+            table_assignments.setModel(model);
+            table_assignmentsDesign();
         }
         catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
         }
+    }    
+    
+    private void table_assignmentsDesign()
+    {
+        table_assignments.getColumn("ID").setMaxWidth(30);
+        table_assignments.getColumn("Name").setMaxWidth(150);        
     }
     
-    
-    private void searchIt()
-    {
+    private void searchIt()    {
         String alternative = cbox_alternative.getSelectedItem().toString();
         String column = "name"; //standard för sökning av users
         String getUsers = "select * from users where username = '"+"'";
