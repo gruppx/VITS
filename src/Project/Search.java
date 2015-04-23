@@ -30,6 +30,7 @@ public class Search extends javax.swing.JInternalFrame {
      */
     public Search() {
         initComponents();
+        searchIt();
         
     }
 
@@ -43,7 +44,6 @@ public class Search extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         txt_search = new javax.swing.JTextField();
-        btn_searchConsultant = new javax.swing.JButton();
         label_searchConsultant = new javax.swing.JLabel();
         btn_saveReportToPDF = new javax.swing.JButton();
         cbox_alternative = new javax.swing.JComboBox();
@@ -99,13 +99,6 @@ public class Search extends javax.swing.JInternalFrame {
             }
         });
 
-        btn_searchConsultant.setText("List All");
-        btn_searchConsultant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_searchConsultantActionPerformed(evt);
-            }
-        });
-
         label_searchConsultant.setText("Search:");
 
         btn_saveReportToPDF.setText("Save to PDF");
@@ -116,6 +109,11 @@ public class Search extends javax.swing.JInternalFrame {
         });
 
         cbox_alternative.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Users", "Report", "Assignment" }));
+        cbox_alternative.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbox_alternativeActionPerformed(evt);
+            }
+        });
 
         panel_user.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -401,9 +399,7 @@ public class Search extends javax.swing.JInternalFrame {
                         .addComponent(txt_search, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbox_alternative, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_searchConsultant, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_saveReportToPDF)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -433,7 +429,6 @@ public class Search extends javax.swing.JInternalFrame {
                     .addComponent(label_searchConsultant)
                     .addComponent(txt_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbox_alternative, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_searchConsultant)
                     .addComponent(btn_saveReportToPDF))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -447,19 +442,11 @@ public class Search extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panel_assignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panel_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(220, Short.MAX_VALUE))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_searchConsultantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchConsultantActionPerformed
-        searchIt();         //rensar alla objekt i comboboxen
-        
-       
-        
-// TODO add your handling code here:
-    }//GEN-LAST:event_btn_searchConsultantActionPerformed
 
     private void list_resultMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_resultMouseClicked
         String namnet = list_result.getSelectedValue().toString();
@@ -523,7 +510,6 @@ public class Search extends javax.swing.JInternalFrame {
     private void txt_searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchKeyReleased
 
         searchIt();
-        // TODO add your handling code here:
     }//GEN-LAST:event_txt_searchKeyReleased
 
     private void btn_saveReportToPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveReportToPDFActionPerformed
@@ -589,26 +575,66 @@ public class Search extends javax.swing.JInternalFrame {
        
     }//GEN-LAST:event_btn_saveReportToPDFActionPerformed
 }
+    
+    
+    private void cbox_alternativeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_alternativeActionPerformed
+        searchIt();
+    }//GEN-LAST:event_cbox_alternativeActionPerformed
+
+    
+    
+    
     private void getAssignments(){
-        ResultSet rs = db.getColumn("select * from assignment");        
-        ArrayList<Object[]> data = new ArrayList<>();
-        String[] columnNames = {"ID", "Name"};
+        
+        String userName = list_result.getSelectedValue().toString();
+        
+        ResultSet reportRS = db.getColumn("select * from report "
+                + "join trip on trip.ReportID = report.ReportID "
+                + "join users on users.UserID = trip.UserID "
+                + "where users.Name = '"+userName+"'");
+        
+        ResultSet assignmentRS = db.getColumn("select * from assignment "
+                + "join trip on trip.AssignmentID = assignment.AssignmentID "
+                + "join users on users.UserID = trip.UserID "
+                + "where users.Name = '"+userName+"'");
+        
+        ArrayList<Object[]> data1 = new ArrayList<>();
+        ArrayList<Object[]> data2 = new ArrayList<>();
+        
+        String[] columnNames1 = {"ID", "Name"};
+        String[] columnNames2 = {"ID", "Date"};
         try{
-            while(rs.next()){
-                int aID = rs.getInt(1);
-                String name = rs.getString(2);
+            while(assignmentRS.next()){
+                int aID = assignmentRS.getInt(1);
+                String name = assignmentRS.getString(2);
                 Object[] row = new Object[]{aID, name};
-                data.add(row);
+                data1.add(row);
             }
-            Object[][] dataForTabell = data.toArray(new Object[data.size()][]);
-            DefaultTableModel model = new DefaultTableModel(dataForTabell, columnNames){      //Lägger till resultaten (dataForTabell) och kolumnnamnen i tabellmodellen.
+            while(reportRS.next()){
+                int rID = reportRS.getInt(1);
+                String date = reportRS.getString(4);
+                Object[] row = new Object[]{rID, date};
+                data2.add(row);
+            }
+            Object[][] dataForTabell1 = data1.toArray(new Object[data1.size()][]);
+            Object[][] dataForTabell2 = data2.toArray(new Object[data2.size()][]);
+            
+            DefaultTableModel model1 = new DefaultTableModel(dataForTabell1, columnNames1){      //Lägger till resultaten (dataForTabell) och kolumnnamnen i tabellmodellen.
                 @Override
                 public boolean isCellEditable(int row, int column) {          // En inbyggd metod som tar bort möjligheten till redigering i tabeller
                     return false;
                 }
             };
-            table_assignments.setModel(model);
+            DefaultTableModel model2 = new DefaultTableModel(dataForTabell2, columnNames2){      //Lägger till resultaten (dataForTabell) och kolumnnamnen i tabellmodellen.
+                @Override
+                public boolean isCellEditable(int row, int column) {          // En inbyggd metod som tar bort möjligheten till redigering i tabeller
+                    return false;
+                }
+            };
+            table_assignments.setModel(model1);
             table_assignmentsDesign();
+            table_reports.setModel(model2);
+            table_reportDesign();
         }
         catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
@@ -619,6 +645,12 @@ public class Search extends javax.swing.JInternalFrame {
     {
         table_assignments.getColumn("ID").setMaxWidth(30);
         table_assignments.getColumn("Name").setMaxWidth(150);        
+    }
+    
+    private void table_reportDesign()
+    {
+        table_reports.getColumn("ID").setMaxWidth(30);
+        table_reports.getColumn("Date").setMaxWidth(150);        
     }
     
     private void searchIt()    {
@@ -653,7 +685,6 @@ public class Search extends javax.swing.JInternalFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_saveReportToPDF;
-    private javax.swing.JButton btn_searchConsultant;
     private javax.swing.JComboBox cbox_alternative;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
