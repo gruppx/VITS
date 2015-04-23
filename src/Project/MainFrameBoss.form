@@ -58,7 +58,7 @@
                       <Component id="label_loggedInBossID" min="-2" pref="386" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="btn_showNewReports" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_manageDocuments" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btn_addNewUser" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -91,7 +91,7 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btn_showNewReports" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_manageDocuments" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_addNewUser" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_writeNewReport" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_writeNewTravelAdvance" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -124,12 +124,12 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Component class="javax.swing.JButton" name="btn_showNewReports">
+    <Component class="javax.swing.JButton" name="btn_manageDocuments">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Show new reports"/>
+        <Property name="text" type="java.lang.String" value="Manage documents"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_showNewReportsActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_manageDocumentsActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_addNewUser">

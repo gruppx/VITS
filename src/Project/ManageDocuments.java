@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Gaspar
  */
-public class NewReportsTrAd extends javax.swing.JInternalFrame {
+public class ManageDocuments extends javax.swing.JInternalFrame {
 
     static ConnectionClass db = new ConnectionClass();
     
@@ -26,7 +26,7 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
     /**
      * Creates new form BossFrame
      */
-    public NewReportsTrAd() {
+    public ManageDocuments() {
         initComponents();
         
     }
@@ -41,12 +41,33 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
         
         String[] columnNames = {"ID", "Sender", "Date"};
         
+        String cbValue = cb_reports.getSelectedItem().toString();
+        
+        String status = "";
+        
+        if(cbValue.equals("New")){
+            status = "0";
+            btn_approveReport.setEnabled(true);
+            btn_denyReport.setEnabled(true);
+        }
+        else if(cbValue.equals("Approved")){
+            status = "1";
+            btn_approveReport.setEnabled(false);
+            btn_denyReport.setEnabled(false);
+        }
+        else if(cbValue.equals("Denied")){
+            status = "2";
+            btn_approveReport.setEnabled(false);
+            btn_denyReport.setEnabled(false);
+        }
+        
+        
         
         String query = "SELECT Report.ReportID as rID, Users.Name as senderName, Report.Date as rDate "
                 + "FROM Report "
                 + "JOIN Users on Users.UserID = Report.SenderID "
                 + "WHERE Report.ReceiverID = " + currID + " "
-                + "AND Report.Approved = 0 "
+                + "AND Report.Approved = " + status + " "
                 + "AND Report.Sent = 1";
         try {               
             db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
@@ -104,11 +125,33 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
         String[] columnNames = {"ID", "Sender", "Amount"};
         
         
+        String cbValue = cb_travelAdvances.getSelectedItem().toString();
+        
+        String status = "";
+        
+        if(cbValue.equals("New")){
+            status = "0";
+            btn_approveTravelAdvance.setEnabled(true);
+            btn_denyTravelAdvance.setEnabled(true);
+        }
+        else if(cbValue.equals("Approved")){
+            status = "1";
+            btn_approveTravelAdvance.setEnabled(false);
+            btn_denyTravelAdvance.setEnabled(false);
+        }
+        else if(cbValue.equals("Denied")){
+            status = "2";
+            btn_approveTravelAdvance.setEnabled(false);
+            btn_denyTravelAdvance.setEnabled(false);
+        }
+        
+        
+        
         String query = "SELECT traveladvances.TrAdID as tID, Users.Name as senderName, traveladvances.Amount as amount "
                 + "FROM traveladvances "
                 + "JOIN Users on Users.UserID = traveladvances.SenderID "
                 + "WHERE traveladvances.ReceiverID = " + currID + " "
-                + "AND traveladvances.Approved = 0";
+                + "AND traveladvances.Approved = "+ status +"";
         try {               
             db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
             Statement statement = db.myConn.createStatement();
@@ -263,6 +306,8 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
         btn_denyTravelAdvance = new javax.swing.JButton();
         btn_approveTravelAdvance = new javax.swing.JButton();
         label_listTravelAdvance = new javax.swing.JLabel();
+        cb_reports = new javax.swing.JComboBox();
+        cb_travelAdvances = new javax.swing.JComboBox();
 
         label_listReports.setText("Reports");
 
@@ -322,30 +367,50 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
 
         label_listTravelAdvance.setText("Travel advances");
 
+        cb_reports.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "New", "Approved", "Denied" }));
+        cb_reports.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_reportsActionPerformed(evt);
+            }
+        });
+
+        cb_travelAdvances.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "New", "Approved", "Denied" }));
+        cb_travelAdvances.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_travelAdvancesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(btn_approveReport)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btn_denyReport, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(label_listReports, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(btn_approveTravelAdvance)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btn_denyTravelAdvance, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(label_listTravelAdvance, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btn_approveTravelAdvance)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_denyTravelAdvance, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(label_listReports, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cb_reports, 0, 300, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btn_approveReport)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_denyReport, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label_listTravelAdvance, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(cb_travelAdvances, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,18 +419,20 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_listReports)
                     .addComponent(label_listTravelAdvance))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cb_reports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb_travelAdvances, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btn_denyTravelAdvance)
-                        .addComponent(btn_approveTravelAdvance))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btn_denyReport)
-                        .addComponent(btn_approveReport)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_denyTravelAdvance)
+                    .addComponent(btn_approveTravelAdvance)
+                    .addComponent(btn_denyReport)
+                    .addComponent(btn_approveReport))
                 .addContainerGap())
         );
 
@@ -392,12 +459,22 @@ public class NewReportsTrAd extends javax.swing.JInternalFrame {
         updateTravelAdvancesList();
     }//GEN-LAST:event_btn_approveTravelAdvanceActionPerformed
 
+    private void cb_reportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_reportsActionPerformed
+        updateReportList();
+    }//GEN-LAST:event_cb_reportsActionPerformed
+
+    private void cb_travelAdvancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_travelAdvancesActionPerformed
+        updateTravelAdvancesList();
+    }//GEN-LAST:event_cb_travelAdvancesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_approveReport;
     private javax.swing.JButton btn_approveTravelAdvance;
     private javax.swing.JButton btn_denyReport;
     private javax.swing.JButton btn_denyTravelAdvance;
+    private javax.swing.JComboBox cb_reports;
+    private javax.swing.JComboBox cb_travelAdvances;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel label_listReports;

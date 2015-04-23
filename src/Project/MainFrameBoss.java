@@ -27,7 +27,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
     AddTravelAdvances addTravelAdvances;
     FillReport fillReport;
     ManageUser manageUser;
-    NewReportsTrAd newReportsTrAd;
+    ManageDocuments newReportsTrAd;
     Search search;
     WriteTravelOrdre writeTravelOrdre;
     
@@ -55,7 +55,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
     
     public void NoInternetAccess(){
     
-              btn_showNewReports.setVisible(false);
+              btn_manageDocuments.setVisible(false);
                btn_addNewUser.setVisible(false);
                 btn_manageUser.setVisible(false);
                  btn_addAssignment.setVisible(false);
@@ -112,7 +112,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
     private void initComponents() {
 
         desktopPanel = new javax.swing.JDesktopPane();
-        btn_showNewReports = new javax.swing.JButton();
+        btn_manageDocuments = new javax.swing.JButton();
         btn_addNewUser = new javax.swing.JButton();
         btn_writeNewReport = new javax.swing.JButton();
         btn_writeNewTravelAdvance = new javax.swing.JButton();
@@ -142,10 +142,10 @@ public class MainFrameBoss extends javax.swing.JFrame {
             .addGap(0, 592, Short.MAX_VALUE)
         );
 
-        btn_showNewReports.setText("Show new reports");
-        btn_showNewReports.addActionListener(new java.awt.event.ActionListener() {
+        btn_manageDocuments.setText("Manage documents");
+        btn_manageDocuments.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_showNewReportsActionPerformed(evt);
+                btn_manageDocumentsActionPerformed(evt);
             }
         });
 
@@ -231,7 +231,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(label_loggedInBossID, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btn_showNewReports)
+                        .addComponent(btn_manageDocuments)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_addNewUser)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -259,7 +259,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
                     .addComponent(label_loggedInName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_showNewReports)
+                    .addComponent(btn_manageDocuments)
                     .addComponent(btn_addNewUser)
                     .addComponent(btn_writeNewReport)
                     .addComponent(btn_writeNewTravelAdvance)
@@ -295,12 +295,12 @@ public class MainFrameBoss extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_writeNewTravelAdvanceActionPerformed
 
-    private void btn_showNewReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showNewReportsActionPerformed
+    private void btn_manageDocumentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_manageDocumentsActionPerformed
         hideAllFrames();
         showNewReports();
         newReportsTrAd.updateReportList();
         newReportsTrAd.updateTravelAdvancesList();
-    }//GEN-LAST:event_btn_showNewReportsActionPerformed
+    }//GEN-LAST:event_btn_manageDocumentsActionPerformed
 
     private void btn_addNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addNewUserActionPerformed
         hideAllFrames();
@@ -373,7 +373,7 @@ showWriteTravelOrdre();
         desktopPanel.add(fillReport);
         manageUser = new ManageUser();
         desktopPanel.add(manageUser);
-        newReportsTrAd = new NewReportsTrAd();
+        newReportsTrAd = new ManageDocuments();
         desktopPanel.add(newReportsTrAd);
         search = new Search();
         desktopPanel.add(search);
@@ -495,9 +495,9 @@ showWriteTravelOrdre();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addAssignment;
     private javax.swing.JButton btn_addNewUser;
+    private javax.swing.JButton btn_manageDocuments;
     private javax.swing.JButton btn_manageUser;
     private javax.swing.JButton btn_search;
-    private javax.swing.JButton btn_showNewReports;
     private javax.swing.JButton btn_writeNewReport;
     private javax.swing.JButton btn_writeNewTravelAdvance;
     private javax.swing.JDesktopPane desktopPanel;
