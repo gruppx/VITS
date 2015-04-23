@@ -24,6 +24,7 @@ public class FillReport extends javax.swing.JInternalFrame {
     double car, traktamente, receipts, reducedAmount, travelAdvances, result = 0; //beräkningsvariabler
     ConnectionClass db = new ConnectionClass();
 int temp = 0; 
+
     int days = 10;
     int vacationDays = 0;
     /**
@@ -37,9 +38,7 @@ int temp = 0;
         fillDay();
         fillMonth();
         fillYear();
-        
         traktamente = 100;
-  
     }
 
     /**
@@ -106,6 +105,7 @@ int temp = 0;
         txt_breakfast = new javax.swing.JTextField();
         lbl_test2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        lbl_result = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -583,6 +583,8 @@ int temp = 0;
             }
         });
 
+        lbl_result.setText("jLabel8");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -603,7 +605,10 @@ int temp = 0;
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btn_Submit)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btn_Submit)
+                                .addGap(86, 86, 86)
+                                .addComponent(lbl_result))
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -644,7 +649,9 @@ int temp = 0;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_Submit))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_Submit)
+                            .addComponent(lbl_result)))
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(120, Short.MAX_VALUE))
         );
@@ -689,10 +696,6 @@ int temp = 0;
         {
              JOptionPane.showMessageDialog(null, e.getMessage());
         }
-      
-      
-        
-        
     }
     
     private void fillBoxes(){
@@ -899,9 +902,14 @@ int temp = 0;
     
     
     private void btn_SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SubmitActionPerformed
-        
-        CreateReport();
-
+       CreateReport();
+       int travelAdvance = getTravelAdvance();
+       int theReceipts = getReceipts();
+       days = days - vacationDays;
+       result = ((traktamente * days) + car);
+       
+       result = result - (theReceipts - travelAdvance - reducedAmount);
+       lbl_result.setText(String.valueOf(result));
     }//GEN-LAST:event_btn_SubmitActionPerformed
 
     private void btn_AddCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddCountryActionPerformed
@@ -1211,6 +1219,7 @@ int test = getTravelAdvance();        // TODO add your handling code here:
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_mil;
+    private javax.swing.JLabel lbl_result;
     private javax.swing.JLabel lbl_test;
     private javax.swing.JLabel lbl_test2;
     private javax.swing.JLabel lbl_test3;
