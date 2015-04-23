@@ -5,6 +5,13 @@
  */
 package Project;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.util.Date;
+import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,6 +109,11 @@ public class Search extends javax.swing.JInternalFrame {
         label_searchConsultant.setText("Search:");
 
         btn_saveReportToPDF.setText("Save to PDF");
+        btn_saveReportToPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_saveReportToPDFActionPerformed(evt);
+            }
+        });
 
         cbox_alternative.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Users", "Report", "Assignment" }));
 
@@ -391,8 +403,9 @@ public class Search extends javax.swing.JInternalFrame {
                         .addComponent(cbox_alternative, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_searchConsultant, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 802, Short.MAX_VALUE)
-                        .addComponent(btn_saveReportToPDF))
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_saveReportToPDF)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator1)
@@ -408,7 +421,7 @@ public class Search extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(panel_assignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(panel_report, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 215, Short.MAX_VALUE)))
                         .addGap(361, 361, 361)))
                 .addContainerGap())
         );
@@ -434,7 +447,7 @@ public class Search extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panel_assignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panel_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
 
         pack();
@@ -513,6 +526,69 @@ public class Search extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_searchKeyReleased
 
+    private void btn_saveReportToPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveReportToPDFActionPerformed
+     
+       String value1=txt_reportID.getText();
+       String value2=txt_senderID.getText();
+       String value3=txt_receiverID.getText();
+       String value4=txt_sent.getText();
+       String value5=txt_date.getText();
+       String value6=txt_approved.getText();
+       String value7=txt_assignment.getText();
+        
+       try{
+        //String name= db.getString("Select name from users where UserID = 1");
+        Document doc = new Document();
+        PdfWriter.getInstance(doc, new FileOutputStream("Report.pdf"));
+        doc.open();
+       doc.add(new Paragraph("Report"));
+       doc.add(new Paragraph("............................................................."));
+       doc.add(new Paragraph(new Date().toString()));
+        doc.add(new Paragraph("............................................................."));
+       PdfPTable table =new PdfPTable(2);
+       PdfPCell cell = new PdfPCell(new Paragraph("Title"));
+       cell.setColspan(4);
+       
+       table.addCell(cell);
+       table.addCell("ReportID");
+       table.addCell(value1);
+       table.addCell("SenderID");
+       table.addCell(value2);
+       table.addCell("RecieverID");
+       table.addCell(value3);
+       table.addCell("Sent");
+       table.addCell(value4);
+       table.addCell("Approved");
+        table.addCell(value6);
+       table.addCell("Date");
+        table.addCell(value5);
+       table.addCell("Assignment");
+        table.addCell(value7);
+               
+       doc.add(table);
+       
+       /*com.itextpdf.text.List list = new com.itextpdf.text.List(true,20);
+        list.add("first iten");
+        list.add("sekond item");
+        list.add("third item");
+        list.add("fourth item");
+        doc.add(list);*/
+
+       
+               
+        
+        
+        doc.close();
+        JOptionPane.showMessageDialog(null, "Report Saved");
+        }
+        
+        
+       
+       catch(Exception e){
+           JOptionPane.showMessageDialog(null, e);
+       
+    }//GEN-LAST:event_btn_saveReportToPDFActionPerformed
+}
     private void getAssignments(){
         ResultSet rs = db.getColumn("select * from assignment");        
         ArrayList<Object[]> data = new ArrayList<>();
