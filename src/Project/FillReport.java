@@ -664,16 +664,11 @@ int temp = 0;
     private void fillAssignment(){
         box_Assignment.removeAllItems();
         ResultSet assignments = db.getColumn("select * from assignment");
-        int numOfAssignments;
-        
         try
         {
-            numOfAssignments = db.getCount("assignment"); 
-            for(int i = 0; i < numOfAssignments; i++) {
-                assignments.next();
+            while(assignments.next()) {
                 box_Assignment.addItem(assignments.getString("Name"));
             }
-            
         }
         catch(Exception e)
         {
@@ -684,12 +679,8 @@ int temp = 0;
     private void fillBoss(){
       box_Boss.removeAllItems();
       ResultSet boss = db.getColumn("select * from users where status = 1");
-      int numOfBosses;
-      
       try{
-          numOfBosses = db.getCount("users");
-          for(int i = 0; i < numOfBosses; i++){
-              boss.next();
+          while(boss.next()){
               box_Boss.addItem(boss.getString("Name"));
           }
         
