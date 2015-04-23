@@ -27,8 +27,9 @@ public class MainFrameBoss extends javax.swing.JFrame {
     AddTravelAdvances addTravelAdvances;
     FillReport fillReport;
     ManageUser manageUser;
-    NewReportsTrAd newReportsTrAd;
+    ManageDocuments newReportsTrAd;
     Search search;
+    WriteTravelOrdre writeTravelOrdre;
     
        
     public MainFrameBoss() {
@@ -54,7 +55,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
     
     public void NoInternetAccess(){
     
-              btn_showNewReports.setVisible(false);
+              btn_manageDocuments.setVisible(false);
                btn_addNewUser.setVisible(false);
                 btn_manageUser.setVisible(false);
                  btn_addAssignment.setVisible(false);
@@ -111,7 +112,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
     private void initComponents() {
 
         desktopPanel = new javax.swing.JDesktopPane();
-        btn_showNewReports = new javax.swing.JButton();
+        btn_manageDocuments = new javax.swing.JButton();
         btn_addNewUser = new javax.swing.JButton();
         btn_writeNewReport = new javax.swing.JButton();
         btn_writeNewTravelAdvance = new javax.swing.JButton();
@@ -120,6 +121,8 @@ public class MainFrameBoss extends javax.swing.JFrame {
         btn_manageUser = new javax.swing.JButton();
         label_loggedInBossID = new javax.swing.JLabel();
         label_loggedInName = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         txt_currDate = new javax.swing.JMenu();
         txt_currTime = new javax.swing.JMenu();
@@ -127,7 +130,6 @@ public class MainFrameBoss extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 600));
         setResizable(false);
-        setSize(new java.awt.Dimension(1000, 600));
 
         javax.swing.GroupLayout desktopPanelLayout = new javax.swing.GroupLayout(desktopPanel);
         desktopPanel.setLayout(desktopPanelLayout);
@@ -137,13 +139,13 @@ public class MainFrameBoss extends javax.swing.JFrame {
         );
         desktopPanelLayout.setVerticalGroup(
             desktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 495, Short.MAX_VALUE)
+            .addGap(0, 592, Short.MAX_VALUE)
         );
 
-        btn_showNewReports.setText("Show new reports");
-        btn_showNewReports.addActionListener(new java.awt.event.ActionListener() {
+        btn_manageDocuments.setText("Manage documents");
+        btn_manageDocuments.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_showNewReportsActionPerformed(evt);
+                btn_manageDocumentsActionPerformed(evt);
             }
         });
 
@@ -199,6 +201,15 @@ public class MainFrameBoss extends javax.swing.JFrame {
         label_loggedInName.setLabelFor(label_loggedInName);
         label_loggedInName.setText("jLabel1");
 
+        jButton1.setText("Travel orders");
+
+        jButton2.setText("Write new travel ordre");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         txt_currDate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jMenuBar1.add(txt_currDate);
 
@@ -211,28 +222,32 @@ public class MainFrameBoss extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(desktopPanel)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(desktopPanel)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btn_showNewReports)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_addNewUser)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_manageUser, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-                        .addGap(10, 10, 10)
-                        .addComponent(btn_addAssignment)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_writeNewReport)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_writeNewTravelAdvance)
-                        .addGap(63, 63, 63)
-                        .addComponent(btn_search))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(label_loggedInName, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(label_loggedInBossID, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(label_loggedInBossID, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btn_manageDocuments)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_addNewUser)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_manageUser, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_addAssignment)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_writeNewReport)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addComponent(btn_writeNewTravelAdvance, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -244,13 +259,15 @@ public class MainFrameBoss extends javax.swing.JFrame {
                     .addComponent(label_loggedInName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_showNewReports)
+                    .addComponent(btn_manageDocuments)
                     .addComponent(btn_addNewUser)
                     .addComponent(btn_writeNewReport)
                     .addComponent(btn_writeNewTravelAdvance)
                     .addComponent(btn_search)
                     .addComponent(btn_addAssignment)
-                    .addComponent(btn_manageUser))
+                    .addComponent(btn_manageUser)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(desktopPanel)
                 .addContainerGap())
@@ -278,12 +295,12 @@ public class MainFrameBoss extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_writeNewTravelAdvanceActionPerformed
 
-    private void btn_showNewReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_showNewReportsActionPerformed
+    private void btn_manageDocumentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_manageDocumentsActionPerformed
         hideAllFrames();
         showNewReports();
         newReportsTrAd.updateReportList();
         newReportsTrAd.updateTravelAdvancesList();
-    }//GEN-LAST:event_btn_showNewReportsActionPerformed
+    }//GEN-LAST:event_btn_manageDocumentsActionPerformed
 
     private void btn_addNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addNewUserActionPerformed
         hideAllFrames();
@@ -299,6 +316,11 @@ public class MainFrameBoss extends javax.swing.JFrame {
         hideAllFrames();
         showSearch();
     }//GEN-LAST:event_btn_searchActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+hideAllFrames();
+showWriteTravelOrdre();         
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -351,10 +373,12 @@ public class MainFrameBoss extends javax.swing.JFrame {
         desktopPanel.add(fillReport);
         manageUser = new ManageUser();
         desktopPanel.add(manageUser);
-        newReportsTrAd = new NewReportsTrAd();
+        newReportsTrAd = new ManageDocuments();
         desktopPanel.add(newReportsTrAd);
         search = new Search();
         desktopPanel.add(search);
+        writeTravelOrdre = new WriteTravelOrdre();
+        desktopPanel.add(writeTravelOrdre);
     }   
     
     private void showAddAss(){
@@ -415,8 +439,9 @@ public class MainFrameBoss extends javax.swing.JFrame {
         } catch (PropertyVetoException e) {
           JOptionPane.showMessageDialog(null, e.getMessage());    // Ev. errormeddelande
         }
+   
+           
     }
-    
     private void showNewReports(){
         newReportsTrAd.show();
         try {
@@ -437,7 +462,15 @@ public class MainFrameBoss extends javax.swing.JFrame {
          }
      }
     
-    
+    public void showWriteTravelOrdre(){
+        writeTravelOrdre.show();
+        try {
+            writeTravelOrdre.setMaximum(true);
+            writeTravelOrdre.setSelected(rootPaneCheckingEnabled);
+        }catch (PropertyVetoException e) {
+          JOptionPane.showMessageDialog(null, e.getMessage());    // Ev. errormeddelande
+        }
+        }
     
     
     private void hideAllFrames(){        
@@ -449,6 +482,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
                 fillReport.hide();
                 manageUser.hide();
                 newReportsTrAd.hide();
+                writeTravelOrdre.hide();
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -461,12 +495,14 @@ public class MainFrameBoss extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addAssignment;
     private javax.swing.JButton btn_addNewUser;
+    private javax.swing.JButton btn_manageDocuments;
     private javax.swing.JButton btn_manageUser;
     private javax.swing.JButton btn_search;
-    private javax.swing.JButton btn_showNewReports;
     private javax.swing.JButton btn_writeNewReport;
     private javax.swing.JButton btn_writeNewTravelAdvance;
     private javax.swing.JDesktopPane desktopPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel label_loggedInBossID;
     private javax.swing.JLabel label_loggedInName;
