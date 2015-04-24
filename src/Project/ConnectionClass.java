@@ -129,7 +129,6 @@ public class ConnectionClass {
             while(myRs.next()){
                 getString = myRs.getString(1);
             }
-            
         }
         catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
@@ -146,15 +145,28 @@ public class ConnectionClass {
             while(myRs.next()){
                 getID = myRs.getInt(1);
             }
-            
         }
-     
         catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
       }
         return getID;
         //FUNKTIONEN används för att returera int värde (exempelvis ett ID).
     }
+   
+   public int getTraktemente(String country){
+       int traktamente = 0;
+       try{
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
+            myRs = myStmt.executeQuery("select amount from allowance where country = '"+country+"'");
+            while(myRs.next()){
+                traktamente = myRs.getInt(1);
+            }
+        }
+        catch(Exception e){
+          JOptionPane.showMessageDialog(null, e.getMessage());
+      }
+       return traktamente;
+   }
    /**
     * kör flera sql frågor samtidigt
     */
