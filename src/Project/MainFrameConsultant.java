@@ -23,6 +23,7 @@ public class MainFrameConsultant extends javax.swing.JFrame {
     
     AddTravelAdvances addTravelAdvances;   
     FillReport fillReport;
+    WriteTravelOrdre writeTravelOrdre;
     
     
     public MainFrameConsultant() {
@@ -54,6 +55,7 @@ public class MainFrameConsultant extends javax.swing.JFrame {
         btn_newReport = new javax.swing.JButton();
         label_loggedInName = new javax.swing.JLabel();
         label_loggedInID = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 600));
@@ -93,6 +95,13 @@ public class MainFrameConsultant extends javax.swing.JFrame {
         label_loggedInID.setText("jLabel1");
         label_loggedInID.setToolTipText("");
 
+        jButton1.setText("Write new travel ordre");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,6 +114,8 @@ public class MainFrameConsultant extends javax.swing.JFrame {
                         .addComponent(btn_newTravelAdvance)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_newReport)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(label_loggedInName, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -122,7 +133,8 @@ public class MainFrameConsultant extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_newTravelAdvance)
-                    .addComponent(btn_newReport))
+                    .addComponent(btn_newReport)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(desktopPanel)
                 .addContainerGap())
@@ -140,6 +152,11 @@ public class MainFrameConsultant extends javax.swing.JFrame {
         hideAllFrames();
         showFillReport();
     }//GEN-LAST:event_btn_newReportActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+hideAllFrames();
+showWriteTravelOrdre();       
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -181,6 +198,8 @@ public class MainFrameConsultant extends javax.swing.JFrame {
         desktopPanel.add(addTravelAdvances);
         fillReport = new FillReport();
         desktopPanel.add(fillReport);
+        writeTravelOrdre = new WriteTravelOrdre();
+        desktopPanel.add(writeTravelOrdre);
     }   
     
     private void showAddTravelAdvances(){
@@ -192,6 +211,15 @@ public class MainFrameConsultant extends javax.swing.JFrame {
           JOptionPane.showMessageDialog(null, e.getMessage());    // Ev. errormeddelande
         }
     }
+        public void showWriteTravelOrdre(){
+        writeTravelOrdre.show();
+        try {
+            writeTravelOrdre.setMaximum(true);
+            writeTravelOrdre.setSelected(rootPaneCheckingEnabled);
+        }catch (PropertyVetoException e) {
+          JOptionPane.showMessageDialog(null, e.getMessage());    // Ev. errormeddelande
+        }
+        }
     
     private void showFillReport(){
         fillReport.show();
@@ -207,6 +235,7 @@ public class MainFrameConsultant extends javax.swing.JFrame {
         try {  
                 addTravelAdvances.hide();
                 fillReport.hide();
+                writeTravelOrdre.hide();
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -218,6 +247,7 @@ public class MainFrameConsultant extends javax.swing.JFrame {
     private javax.swing.JButton btn_newReport;
     private javax.swing.JButton btn_newTravelAdvance;
     private javax.swing.JDesktopPane desktopPanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel label_loggedInID;
     private javax.swing.JLabel label_loggedInName;
     // End of variables declaration//GEN-END:variables

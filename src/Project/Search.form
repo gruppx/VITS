@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
@@ -28,10 +28,9 @@
                       <Component id="txt_search" min="-2" pref="217" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cbox_alternative" min="-2" pref="114" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btn_searchConsultant" min="-2" pref="91" max="-2" attributes="0"/>
-                      <EmptySpace pref="802" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btn_saveReportToPDF" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -51,7 +50,7 @@
                                   <Component id="panel_assignment" min="-2" max="-2" attributes="0"/>
                                   <Component id="panel_report" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="215" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="361" max="-2" attributes="0"/>
@@ -69,7 +68,6 @@
                   <Component id="label_searchConsultant" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txt_search" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbox_alternative" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn_searchConsultant" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_saveReportToPDF" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -86,7 +84,7 @@
                   <Component id="panel_assignment" min="-2" max="-2" attributes="0"/>
                   <Component id="panel_user" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="216" max="32767" attributes="0"/>
+              <EmptySpace pref="224" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -95,14 +93,6 @@
     <Component class="javax.swing.JTextField" name="txt_search">
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_searchKeyReleased"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btn_searchConsultant">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="List All"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_searchConsultantActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="label_searchConsultant">
@@ -114,6 +104,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Save to PDF"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_saveReportToPDFActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbox_alternative">
       <Properties>
@@ -125,6 +118,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbox_alternativeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>

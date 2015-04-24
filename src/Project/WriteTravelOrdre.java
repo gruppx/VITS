@@ -32,6 +32,7 @@ public class WriteTravelOrdre extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        label1 = new java.awt.Label();
 
         jLabel1.setText("Select yourself");
 
@@ -40,6 +41,8 @@ public class WriteTravelOrdre extends javax.swing.JInternalFrame {
         jLabel3.setText("Name");
 
         jLabel4.setText("Email");
+
+        label1.setText("label1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -52,7 +55,8 @@ public class WriteTravelOrdre extends javax.swing.JInternalFrame {
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(545, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -68,7 +72,9 @@ public class WriteTravelOrdre extends javax.swing.JInternalFrame {
                 .addComponent(jLabel3)
                 .addGap(26, 26, 26)
                 .addComponent(jLabel4)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         pack();
@@ -81,5 +87,6 @@ public class WriteTravelOrdre extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
 }

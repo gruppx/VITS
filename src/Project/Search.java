@@ -5,7 +5,15 @@
  */
 package Project;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.util.Date;
+import java.io.FileOutputStream;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -17,13 +25,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Search extends javax.swing.JInternalFrame {
     ConnectionClass db = new ConnectionClass();
-    DefaultTableModel DTM;
     /**
      * Creates new form InternalFrameSearch
      */
     public Search() {
         initComponents();
-        DTM = (DefaultTableModel)table_assignments.getModel();
+        searchIt();
+        
     }
 
     /**
@@ -36,7 +44,6 @@ public class Search extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         txt_search = new javax.swing.JTextField();
-        btn_searchConsultant = new javax.swing.JButton();
         label_searchConsultant = new javax.swing.JLabel();
         btn_saveReportToPDF = new javax.swing.JButton();
         cbox_alternative = new javax.swing.JComboBox();
@@ -92,18 +99,21 @@ public class Search extends javax.swing.JInternalFrame {
             }
         });
 
-        btn_searchConsultant.setText("List All");
-        btn_searchConsultant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_searchConsultantActionPerformed(evt);
-            }
-        });
-
         label_searchConsultant.setText("Search:");
 
         btn_saveReportToPDF.setText("Save to PDF");
+        btn_saveReportToPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_saveReportToPDFActionPerformed(evt);
+            }
+        });
 
         cbox_alternative.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Users", "Report", "Assignment" }));
+        cbox_alternative.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbox_alternativeActionPerformed(evt);
+            }
+        });
 
         panel_user.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -389,10 +399,9 @@ public class Search extends javax.swing.JInternalFrame {
                         .addComponent(txt_search, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbox_alternative, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_searchConsultant, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 802, Short.MAX_VALUE)
-                        .addComponent(btn_saveReportToPDF))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_saveReportToPDF)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator1)
@@ -408,7 +417,7 @@ public class Search extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(panel_assignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(panel_report, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 215, Short.MAX_VALUE)))
                         .addGap(361, 361, 361)))
                 .addContainerGap())
         );
@@ -420,7 +429,6 @@ public class Search extends javax.swing.JInternalFrame {
                     .addComponent(label_searchConsultant)
                     .addComponent(txt_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbox_alternative, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_searchConsultant)
                     .addComponent(btn_saveReportToPDF))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -434,19 +442,11 @@ public class Search extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panel_assignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panel_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_searchConsultantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchConsultantActionPerformed
-searchIt();         //rensar alla objekt i comboboxen
-        
-       
-        
-// TODO add your handling code here:
-    }//GEN-LAST:event_btn_searchConsultantActionPerformed
 
     private void list_resultMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_resultMouseClicked
         String namnet = list_result.getSelectedValue().toString();
@@ -510,27 +510,150 @@ searchIt();         //rensar alla objekt i comboboxen
     private void txt_searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_searchKeyReleased
 
         searchIt();
-        // TODO add your handling code here:
     }//GEN-LAST:event_txt_searchKeyReleased
 
+    private void btn_saveReportToPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveReportToPDFActionPerformed
+     
+       String value1=txt_reportID.getText();
+       String value2=txt_senderID.getText();
+       String value3=txt_receiverID.getText();
+       String value4=txt_sent.getText();
+       String value5=txt_date.getText();
+       String value6=txt_approved.getText();
+       String value7=txt_assignment.getText();
+        
+       try{
+        //String name= db.getString("Select name from users where UserID = 1");
+        Document doc = new Document();
+        PdfWriter.getInstance(doc, new FileOutputStream("Report.pdf"));
+        doc.open();
+       doc.add(new Paragraph("Report"));
+       doc.add(new Paragraph("............................................................."));
+       doc.add(new Paragraph(new Date().toString()));
+        doc.add(new Paragraph("............................................................."));
+       PdfPTable table =new PdfPTable(2);
+       PdfPCell cell = new PdfPCell(new Paragraph("Title"));
+       cell.setColspan(4);
+       
+       table.addCell(cell);
+       table.addCell("ReportID");
+       table.addCell(value1);
+       table.addCell("SenderID");
+       table.addCell(value2);
+       table.addCell("RecieverID");
+       table.addCell(value3);
+       table.addCell("Sent");
+       table.addCell(value4);
+       table.addCell("Approved");
+        table.addCell(value6);
+       table.addCell("Date");
+        table.addCell(value5);
+       table.addCell("Assignment");
+        table.addCell(value7);
+               
+       doc.add(table);
+       
+       /*com.itextpdf.text.List list = new com.itextpdf.text.List(true,20);
+        list.add("first iten");
+        list.add("sekond item");
+        list.add("third item");
+        list.add("fourth item");
+        doc.add(list);*/
+
+       
+               
+        
+        
+        doc.close();
+        JOptionPane.showMessageDialog(null, "Report Saved");
+        }
+        
+        
+       
+       catch(Exception e){
+           JOptionPane.showMessageDialog(null, e);
+       
+    }//GEN-LAST:event_btn_saveReportToPDFActionPerformed
+}
+    
+    
+    private void cbox_alternativeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_alternativeActionPerformed
+        searchIt();
+    }//GEN-LAST:event_cbox_alternativeActionPerformed
+
+    
+    
+    
     private void getAssignments(){
-        ResultSet name = db.getColumn("select * from assignment");
-      
+        
+        String userName = list_result.getSelectedValue().toString();
+        
+        ResultSet reportRS = db.getColumn("select * from report "
+                + "join trip on trip.ReportID = report.ReportID "
+                + "join users on users.UserID = trip.UserID "
+                + "where users.Name = '"+userName+"'");
+        
+        ResultSet assignmentRS = db.getColumn("select * from assignment "
+                + "join trip on trip.AssignmentID = assignment.AssignmentID "
+                + "join users on users.UserID = trip.UserID "
+                + "where users.Name = '"+userName+"'");
+        
+        ArrayList<Object[]> data1 = new ArrayList<>();
+        ArrayList<Object[]> data2 = new ArrayList<>();
+        
+        String[] columnNames1 = {"ID", "Name"};
+        String[] columnNames2 = {"ID", "Date"};
         try{
-            while(name.next()){
-              
-                DTM.insertRow(DTM.getColumnCount(), new Object[]{name.getString("assignmentid"), name.getString("name")});
+            while(assignmentRS.next()){
+                int aID = assignmentRS.getInt(1);
+                String name = assignmentRS.getString(2);
+                Object[] row = new Object[]{aID, name};
+                data1.add(row);
             }
-         
+            while(reportRS.next()){
+                int rID = reportRS.getInt(1);
+                String date = reportRS.getString(4);
+                Object[] row = new Object[]{rID, date};
+                data2.add(row);
+            }
+            Object[][] dataForTabell1 = data1.toArray(new Object[data1.size()][]);
+            Object[][] dataForTabell2 = data2.toArray(new Object[data2.size()][]);
+            
+            DefaultTableModel model1 = new DefaultTableModel(dataForTabell1, columnNames1){      //Lägger till resultaten (dataForTabell) och kolumnnamnen i tabellmodellen.
+                @Override
+                public boolean isCellEditable(int row, int column) {          // En inbyggd metod som tar bort möjligheten till redigering i tabeller
+                    return false;
+                }
+            };
+            DefaultTableModel model2 = new DefaultTableModel(dataForTabell2, columnNames2){      //Lägger till resultaten (dataForTabell) och kolumnnamnen i tabellmodellen.
+                @Override
+                public boolean isCellEditable(int row, int column) {          // En inbyggd metod som tar bort möjligheten till redigering i tabeller
+                    return false;
+                }
+            };
+            table_assignments.setModel(model1);
+            table_assignmentsDesign();
+            table_reports.setModel(model2);
+            table_reportDesign();
         }
         catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
         }
+    }    
+    
+    private void table_assignmentsDesign()
+    {
+        table_assignments.getColumn("ID").setMaxWidth(30);
+        table_assignments.getColumn("Name").setMaxWidth(150);        
     }
     
-    
-    private void searchIt()
+    private void table_reportDesign()
     {
+        table_reports.getColumn("ID").setMaxWidth(30);
+        table_reports.getColumn("Date").setMaxWidth(150);        
+    }
+    
+    private void searchIt()    {
         String alternative = cbox_alternative.getSelectedItem().toString();
         String column = "name"; //standard för sökning av users
         String getUsers = "select * from users where username = '"+"'";
@@ -562,7 +685,6 @@ searchIt();         //rensar alla objekt i comboboxen
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_saveReportToPDF;
-    private javax.swing.JButton btn_searchConsultant;
     private javax.swing.JComboBox cbox_alternative;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
