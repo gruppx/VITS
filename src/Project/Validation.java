@@ -85,4 +85,31 @@ public class Validation {
         return logInStatus;
     }
     
+    static public boolean checkEmail(String email){
+        boolean ok = false;
+        
+        String pattern = "^[A-Za-z0-9_.]+[@][A-Za-z]+\\.+[A-Za-z]+$";
+        
+        if(email.matches(pattern)){
+            ok = true;
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Please enter a valid email.");
+        }
+        return ok;
+    }
+    
+    static public boolean validateUser(String name, String email, String user, String pass){
+        boolean ok = false;
+        
+        if(name.isEmpty() && email.isEmpty() && user.isEmpty() && pass.isEmpty()){
+            JOptionPane.showMessageDialog(null, "The fields cannot be empty!");
+        }
+        else if(checkEmail(email)){
+            ok = true;
+        }
+        
+        return ok;
+    }
+    
 }
