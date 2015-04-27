@@ -30,7 +30,8 @@ public class MainFrameBoss extends javax.swing.JFrame {
     ManageDocuments newReportsTrAd;
     Search search;
     WriteTravelOrdre writeTravelOrdre;
-    
+    String UserID;
+    String UserName;
        
     public MainFrameBoss() {
         initComponents();
@@ -48,9 +49,12 @@ public class MainFrameBoss extends javax.swing.JFrame {
     
     
     public void setLoggedInBossInfo(String loggedInName, String loggedInID){
+        
         label_loggedInName.setText(loggedInName);
         label_loggedInBossID.setText(loggedInID);
         LogIn.currentLoggedInID = loggedInID;
+        UserID = loggedInID;
+        UserName = loggedInName;
     }
     
     public void NoInternetAccess(){
@@ -61,11 +65,13 @@ public class MainFrameBoss extends javax.swing.JFrame {
                  btn_addAssignment.setVisible(false);
                   btn_writeNewTravelAdvance.setVisible(false);
                    btn_search.setVisible(false);
-                           
-                    label_loggedInName.setText("No internet access");
-                      
-        
-    
+                    jButton2.setVisible(false);
+                     fillReport.show();
+                      label_loggedInBossID.setText(UserName);
+                      label_loggedInName.setText(UserID);
+                     
+
+                     
     }
     
     public void CurrentDate(){
@@ -134,7 +140,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
         desktopPanel.setLayout(desktopPanelLayout);
         desktopPanelLayout.setHorizontalGroup(
             desktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1085, Short.MAX_VALUE)
         );
         desktopPanelLayout.setVerticalGroup(
             desktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,10 +248,10 @@ public class MainFrameBoss extends javax.swing.JFrame {
                         .addComponent(btn_writeNewTravelAdvance)
                         .addGap(115, 115, 115)
                         .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(desktopPanel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(desktopPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(

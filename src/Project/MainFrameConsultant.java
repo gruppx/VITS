@@ -11,7 +11,10 @@ package Project;
  */
 
 import java.beans.PropertyVetoException;
+import static java.lang.Thread.sleep;
 import java.sql.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -29,6 +32,7 @@ public class MainFrameConsultant extends javax.swing.JFrame {
     public MainFrameConsultant() {
         initComponents();
         addAllFramesToPane();
+        CurrentDate();
         
         db = new ConnectionClass();
         try {
@@ -56,6 +60,9 @@ public class MainFrameConsultant extends javax.swing.JFrame {
         label_loggedInName = new javax.swing.JLabel();
         label_loggedInID = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        txt_Date = new javax.swing.JMenu();
+        txt_Time = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 600));
@@ -70,7 +77,7 @@ public class MainFrameConsultant extends javax.swing.JFrame {
         );
         desktopPanelLayout.setVerticalGroup(
             desktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 445, Short.MAX_VALUE)
+            .addGap(0, 424, Short.MAX_VALUE)
         );
 
         btn_newTravelAdvance.setText("Write new travel advance");
@@ -101,6 +108,11 @@ public class MainFrameConsultant extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jMenuBar1.add(txt_Date);
+        jMenuBar1.add(txt_Time);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -242,13 +254,66 @@ showWriteTravelOrdre();
         }    
         
     }
+    
+    public void NoInternet(){
+    
+            btn_newTravelAdvance.setVisible(false);
+             jButton1.setVisible(false);
+             
+    
+    
+    }
+    
+    
+    
+    
+    public void CurrentDate(){
+        
+        
+        Thread clock = new Thread(){
+        
+            public void run(){
+              for(;;){
+                  Calendar cal = new GregorianCalendar();
+                  int year = cal.get(Calendar.YEAR);
+                  int month = cal.get(Calendar.MONTH);
+                  int day = cal.get(Calendar.DAY_OF_MONTH);
+                  txt_Date.setText("Date:  " + year + "/" + (month) + "/" +day);
+                     
+                  
+                  
+                  
+                     
+                     int second = cal.get(Calendar.SECOND);
+                     int minute = cal.get(Calendar.MINUTE);
+                     int hour = cal.get(Calendar.HOUR);
+                     txt_Time.setText("Time:  " + hour + ":" + (minute) + ":" +second);
+                    
+                     
+                  try {
+                      sleep(1000);
+                  } catch (InterruptedException ex) {
+                      Logger.getLogger(MainFrameBoss.class.getName()).log(Level.SEVERE, null, ex);
+                  }
+              }
+            }
+            
+        };
+        clock.start();
+        
+        
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_newReport;
     private javax.swing.JButton btn_newTravelAdvance;
     private javax.swing.JDesktopPane desktopPanel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel label_loggedInID;
     private javax.swing.JLabel label_loggedInName;
+    private javax.swing.JMenu txt_Date;
+    private javax.swing.JMenu txt_Time;
     // End of variables declaration//GEN-END:variables
 }

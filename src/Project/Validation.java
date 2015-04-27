@@ -45,6 +45,7 @@ public class Validation {
                             if(Login.Internet() == false){
                             mainFrameBoss.setVisible(true);
                             mainFrameBoss.NoInternetAccess();
+                            mainFrameBoss.setLoggedInBossInfo(name+" "+"Dont have internet", String.valueOf(id));
                             
                             }
                             else if (Login.Internet() == true){                           
@@ -58,7 +59,9 @@ public class Validation {
                         }
                         else if(status == 0){
                             if (Login.Internet() == false) {
-                                mainFrameBoss.setVisible(true);
+                                mainFrameConsultant.setVisible(true);
+                                mainFrameConsultant.NoInternet();
+                                mainFrameConsultant.setLoggedInConsultantInfo(name +" "+ "Dont have internet", String.valueOf(id));
                             }
                             else if (Login.Internet() == true) {
                             mainFrameConsultant.setVisible(true);

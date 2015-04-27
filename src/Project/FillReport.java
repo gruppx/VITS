@@ -825,8 +825,14 @@ public class FillReport extends javax.swing.JInternalFrame {
         
         // hämtar ReciverID från User tabellen
                   
-        String date = "2015-04-27";
-        // lägger ett värde på date, måste hämta värde på denna från klocka i framtiden
+        
+        Calendar cal = new GregorianCalendar();
+         int year = cal.get(Calendar.YEAR);
+          int month = cal.get(Calendar.MONTH);
+           int day = cal.get(Calendar.DAY_OF_MONTH);
+            
+                String date = year + "-" + month + "-" + day;
+
         
         String insert = "insert into report (SenderID, ReceiverID, Date, Sent, Approved, AssignmentID) values ("
                 +senderID+", "+receiverID+", '"+date+"', 0, 0, "+assignmentID+")";
