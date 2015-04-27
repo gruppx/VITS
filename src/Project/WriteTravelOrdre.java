@@ -5,19 +5,162 @@
  */
 package Project;
 
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author josefin
  */
 public class WriteTravelOrdre extends javax.swing.JInternalFrame {
-
+ ConnectionClass db = new ConnectionClass();
     /**
      * Creates new form writeTravelOrder
      */
     public WriteTravelOrdre() {
         initComponents();
+         fillUser();
+       fillDay();
+        fillMonth();
+        fillYear();
+    }
+private void fillUser(){
+        cbox_names.removeAllItems();
+        ResultSet names = db.getColumn("select * from users");
+int numOfUsers;
+try{
+numOfUsers = db.getCount("users");
+for (int i=0; i<numOfUsers; i++)
+{
+names.next();
+cbox_names.addItem(names.getString("username"));
+
+}
+}
+catch(Exception e){
+JOptionPane.showMessageDialog(null, e.getMessage());
+}
     }
 
+ public void informationUser() {
+      try {
+    String sqlID = "Select userid from  users where username ='" + cbox_names.getSelectedItem() +"'";                //Sedan fylls information på i de lablen när sql frågorna körs.
+        
+        String sqlName = "Select name from  users where username ='" + cbox_names.getSelectedItem() +"'";  
+
+        String sqlMail = "Select email from  users where username ='" + cbox_names.getSelectedItem() +"'";  
+    
+        
+        String ID = db.getString(sqlID);
+            labelID.setText(ID);
+            
+            String Name = db.getString(sqlName);
+            labelName.setText(Name);
+            
+            String Mail = db.getString(sqlMail);
+            labelMail.setText(Mail);
+            
+          
+            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+
+        
+    
+        }
+        } 
+  private void fillDay(){
+        int [] date = new int[32];
+        cbx_ADay.removeAllItems();
+        cbx_DDay.removeAllItems();
+       
+        for(int i = 1; i < 32; i++)
+        {
+            if(i < 10){
+            date[i] = i + 1;
+            cbx_ADay.addItem("0" + i);
+            cbx_DDay.addItem("0" + i);
+        }
+        else if(i >= 10)
+        {
+             date[i] = i + 1;
+            cbx_ADay.addItem(i);
+            cbx_DDay.addItem(i); 
+        }
+       }
+    }
+      
+
+  private void fillMonth(){
+       int [] month = new int[13];
+       cbx_AMonth.removeAllItems();
+       cbx_DMonth.removeAllItems();
+       
+       for(int i = 1; i < 13; i++){
+           if(i < 10){
+           cbx_AMonth.addItem("0" + i);
+           cbx_DMonth.addItem("0" + i);
+           month[i] = i + 1;
+           }
+           else if(i >= 10)
+           {
+           cbx_AMonth.addItem(i);
+           cbx_DMonth.addItem(i); 
+           month[i] = i + 1;
+           }
+       }
+       
+    }
+        
+  
+   
+    private void fillYear(){
+       int [] year = new int[99];
+       cbx_AYear.removeAllItems();
+       cbx_DYear.removeAllItems();
+       
+       for(int i = 1; i < 99; i++){
+           if(i < 10){
+           cbx_AYear.addItem("200" + i);
+           cbx_DYear.addItem("200" + i);
+           year[i] = i + 1;
+           }
+           else if(i >= 10)
+           {
+           cbx_AYear.addItem("20" + i);
+           cbx_DYear.addItem("20" + i); 
+           year[i] = i + 1;
+           }
+       }}
+       public void AddTravelOrdre()
+       {
+           String departureYear = cbx_DYear.getSelectedItem().toString();
+        String departureMonth = cbx_DMonth.getSelectedItem().toString();
+        String departureDay = cbx_DDay.getSelectedItem().toString();
+
+        String arrivalYear = cbx_AYear.getSelectedItem().toString();
+        String arrivalMonth = cbx_AMonth.getSelectedItem().toString();
+        String arrivalDay = cbx_ADay.getSelectedItem().toString();
+
+      
+        
+        int departure = Integer.parseInt( departureYear + departureMonth + departureDay);
+        int arrival = Integer.parseInt(arrivalYear + arrivalMonth  + arrivalDay );
+         int id = Integer.parseInt(labelID.getText());
+         
+        try {
+ String sqlFraga = ("Insert into travelorder(userid, name, email, fromdate, todate, country) values ('" + (id) + "','" +labelName.getText()+ "','" +labelMail.getText()+ "','" + (departure) + "','" + (arrival) + "','" +fieldCountry.getText()+"')");
+
+ db.query(sqlFraga);
+          } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+
+        }
+                     
+       
+    
+    }                            
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,22 +170,67 @@ public class WriteTravelOrdre extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox();
+        cbox_names = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         label1 = new java.awt.Label();
+        jButton1 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        fieldCountry = new javax.swing.JTextField();
+        labelID = new javax.swing.JLabel();
+        labelName = new javax.swing.JLabel();
+        labelMail = new javax.swing.JLabel();
+        cbx_DYear = new javax.swing.JComboBox();
+        cbx_DMonth = new javax.swing.JComboBox();
+        cbx_DDay = new javax.swing.JComboBox();
+        cbx_AYear = new javax.swing.JComboBox();
+        cbx_AMonth = new javax.swing.JComboBox();
+        cbx_ADay = new javax.swing.JComboBox();
+        jButton2 = new javax.swing.JButton();
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Select yourself");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("UserID");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Name");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Email");
 
-        label1.setText("label1");
+        label1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        label1.setText("Departure date");
+
+        jButton1.setText("Get your details");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Arrival date");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("Country");
+
+        labelID.setText("jLabel7");
+
+        labelName.setText("jLabel8");
+
+        labelMail.setText("jLabel9");
+
+        jButton2.setText("Submit");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -52,41 +240,122 @@ public class WriteTravelOrdre extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(545, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cbox_names, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelMail)
+                            .addComponent(labelName)
+                            .addComponent(labelID)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fieldCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cbx_DYear, 0, 91, Short.MAX_VALUE)
+                                    .addComponent(cbx_AYear, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cbx_DMonth, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cbx_AMonth, 0, 78, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cbx_DDay, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cbx_ADay, 0, 70, Short.MAX_VALUE))))))
+                .addContainerGap(322, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addGap(26, 26, 26)
-                .addComponent(jLabel4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbox_names, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(labelID))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(labelName))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(labelMail))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbx_DYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbx_DMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbx_DDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cbx_AYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbx_AMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbx_ADay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(fieldCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        informationUser();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+AddTravelOrdre();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox cbox_names;
+    private javax.swing.JComboBox cbx_ADay;
+    private javax.swing.JComboBox cbx_AMonth;
+    private javax.swing.JComboBox cbx_AYear;
+    private javax.swing.JComboBox cbx_DDay;
+    private javax.swing.JComboBox cbx_DMonth;
+    private javax.swing.JComboBox cbx_DYear;
+    private javax.swing.JTextField fieldCountry;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private java.awt.Label label1;
+    private javax.swing.JLabel labelID;
+    private javax.swing.JLabel labelMail;
+    private javax.swing.JLabel labelName;
     // End of variables declaration//GEN-END:variables
 }
