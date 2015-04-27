@@ -185,7 +185,7 @@ public class LogIn extends javax.swing.JFrame {
  }  
 
     
-    
+    // hate
     
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         String username = txt_loginUser.getText();
