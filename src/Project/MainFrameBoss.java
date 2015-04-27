@@ -79,7 +79,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
                   int year = cal.get(Calendar.YEAR);
                   int month = cal.get(Calendar.MONTH);
                   int day = cal.get(Calendar.DAY_OF_MONTH);
-                  txt_currDate.setText("Date:  " + year + "/" + (month) + "/" +day);
+                  txt_currDate.setText("Date:  " + year + "/" + (month+1) + "/" +day);
                      
                   
                   
