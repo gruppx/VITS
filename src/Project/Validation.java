@@ -35,20 +35,38 @@ public class Validation {
                     String user = rs.getString(4);
                     String pass = rs.getString(5);
                     int status = rs.getInt(6);
+                    MainFrameBoss mainFrameBoss = new MainFrameBoss();
+                    MainFrameConsultant mainFrameConsultant = new MainFrameConsultant();
+                    LogIn Login = new LogIn();
                     
                     if(username.equals(user) && password.equals(pass)){
                         if(status == 1){
                             JOptionPane.showMessageDialog(null, "Inloggad som chef!");
-                            MainFrameBoss mainFrameBoss = new MainFrameBoss();
+                            if(Login.Internet() == false){
                             mainFrameBoss.setVisible(true);
-                            mainFrameBoss.setLoggedInBossInfo(name, String.valueOf(id));
+                            mainFrameBoss.NoInternetAccess();
+                            
+                            }
+                            else if (Login.Internet() == true){                           
+                              mainFrameBoss.setVisible(true);
+                               mainFrameBoss.setLoggedInBossInfo(name, String.valueOf(id));
+                            }                             
                             logInStatus = true;
+                            
+                            
+                          
                         }
                         else if(status == 0){
-                            JOptionPane.showMessageDialog(null, "Inloggad som konsult!");
-                            MainFrameConsultant mainFrameConsultant = new MainFrameConsultant();
+                            if (Login.Internet() == false) {
+                                mainFrameBoss.setVisible(true);
+                            }
+                            else if (Login.Internet() == true) {
                             mainFrameConsultant.setVisible(true);
                             mainFrameConsultant.setLoggedInConsultantInfo(name, String.valueOf(id));
+                            }
+                            
+                            JOptionPane.showMessageDialog(null, "Inloggad som konsult!");           
+                            mainFrameConsultant.setVisible(true);                         
                             logInStatus = true;
                         }                        
                     }
