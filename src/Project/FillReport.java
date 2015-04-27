@@ -5,11 +5,7 @@
  */
 package Project;
 
-import static java.lang.Integer.parseInt;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -160,6 +156,11 @@ public class FillReport extends javax.swing.JInternalFrame {
         jLabel6.setText("Transport:");
 
         jButton2.setText("Add trip");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -241,22 +242,18 @@ public class FillReport extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(vacationdays)
                     .addComponent(txt_VacationDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cbx_Transport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(combobox_car, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_kilometers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_mil)
-                            .addComponent(jButton2))
-                        .addContainerGap())))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cbx_Transport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(combobox_car, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_mil)
+                    .addComponent(txt_kilometers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addGap(42, 42, 42))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -759,7 +756,6 @@ public class FillReport extends javax.swing.JInternalFrame {
         box_FromCountry.getSelectedItem().toString() + " " + "To: " + box_ToCountry.getSelectedItem() + "\n" +
         "Transport: " + cbx_Transport.getSelectedItem().toString() + "\n" + "Departure Date: )");  
         
-        
         String departureYear = cbx_DYear.getSelectedItem().toString();
         String departureMonth = cbx_DMonth.getSelectedItem().toString();
         String departureDay = cbx_DDay.getSelectedItem().toString();
@@ -849,7 +845,7 @@ public class FillReport extends javax.swing.JInternalFrame {
        result = ((traktamente * days) + car);
        
        result = result - (theReceipts - travelAdvance - reducedAmount);
-       lbl_result.setText(String.valueOf(result));
+  
     }//GEN-LAST:event_btn_SubmitActionPerformed
 
     private void btn_AddCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddCountryActionPerformed
@@ -1029,6 +1025,35 @@ if(checkbox_dinnerOrLunch.isSelected()){
  
 // TODO add your handling code here:
     }//GEN-LAST:event_txt_VacationDaysKeyReleased
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+String departureYear = cbx_DYear.getSelectedItem().toString();
+        String departureMonth = cbx_DMonth.getSelectedItem().toString();
+        String departureDay = cbx_DDay.getSelectedItem().toString();
+
+        String arrivalYear = cbx_AYear.getSelectedItem().toString();
+        String arrivalMonth = cbx_AMonth.getSelectedItem().toString();
+        String arrivalDay = cbx_ADay.getSelectedItem().toString();
+
+      
+        
+        int departure = Integer.parseInt( departureYear + departureMonth + departureDay);
+        int arrival = Integer.parseInt(arrivalYear + arrivalMonth  + arrivalDay );
+        try
+        {
+            String currID = LogIn.currentLoggedInID;
+             db.query("insert into Trip (FromCountry, ToCountry, Transport, DepartureDate, ArrivalDate, VacationDays, UserID, AssignmentID) values ('"+box_FromCountry.getSelectedItem()+"', "
+                + "'"+box_ToCountry.getSelectedItem()+"' , '"+cbx_Transport.getSelectedItem()+"' , '"+departure+"', '"+arrival+"', '"+txt_VacationDays.getText()+"', " + currID + ", 1)");
+        
+        }
+         /*db.query("insert into allowance(Country, Amount) values ('"+txt_CountryName.getText()+"', '"+txt_Amount.getText()+"')");*/
+       catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }   
+        txt_VacationDays.setText("");
+        txt_kilometers.setText("");// TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     
    private int getTravelAdvance(){
