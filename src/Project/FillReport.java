@@ -5,11 +5,16 @@
  */
 package Project;
 
+import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -24,12 +29,10 @@ public class FillReport extends javax.swing.JInternalFrame {
     ConnectionClass db = new ConnectionClass();
     int traktamente = 0;
     int temp = 0; 
-    int days = 10;
+    int days = 0;
     int vacationDays = 0;
     String country = "";
     public int traktamente2 = 0;
-    
-
     /**
      * Creates new form FillReport
      */
@@ -74,11 +77,8 @@ public class FillReport extends javax.swing.JInternalFrame {
         cbx_Transport = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        txt_reportTo = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        btn_Submit = new javax.swing.JButton();
+        lbltest = new javax.swing.JLabel();
+        testdate = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txt_reportInfo = new javax.swing.JTextArea();
@@ -103,6 +103,12 @@ public class FillReport extends javax.swing.JInternalFrame {
         txt_dinnerOrLunch = new javax.swing.JTextField();
         txt_breakfast = new javax.swing.JTextField();
         lbl_test2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        list_trips = new javax.swing.JList();
+        jPanel4 = new javax.swing.JPanel();
+        btn_Submit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -116,10 +122,13 @@ public class FillReport extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setText("Arrival Date:");
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Departure Date: ");
 
+        vacationdays.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         vacationdays.setText("Vacation Days:");
 
         txt_VacationDays.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -132,8 +141,10 @@ public class FillReport extends javax.swing.JInternalFrame {
 
         box_FromCountry.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("To:");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("From:");
 
         txt_kilometers.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -142,6 +153,7 @@ public class FillReport extends javax.swing.JInternalFrame {
             }
         });
 
+        lbl_mil.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbl_mil.setText("Mil:");
 
         combobox_car.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Own car", "Company car (diesel)", "Company car (other)" }));
@@ -153,6 +165,7 @@ public class FillReport extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Transport:");
 
         jButton2.setText("Add trip");
@@ -161,6 +174,10 @@ public class FillReport extends javax.swing.JInternalFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        lbltest.setText("jLabel8");
+
+        testdate.setText("jLabel10");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -185,10 +202,6 @@ public class FillReport extends javax.swing.JInternalFrame {
                                             .addComponent(cbx_Transport, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(combobox_car, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                                    .addComponent(txt_kilometers, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(jButton2))
                                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                                     .addComponent(cbx_AYear, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addGap(18, 18, 18)
@@ -200,7 +213,17 @@ public class FillReport extends javax.swing.JInternalFrame {
                                                     .addGap(18, 18, 18)
                                                     .addComponent(cbx_DMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addGap(18, 18, 18)
-                                                    .addComponent(cbx_DDay, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                                    .addComponent(cbx_DDay, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(txt_kilometers, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                            .addGap(70, 70, 70)
+                                                            .addComponent(testdate)))
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(lbltest)
+                                                        .addComponent(jButton2)))))))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,7 +233,7 @@ public class FillReport extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(box_ToCountry, javax.swing.GroupLayout.Alignment.TRAILING, 0, 324, Short.MAX_VALUE)
                                     .addComponent(box_FromCountry, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addContainerGap(18, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lbl_mil)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -253,68 +276,11 @@ public class FillReport extends javax.swing.JInternalFrame {
                     .addComponent(lbl_mil)
                     .addComponent(txt_kilometers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addGap(42, 42, 42))
-        );
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        txt_reportTo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_reportToActionPerformed(evt);
-            }
-        });
-
-        jLabel13.setText("To email:");
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        btn_Submit.setText("Submit");
-        btn_Submit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_SubmitActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_Submit)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_Submit)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_reportTo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txt_reportTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel13)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbltest)
+                    .addComponent(testdate))
+                .addGap(22, 22, 22))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -323,6 +289,7 @@ public class FillReport extends javax.swing.JInternalFrame {
         txt_reportInfo.setRows(5);
         jScrollPane1.setViewportView(txt_reportInfo);
 
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("Info:");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -348,6 +315,7 @@ public class FillReport extends javax.swing.JInternalFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        ASS.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         ASS.setText("Assignments:");
 
         box_Assignment.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -375,6 +343,7 @@ public class FillReport extends javax.swing.JInternalFrame {
 
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Boss");
 
         btn_AddCountry.setText("Add Country");
@@ -430,6 +399,7 @@ public class FillReport extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Reduced daily amounts:");
 
         checkbox_dinnerAndLunch.setText("Dinner and lunch (70%)");
@@ -462,6 +432,7 @@ public class FillReport extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Days:");
 
         txt_freeFood.setEnabled(false);
@@ -517,7 +488,7 @@ public class FillReport extends javax.swing.JInternalFrame {
                             .addComponent(txt_freeFood)
                             .addComponent(txt_dinnerAndLunch)
                             .addComponent(txt_dinnerOrLunch)
-                            .addComponent(txt_breakfast, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txt_breakfast))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
@@ -548,6 +519,62 @@ public class FillReport extends javax.swing.JInternalFrame {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setText("Trips (destination):");
+
+        jScrollPane2.setViewportView(list_trips);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(0, 14, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        btn_Submit.setText("Submit");
+        btn_Submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_SubmitActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_Submit)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_Submit)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -558,7 +585,7 @@ public class FillReport extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -569,8 +596,10 @@ public class FillReport extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(0, 527, Short.MAX_VALUE))
+                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 536, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -584,16 +613,19 @@ public class FillReport extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(57, 57, 57)
-                                .addComponent(jLabel4))
-                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(57, 57, 57)
+                                        .addComponent(jLabel4))
+                                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(272, 272, 272))
         );
 
@@ -722,7 +754,13 @@ public class FillReport extends javax.swing.JInternalFrame {
     }
 
     private void CreateReport(){
-    
+            String departureYear = cbx_DYear.getSelectedItem().toString();
+        String departureMonth = cbx_DMonth.getSelectedItem().toString();
+        String departureDay = cbx_DDay.getSelectedItem().toString();
+
+        String arrivalYear = cbx_AYear.getSelectedItem().toString();
+        String arrivalMonth = cbx_AMonth.getSelectedItem().toString();
+        String arrivalDay = cbx_ADay.getSelectedItem().toString();
     
           Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -737,72 +775,64 @@ public class FillReport extends javax.swing.JInternalFrame {
                 protected PasswordAuthentication getPasswordAuthentication()
                 {
                     return new PasswordAuthentication("vitstest1@gmail.com", "testtest1234");
-                    
-                    
                 } 
                 }
-                
-                
                 );
-       
         
+        String BossID1 = box_Boss.getSelectedItem().toString(); 
+        String query1 = "select Email from users where Name = '"+ BossID1 +"' ";
+            String bossEmail = "";    
+            String BossID = box_Boss.getSelectedItem().toString();
+            String query = "select UserID from users where Name ='"+ BossID +"' ";
+            int receiverID = 0;
+            int assignmentID = 0;
+            String queryAssignment = "select assignmentid from assignment where name = '"+box_Assignment.getSelectedItem().toString()+"'";
+        try {          
+             
+            db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            Statement statement = db.myConn.createStatement();
+            ResultSet getBossMail = statement.executeQuery(query1);
+            while(getBossMail.next()){
+                bossEmail = getBossMail.getString(1);
+            }
+            ResultSet getRecId = statement.executeQuery(query);
+            while(getRecId.next())
+            {
+                receiverID = getRecId.getInt(1);
+            }
+            ResultSet getAss = statement.executeQuery(queryAssignment);
+            while(getAss.next())
+            {
+                assignmentID = getAss.getInt(1);
+            }
+        }  catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
         try
         {
         Message message = new MimeMessage (session);
         message.setFrom(new InternetAddress("vitstest1@gmail.com"));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(txt_reportTo.getText()));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(bossEmail));
         message.setSubject("Rapport");
         message.setText(txt_reportInfo.getText() + "\n" + "\n" + "Assignment: " + box_Assignment.getSelectedItem().toString() + "\n" + "From: " +
         box_FromCountry.getSelectedItem().toString() + " " + "To: " + box_ToCountry.getSelectedItem() + "\n" +
         "Transport: " + cbx_Transport.getSelectedItem().toString() + "\n" + "Departure Date: )");  
         
-        String departureYear = cbx_DYear.getSelectedItem().toString();
-        String departureMonth = cbx_DMonth.getSelectedItem().toString();
-        String departureDay = cbx_DDay.getSelectedItem().toString();
-
-        String arrivalYear = cbx_AYear.getSelectedItem().toString();
-        String arrivalMonth = cbx_AMonth.getSelectedItem().toString();
-        String arrivalDay = cbx_ADay.getSelectedItem().toString();
-
-      
-        
-        int departure = Integer.parseInt( departureYear + departureMonth + departureDay);
-        int arrival = Integer.parseInt(arrivalYear + arrivalMonth  + arrivalDay );
+       
+        String senderID = LogIn.currentLoggedInID;
         
         
-        String currID = LogIn.currentLoggedInID;
-        
-        
-        String BossID = box_Boss.getSelectedItem().toString(); 
-             String query = "select UserID from users where Name ='"+ BossID +"' ";
-                  int ReciverID = db.getID(query);
         // hämtar ReciverID från User tabellen
                   
-        String Date = "2015-04-22";
+        String date = "2015-04-27";
         // lägger ett värde på date, måste hämta värde på denna från klocka i framtiden
         
-        int Sent = 0;
-        // värde på sent, 0 = inte skickas, 1 = skickad. om den är 0 så är den skriven i offline mode.
-        
-        int Approval = 0;
-        // Approval är om 0 = inte granskad , 1 = godkänd, 2 = icke godkänd , måste ändras senare i en annan klass.
-        
-        int AssignmentID = 1;
-        
-        
-        
-        
-        
-        
-         
-        try
+        String insert = "insert into report (SenderID, ReceiverID, Date, Sent, Approved, AssignmentID) values ("
+                +senderID+", "+receiverID+", '"+date+"', 0, 0, "+assignmentID+")";
+                try
         {
-             db.query("insert into Trip (FromCountry, ToCountry, Transport, DepartureDate, ArrivalDate, VacationDays, UserID, AssignmentID) values ('"+box_FromCountry.getSelectedItem()+"', "
-                + "'"+box_ToCountry.getSelectedItem()+"' , '"+cbx_Transport.getSelectedItem()+"' , '"+departure+"', '"+arrival+"', '"+txt_VacationDays.getText()+"', " + currID + ", 1)");
-        
-               db.query("insert into report (SenderID, ReceiverID, Date, Sent, Approved, AssignmentID) values ("+currID+","
-                       + " " + "'"+ReciverID+"' , '"+Date+"' , '"+Sent+"', '"+Approval+"', '"+ AssignmentID +"')");
-             
+            db.query(insert);
         }
         
          /*db.query("insert into allowance(Country, Amount) values ('"+txt_CountryName.getText()+"', '"+txt_Amount.getText()+"')");*/
@@ -812,12 +842,6 @@ public class FillReport extends javax.swing.JInternalFrame {
         }
         
          
-            
-     
-      
-       
-        
-        
         Transport.send(message);
         JOptionPane.showMessageDialog(rootPane, "Rapport skickad!");
         
@@ -832,19 +856,14 @@ public class FillReport extends javax.swing.JInternalFrame {
     
     }
     
-    
-    
-    
-    
-    
     private void btn_SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SubmitActionPerformed
        CreateReport();
-       int travelAdvance = getTravelAdvance();
-       int theReceipts = getReceipts();
+       travelAdvances = 0;
+       receipts = 0;
        days = days - vacationDays;
        result = ((traktamente * days) + car);
        
-       result = result - (theReceipts - travelAdvance - reducedAmount);
+       result = result - (receipts - travelAdvances - reducedAmount);
   
     }//GEN-LAST:event_btn_SubmitActionPerformed
 
@@ -853,10 +872,6 @@ public class FillReport extends javax.swing.JInternalFrame {
         AddCountry.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_AddCountryActionPerformed
-
-    private void txt_reportToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_reportToActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_reportToActionPerformed
 
     private void cbx_TransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_TransportActionPerformed
             if(cbx_Transport.getSelectedItem().toString().equals("Car"))
@@ -1051,24 +1066,61 @@ String departureYear = cbx_DYear.getSelectedItem().toString();
         {
             JOptionPane.showMessageDialog(null, e);
         }   
+        String country2 = box_ToCountry.getSelectedItem().toString();
+        try{
+     String query = "select amount from allowance where country = '"+country2+"'";
+     
+     db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            Statement statement = db.myConn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                traktamente = rs.getInt(1);
+                lbltest.setText(String.valueOf(traktamente));
+            }
+            DefaultListModel DLM = new DefaultListModel();
+            ResultSet addTrips = db.getColumn("select * from trips where reportid is null");
+            
+            while(addTrips.next()) //Använd ALLTID while av denna typ! annars stöter du på "after end och result set"
+            {
+            DLM.addElement(addTrips.getString("ToCountry"));
+            }
+            list_trips.setModel(DLM);
+       }
+       catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }    
+        Calendar cal1 = new GregorianCalendar();
+        Calendar cal2 = new GregorianCalendar();
+        cal1.set(Integer.parseInt(departureYear), Integer.parseInt(departureMonth), Integer.parseInt(departureDay));
+        cal2.set(Integer.parseInt(arrivalYear), Integer.parseInt(arrivalMonth), Integer.parseInt(arrivalDay));
+        int days = daysBetween(cal1.getTime(), cal2.getTime());
+        testdate.setText(String.valueOf(days));
+        //räknar ut dagar mellan två datum
         txt_VacationDays.setText("");
         txt_kilometers.setText("");// TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    static int daysBetween(java.util.Date date, java.util.Date date2)
+{
+	return (int)((date2.getTime()-date.getTime())/(1000*60*60*24));
+}//räknar ut dagar mellan två datum
     
    private int getTravelAdvance(){
        int amount = 0;
        try{
            String senderID = LogIn.currentLoggedInID;
-           int sender = db.getID("select userid from users where userid = "+senderID);
-           amount = db.getID("select amount from traveladvances where assignmentid = (select assignmentid from report where senderID = "+sender+") and senderID = "+sender+";");
-       }
+            db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            Statement statement = db.myConn.createStatement();
+            ResultSet rs = statement.executeQuery("select amount from traveladvances where assignmentid = (select assignmentid from report where senderID = "+senderID+") and senderID = "+senderID+";");
+            while (rs.next()) {
+                amount = rs.getInt(1);
+            }
+             }
        catch(Exception e)
         {
             JOptionPane.showMessageDialog(null, e);
         }
-      
-       lbl_test2.setText(String.valueOf(amount));
        return amount;
    }
    
@@ -1147,7 +1199,6 @@ String departureYear = cbx_DYear.getSelectedItem().toString();
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1155,17 +1206,22 @@ String departureYear = cbx_DYear.getSelectedItem().toString();
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl_mil;
     private javax.swing.JLabel lbl_test2;
+    private javax.swing.JLabel lbltest;
+    private javax.swing.JList list_trips;
+    private javax.swing.JLabel testdate;
     private javax.swing.JTextField txt_VacationDays;
     private javax.swing.JTextField txt_breakfast;
     private javax.swing.JTextField txt_dinnerAndLunch;
@@ -1173,7 +1229,6 @@ String departureYear = cbx_DYear.getSelectedItem().toString();
     private javax.swing.JTextField txt_freeFood;
     private javax.swing.JTextField txt_kilometers;
     private javax.swing.JTextArea txt_reportInfo;
-    private javax.swing.JTextField txt_reportTo;
     private javax.swing.JLabel vacationdays;
     // End of variables declaration//GEN-END:variables
 }

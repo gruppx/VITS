@@ -35,20 +35,38 @@ public class Validation {
                     String user = rs.getString(4);
                     String pass = rs.getString(5);
                     int status = rs.getInt(6);
+                    MainFrameBoss mainFrameBoss = new MainFrameBoss();
+                    MainFrameConsultant mainFrameConsultant = new MainFrameConsultant();
+                    LogIn Login = new LogIn();
                     
                     if(username.equals(user) && password.equals(pass)){
                         if(status == 1){
                             JOptionPane.showMessageDialog(null, "Inloggad som chef!");
-                            MainFrameBoss mainFrameBoss = new MainFrameBoss();
+                            if(Login.Internet() == false){
                             mainFrameBoss.setVisible(true);
-                            mainFrameBoss.setLoggedInBossInfo(name, String.valueOf(id));
+                            mainFrameBoss.NoInternetAccess();
+                            
+                            }
+                            else if (Login.Internet() == true){                           
+                              mainFrameBoss.setVisible(true);
+                               mainFrameBoss.setLoggedInBossInfo(name, String.valueOf(id));
+                            }                             
                             logInStatus = true;
+                            
+                            
+                          
                         }
                         else if(status == 0){
-                            JOptionPane.showMessageDialog(null, "Inloggad som konsult!");
-                            MainFrameConsultant mainFrameConsultant = new MainFrameConsultant();
+                            if (Login.Internet() == false) {
+                                mainFrameBoss.setVisible(true);
+                            }
+                            else if (Login.Internet() == true) {
                             mainFrameConsultant.setVisible(true);
                             mainFrameConsultant.setLoggedInConsultantInfo(name, String.valueOf(id));
+                            }
+                            
+                            JOptionPane.showMessageDialog(null, "Inloggad som konsult!");           
+                            mainFrameConsultant.setVisible(true);                         
                             logInStatus = true;
                         }                        
                     }
@@ -65,6 +83,33 @@ public class Validation {
             JOptionPane.showMessageDialog(null, "Fälten får inte vara tomma.");
         }
         return logInStatus;
+    }
+    
+    static public boolean checkEmail(String email){
+        boolean ok = false;
+        
+        String pattern = "^[A-Za-z0-9_.]+[@][A-Za-z]+\\.+[A-Za-z]+$";
+        
+        if(email.matches(pattern)){
+            ok = true;
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Please enter a valid email.");
+        }
+        return ok;
+    }
+    
+    static public boolean validateUser(String name, String email, String user, String pass){
+        boolean ok = false;
+        
+        if(name.isEmpty() && email.isEmpty() && user.isEmpty() && pass.isEmpty()){
+            JOptionPane.showMessageDialog(null, "The fields cannot be empty!");
+        }
+        else if(checkEmail(email)){
+            ok = true;
+        }
+        
+        return ok;
     }
     
 }
