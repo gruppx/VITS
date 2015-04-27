@@ -17,6 +17,7 @@ public class AddTravelAdvances extends javax.swing.JInternalFrame {
     public AddTravelAdvances() {
         initComponents();
         fillBoxes();
+        fillBoss();
     }
 
     /**
@@ -42,13 +43,6 @@ public class AddTravelAdvances extends javax.swing.JInternalFrame {
 
         cbox_assignment.setMaximumRowCount(999);
         cbox_assignment.setToolTipText("");
-
-        cbox_boss.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbox_boss.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbox_bossActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Amount:");
 
@@ -135,19 +129,21 @@ public class AddTravelAdvances extends javax.swing.JInternalFrame {
 
     private void btn_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sendActionPerformed
         int travelID;
+        int userID;
+        String currID = LogIn.currentLoggedInID;
         String name = cbox_assignment.getSelectedItem().toString();
+        String bossname = cbox_boss.getSelectedItem().toString();
+        String text = "hello";
+        String status = "0";
+        
         try{
            travelID =  db.getID("select assignmentid from assignment where name = '"+name+"'");
-            db.query("insert into traveladvances(amount, approved, assignmentid, reason) values("+
-                    txt_amount.getText()+", 0, "+travelID+", '"+txt_info.getText()+"')");
+           userID =  db.getID("select userid from users where name = '"+bossname+"'");
+            db.query("insert into traveladvances(amount, approved, assignmentid, reason, senderid, receiverid) values('" +txt_amount.getText()+ "','" + (status) + "','" + (travelID) + "','" +txt_info.getText()+ "','" + (userID) +"','"+ (currID) +"')");
         }catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
       }
     }//GEN-LAST:event_btn_sendActionPerformed
-
-    private void cbox_bossActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_bossActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbox_bossActionPerformed
 
     private void txt_infoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_infoKeyPressed
 if(evt.getKeyCode() ==KeyEvent.VK_ENTER){ 
@@ -157,7 +153,7 @@ int travelID;
         try{
            travelID =  db.getID("select assignmentid from assignment where name = '"+name+"'");
             db.query("insert into traveladvances(amount, approved, assignmentid, reason) values("+
-                    txt_amount.getText()+", 0, "+travelID+", '"+txt_info.getText()+"')");
+                    txt_amount.getText()+", 0, "+travelID+", "+txt_info.getText()+")");
         }catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
       }
@@ -171,15 +167,33 @@ int travelID;
         int numOfUsers;
         try{
             numOfUsers = db.getCount("assignment");
-            for (int i=0; i<numOfUsers; i++)
+            while(names.next())
             {
-            names.next();
             cbox_assignment.addItem(names.getString("name"));
             }
         }
         catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
       }
+    }
+    
+    private void fillBoss(){
+        cbox_boss.removeAllItems();
+        ResultSet names = db.getColumn("select * from users where status = 1");
+int numOfUsers;
+try{
+    
+numOfUsers = db.getCount("users");
+while(names.next())
+{
+
+cbox_boss.addItem(names.getString("username"));
+
+}
+}
+catch(Exception e){
+JOptionPane.showMessageDialog(null, e.getMessage());
+}
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

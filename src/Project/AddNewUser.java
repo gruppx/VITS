@@ -43,8 +43,8 @@ public class AddNewUser extends javax.swing.JInternalFrame {
         txt_UserName = new javax.swing.JTextField();
         txt_UserEmail = new javax.swing.JTextField();
         txt_UsernameName = new javax.swing.JTextField();
-        txt_Password = new javax.swing.JTextField();
         jButton_AddUserSave = new javax.swing.JButton();
+        txt_Password = new javax.swing.JPasswordField();
 
         jLabel_NewUser.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel_NewUser.setText("Add a new user:");
@@ -95,13 +95,13 @@ public class AddNewUser extends javax.swing.JInternalFrame {
                         .addComponent(jLabel_AddPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel_AddUserNameStatus))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_UserName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_UserEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_UsernameName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txt_UserName, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(txt_UserEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(txt_UsernameName, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                     .addComponent(box_Status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_AddUserSave, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jButton_AddUserSave, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txt_Password))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -129,7 +129,7 @@ public class AddNewUser extends javax.swing.JInternalFrame {
                     .addComponent(box_Status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_AddUserSave)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -175,27 +175,36 @@ public class AddNewUser extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_box_StatusActionPerformed
 
     private void jButton_AddUserSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddUserSaveActionPerformed
-           
+                
+        String uEmail = txt_UserEmail.getText();
+        String uName = txt_UserName.getText();
+        String uUser = txt_UsernameName.getText();
+        String uPass = txt_Password.getText();
         int Status = 0;
+        
         if (box_Status.getSelectedItem().toString() == "Boss"){
             Status = 1;
             System.out.println("Motha");
            }
         
-             try
-        {
-             db.query("insert into users(name, email, username, password, status) values ('" +txt_UserName.getText()+ "', "
-                     + " '"+txt_UserEmail.getText()+"',"
-                     + " '"+txt_UsernameName.getText()+"',"
-                     + " '"+txt_Password.getText()+"',"
+        
+        if(Validation.validateUser(uName, uEmail, uUser, uPass)){
+            try {
+             db.query("insert into users(name, email, username, password, status) values ('" +uName+ "', "
+                     + " '"+uEmail+"',"
+                     + " '"+uUser+"',"
+                     + " '"+uPass+"',"
                      + " '"+Status+"')");
+            }
+
+           /* query("insert into users(name, email, username, password, status) values ('niklas', 'niklas', 'niklas', 'nilkas', 3);");*/
+            catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null, "Det gick inte att lägga till en användare");
+            }
         }
-   
-       /* query("insert into users(name, email, username, password, status) values ('niklas', 'niklas', 'niklas', 'nilkas', 3);");*/
-        catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, "Det gick inte att lägga till en användare");
-        }
+        
+        
         
 
 
@@ -213,7 +222,7 @@ public class AddNewUser extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel_AddUserNameStatus;
     private javax.swing.JLabel jLabel_NewUser;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txt_Password;
+    private javax.swing.JPasswordField txt_Password;
     private javax.swing.JTextField txt_UserEmail;
     private javax.swing.JTextField txt_UserName;
     private javax.swing.JTextField txt_UsernameName;
