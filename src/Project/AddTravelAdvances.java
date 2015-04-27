@@ -167,9 +167,8 @@ int travelID;
         int numOfUsers;
         try{
             numOfUsers = db.getCount("assignment");
-            for (int i=0; i<numOfUsers; i++)
+            while(names.next())
             {
-            names.next();
             cbox_assignment.addItem(names.getString("name"));
             }
         }
@@ -185,9 +184,9 @@ int numOfUsers;
 try{
     
 numOfUsers = db.getCount("users");
-for (int i=0; i<numOfUsers; i++)
+while(names.next())
 {
-names.next();
+
 cbox_boss.addItem(names.getString("username"));
 
 }
