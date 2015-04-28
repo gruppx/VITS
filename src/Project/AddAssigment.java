@@ -86,8 +86,6 @@ ConnectionClass db = new ConnectionClass(); //skapar connection till databas
         Combo_Assigment = new javax.swing.JComboBox();
         jButton_AddAssigment = new javax.swing.JButton();
         Remove_delete = new javax.swing.JButton();
-        lbltest = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -195,31 +193,15 @@ ConnectionClass db = new ConnectionClass(); //skapar connection till databas
                 .addContainerGap())
         );
 
-        lbltest.setText("jLabel1");
-
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(16, 16, 16)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbltest)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -229,11 +211,7 @@ ConnectionClass db = new ConnectionClass(); //skapar connection till databas
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbltest)
-                    .addComponent(jButton2))
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
 
         setBounds(0, 0, 668, 398);
@@ -354,24 +332,6 @@ if(evt.getKeyCode() ==KeyEvent.VK_ENTER){
 }
     }//GEN-LAST:event_jTextField_infoKeyPressed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
- try{
-     String query = "select amount from allowance where country = 'finland'";
-     
-     db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
-            Statement statement = db.myConn.createStatement();
-            ResultSet rs = statement.executeQuery(query);
-            while (rs.next()) {
-                int tID = rs.getInt(1);
-                lbltest.setText((String.valueOf(tID)));
-            }
-       }
-       catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, e);
-        }     
-    }//GEN-LAST:event_jButton2ActionPerformed
-
 
     /**
      * fyller comboboxen med alla assigment
@@ -405,7 +365,6 @@ if(evt.getKeyCode() ==KeyEvent.VK_ENTER){
     private javax.swing.JButton Remove_delete;
     private javax.swing.JButton ShowInfo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton_AddAssigment;
     private javax.swing.JLabel jLabel_Name;
     private javax.swing.JLabel jLabel_info;
@@ -414,6 +373,5 @@ if(evt.getKeyCode() ==KeyEvent.VK_ENTER){
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField_Name;
     private javax.swing.JTextArea jTextField_info;
-    private javax.swing.JLabel lbltest;
     // End of variables declaration//GEN-END:variables
 }
