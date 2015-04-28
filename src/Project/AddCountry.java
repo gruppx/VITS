@@ -7,6 +7,9 @@ package Project;
 
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import java.awt.Desktop;
+import java.net.URI;
+
 
 /**
  *
@@ -40,6 +43,7 @@ public class AddCountry extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txt_Amount = new javax.swing.JTextField();
         btn_AddCountry = new javax.swing.JButton();
+        lbl_link = new javax.swing.JLabel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -66,6 +70,13 @@ public class AddCountry extends javax.swing.JFrame {
             }
         });
 
+        lbl_link.setText("Link to  foreign allowance");
+        lbl_link.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lbl_linkMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -80,10 +91,14 @@ public class AddCountry extends javax.swing.JFrame {
                         .addGap(78, 78, 78))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_AddCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_CountryName, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_Amount, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_AddCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_link))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,9 +111,10 @@ public class AddCountry extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(3, 3, 3)
                 .addComponent(txt_Amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(btn_AddCountry)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(lbl_link)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_AddCountry))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -152,10 +168,22 @@ if(evt.getKeyCode() ==KeyEvent.VK_ENTER){
 }
     }//GEN-LAST:event_txt_AmountKeyPressed
 
+    private void lbl_linkMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_linkMousePressed
+        // TODO add your handling code here:
+        try{
+            String URL = "http://www.skatteverket.se/privat/skatter/arbeteinkomst/traktamente/utlandstraktamente.4.2b543913a42158acf800016035.html";
+        java.awt.Desktop.getDesktop().browse(java.net.URI.create(URL));
+        }       
+        catch(Exception e){
+        JOptionPane.showMessageDialog(null, e.getMessage());
+      }
+
+    }//GEN-LAST:event_lbl_linkMousePressed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])throws Exception {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -179,12 +207,14 @@ if(evt.getKeyCode() ==KeyEvent.VK_ENTER){
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the form */ 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AddCountry().setVisible(true);
             }
         });
+    
+    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -192,6 +222,7 @@ if(evt.getKeyCode() ==KeyEvent.VK_ENTER){
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbl_link;
     private javax.swing.JTextField txt_Amount;
     private javax.swing.JTextField txt_CountryName;
     // End of variables declaration//GEN-END:variables
