@@ -57,10 +57,8 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="btn_manageDocuments" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btn_addNewUser" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btn_manageUser" min="-2" pref="109" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
+                      <Component id="btn_manageUsers" min="-2" pref="109" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btn_addAssignment" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -93,12 +91,11 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btn_manageDocuments" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn_addNewUser" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_writeNewReport" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_writeNewTravelAdvance" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_search" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_addAssignment" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn_manageUser" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_manageUsers" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -130,14 +127,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_manageDocumentsActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btn_addNewUser">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Add new user"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_addNewUserActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_writeNewReport">
@@ -172,12 +161,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_addAssignmentActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btn_manageUser">
+    <Component class="javax.swing.JButton" name="btn_manageUsers">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Manage User"/>
+        <Property name="text" type="java.lang.String" value="Manage users"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_manageUserActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_manageUsersActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="label_loggedInBossID">

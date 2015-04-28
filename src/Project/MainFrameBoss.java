@@ -22,11 +22,10 @@ public class MainFrameBoss extends javax.swing.JFrame {
     ConnectionClass db;
     
     AddAssigment addAss;
-    AddNewUser addNewUser;
     AddReport addReport;
     AddTravelAdvances addTravelAdvances;
     FillReport fillReport;
-    ManageUser manageUser;
+    ManageUsers manageUser;
     ManageDocuments newReportsTrAd;
     Search search;
     WriteTravelOrdre writeTravelOrdre;
@@ -60,8 +59,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
     public void NoInternetAccess(){
     
               btn_manageDocuments.setVisible(false);
-               btn_addNewUser.setVisible(false);
-                btn_manageUser.setVisible(false);
+                btn_manageUsers.setVisible(false);
                  btn_addAssignment.setVisible(false);
                   btn_writeNewTravelAdvance.setVisible(false);
                    btn_search.setVisible(false);
@@ -119,12 +117,11 @@ public class MainFrameBoss extends javax.swing.JFrame {
 
         desktopPanel = new javax.swing.JDesktopPane();
         btn_manageDocuments = new javax.swing.JButton();
-        btn_addNewUser = new javax.swing.JButton();
         btn_writeNewReport = new javax.swing.JButton();
         btn_writeNewTravelAdvance = new javax.swing.JButton();
         btn_search = new javax.swing.JButton();
         btn_addAssignment = new javax.swing.JButton();
-        btn_manageUser = new javax.swing.JButton();
+        btn_manageUsers = new javax.swing.JButton();
         label_loggedInBossID = new javax.swing.JLabel();
         label_loggedInName = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -151,13 +148,6 @@ public class MainFrameBoss extends javax.swing.JFrame {
         btn_manageDocuments.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_manageDocumentsActionPerformed(evt);
-            }
-        });
-
-        btn_addNewUser.setText("Add new user");
-        btn_addNewUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_addNewUserActionPerformed(evt);
             }
         });
 
@@ -189,10 +179,10 @@ public class MainFrameBoss extends javax.swing.JFrame {
             }
         });
 
-        btn_manageUser.setText("Manage User");
-        btn_manageUser.addActionListener(new java.awt.event.ActionListener() {
+        btn_manageUsers.setText("Manage users");
+        btn_manageUsers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_manageUserActionPerformed(evt);
+                btn_manageUsersActionPerformed(evt);
             }
         });
 
@@ -228,16 +218,13 @@ public class MainFrameBoss extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(label_loggedInName, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(303, 303, 303)
                         .addComponent(label_loggedInBossID, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btn_manageDocuments)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_addNewUser)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_manageUser, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(111, 111, 111)
+                        .addComponent(btn_manageUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_addAssignment)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -264,12 +251,11 @@ public class MainFrameBoss extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_manageDocuments)
-                    .addComponent(btn_addNewUser)
                     .addComponent(btn_writeNewReport)
                     .addComponent(btn_writeNewTravelAdvance)
                     .addComponent(btn_search)
                     .addComponent(btn_addAssignment)
-                    .addComponent(btn_manageUser)
+                    .addComponent(btn_manageUsers)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(desktopPanel)
@@ -287,10 +273,10 @@ public class MainFrameBoss extends javax.swing.JFrame {
         showAddAss();
     }//GEN-LAST:event_btn_addAssignmentActionPerformed
 
-    private void btn_manageUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_manageUserActionPerformed
+    private void btn_manageUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_manageUsersActionPerformed
         hideAllFrames();
         showManageUser();
-    }//GEN-LAST:event_btn_manageUserActionPerformed
+    }//GEN-LAST:event_btn_manageUsersActionPerformed
 
     private void btn_writeNewTravelAdvanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_writeNewTravelAdvanceActionPerformed
         hideAllFrames();
@@ -304,11 +290,6 @@ public class MainFrameBoss extends javax.swing.JFrame {
         newReportsTrAd.updateReportList();
         newReportsTrAd.updateTravelAdvancesList();
     }//GEN-LAST:event_btn_manageDocumentsActionPerformed
-
-    private void btn_addNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addNewUserActionPerformed
-        hideAllFrames();
-        showAddNewUser();
-    }//GEN-LAST:event_btn_addNewUserActionPerformed
 
     private void btn_writeNewReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_writeNewReportActionPerformed
         hideAllFrames();
@@ -366,15 +347,13 @@ showWriteTravelOrdre();
     private void addAllFramesToPane() {        
         addAss = new AddAssigment();
         desktopPanel.add(addAss);
-        addNewUser = new AddNewUser();
-        desktopPanel.add(addNewUser);
         addReport = new AddReport();
         desktopPanel.add(addReport);
         addTravelAdvances = new AddTravelAdvances();
         desktopPanel.add(addTravelAdvances);
         fillReport = new FillReport();
         desktopPanel.add(fillReport);
-        manageUser = new ManageUser();
+        manageUser = new ManageUsers();
         desktopPanel.add(manageUser);
         newReportsTrAd = new ManageDocuments();
         desktopPanel.add(newReportsTrAd);
@@ -394,15 +373,7 @@ showWriteTravelOrdre();
         }
     }
     
-    private void showAddNewUser(){
-        addNewUser.show();
-        try {       
-            addNewUser.setMaximum(true);
-            addNewUser.setSelected(rootPaneCheckingEnabled);
-        } catch (PropertyVetoException e) {
-          JOptionPane.showMessageDialog(null, e.getMessage());    // Ev. errormeddelande
-        }
-    }
+    
     
     private void showAddReport(){
         addReport.show();
@@ -479,7 +450,6 @@ showWriteTravelOrdre();
     private void hideAllFrames(){        
         try {  
                 addAss.hide();
-                addNewUser.hide();
                 addReport.hide();
                 addTravelAdvances.hide();
                 fillReport.hide();
@@ -497,9 +467,8 @@ showWriteTravelOrdre();
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addAssignment;
-    private javax.swing.JButton btn_addNewUser;
     private javax.swing.JButton btn_manageDocuments;
-    private javax.swing.JButton btn_manageUser;
+    private javax.swing.JButton btn_manageUsers;
     private javax.swing.JButton btn_search;
     private javax.swing.JButton btn_writeNewReport;
     private javax.swing.JButton btn_writeNewTravelAdvance;
