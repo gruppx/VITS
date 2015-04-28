@@ -52,7 +52,7 @@ JOptionPane.showMessageDialog(null, e.getMessage());
     
         
         String ID = db.getString(sqlID);
-            labelID.setText("dsa");
+            labelID.setText(ID);
             
             String Name = db.getString(sqlName);
             labelName.setText(Name);
