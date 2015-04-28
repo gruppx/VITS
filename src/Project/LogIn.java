@@ -74,7 +74,7 @@ public class LogIn extends javax.swing.JFrame {
         label_welcome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         label_welcome.setText("Welcome to");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/logga.gif"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/logga2.gif"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
