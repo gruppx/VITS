@@ -191,6 +191,8 @@ JOptionPane.showMessageDialog(null, e.getMessage());
         cbx_ADay = new javax.swing.JComboBox();
         jButton2 = new javax.swing.JButton();
 
+        setTitle("Write new travel order");
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Select yourself");
 
@@ -210,6 +212,11 @@ JOptionPane.showMessageDialog(null, e.getMessage());
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -334,6 +341,10 @@ JOptionPane.showMessageDialog(null, e.getMessage());
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
 AddTravelOrdre();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

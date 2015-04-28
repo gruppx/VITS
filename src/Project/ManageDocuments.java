@@ -311,6 +311,9 @@ public class ManageDocuments extends javax.swing.JInternalFrame {
         niklas = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
+        setTitle("Manage documents");
+        setToolTipText("");
+
         label_listReports.setText("Reports");
 
         btn_approveReport.setText("Approve");

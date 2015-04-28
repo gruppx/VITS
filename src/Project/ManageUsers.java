@@ -68,6 +68,9 @@ public class ManageUsers extends javax.swing.JInternalFrame {
         jButton_AddUserSave = new javax.swing.JButton();
         txt_Password = new javax.swing.JPasswordField();
 
+        setTitle("Manage users");
+        setToolTipText("");
+
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton1.setText("Delete User");

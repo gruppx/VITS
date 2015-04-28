@@ -144,6 +144,7 @@ public class FillReport extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Write new report");
 
         jLabel4.setText("-");
 

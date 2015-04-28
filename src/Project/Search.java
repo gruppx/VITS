@@ -109,6 +109,8 @@ public class Search extends javax.swing.JInternalFrame {
         labelArrival = new javax.swing.JLabel();
         labelCountry = new javax.swing.JLabel();
 
+        setTitle("Search");
+
         txt_search.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txt_searchKeyReleased(evt);

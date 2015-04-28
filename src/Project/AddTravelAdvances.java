@@ -39,6 +39,8 @@ public class AddTravelAdvances extends javax.swing.JInternalFrame {
         txt_info = new javax.swing.JTextArea();
         btn_send = new javax.swing.JButton();
 
+        setTitle("Write new travel advance");
+
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         cbox_assignment.setMaximumRowCount(999);
@@ -164,9 +166,7 @@ int travelID;
 
     private void fillBoxes(){
         ResultSet names = db.getColumn("select * from assignment");
-        int numOfUsers;
         try{
-            numOfUsers = db.getCount("assignment");
             while(names.next())
             {
             cbox_assignment.addItem(names.getString("name"));
@@ -180,10 +180,8 @@ int travelID;
     private void fillBoss(){
         cbox_boss.removeAllItems();
         ResultSet names = db.getColumn("select * from users where status = 1");
-int numOfUsers;
+
 try{
-    
-numOfUsers = db.getCount("users");
 while(names.next())
 {
 
