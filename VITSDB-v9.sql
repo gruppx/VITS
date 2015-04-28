@@ -38,6 +38,7 @@ CREATE TABLE `allowance` (
 
 LOCK TABLES `allowance` WRITE;
 /*!40000 ALTER TABLE `allowance` DISABLE KEYS */;
+INSERT INTO `allowance` VALUES ('Denmark',873),('Finland',678),('France',649),('Germany',571),('Japan',470),('Norway',961),('Poland',357),('Russia',599),('Sweden',220),('Uganda',325),('UK',680),('USA',552);
 /*!40000 ALTER TABLE `allowance` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,30 +67,6 @@ LOCK TABLES `assignment` WRITE;
 /*!40000 ALTER TABLE `assignment` DISABLE KEYS */;
 INSERT INTO `assignment` VALUES (1,'Networking with Apple','Networking at the iPhone release event.'),(2,'Spy on Microsoft','Steal information about the new \"revolutionary\" Holo Lens.');
 /*!40000 ALTER TABLE `assignment` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `images`
---
-
-DROP TABLE IF EXISTS `images`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `images` (
-  `ImageID` int(11) NOT NULL AUTO_INCREMENT,
-  `Photo` mediumblob,
-  PRIMARY KEY (`ImageID`),
-  UNIQUE KEY `ImageID_UNIQUE` (`ImageID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `images`
---
-
-LOCK TABLES `images` WRITE;
-/*!40000 ALTER TABLE `images` DISABLE KEYS */;
-/*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -244,7 +221,7 @@ CREATE TABLE `trip` (
   `ArrivalDate` datetime NOT NULL,
   `VacationDays` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
-  `ReportID` int(11) NOT NULL,
+  `ReportID` int(11) DEFAULT NULL,
   `AssignmentID` int(11) NOT NULL,
   PRIMARY KEY (`TripID`),
   UNIQUE KEY `TripID_UNIQUE` (`TripID`),
@@ -283,7 +260,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`UserID`),
   UNIQUE KEY `UserID_UNIQUE` (`UserID`),
   UNIQUE KEY `Username_UNIQUE` (`Username`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -292,7 +269,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'User','user@user.com','user','123456',1),(2,'Bob Karlsson','bobby@mail.com','bobtheman','123456',1),(3,'Lisa Smith','lisasmith@mail.com','lisasmith','123456',1),(4,'Mary Jane','maryjane@gmail.com','mary90','123456',0),(5,'Andy Page','andyp@mail.net','andypage','123456',0),(6,'Mike Hawk','hawkmike@gmail.com','mikehawk','123456',0),(7,'Ralf Svensson','raffe@gmail.com','raffeee','123456',1);
+INSERT INTO `users` VALUES (1,'Filip Gezelius','filgev131@studentmail.oru.se','filip','123',1),(2,'Niklas Sundberg','ivanhoesmith22@gmail.com','niklas','123',1),(3,'Adam Hotcocoa','adam_getachew@hotmail.com','adam','123',1),(4,'Henrik Ho','henrik.yuan.ho@hotmail.com','henrikho','123',1),(5,'Henrik Björklund','henrik.bjorklund@live.se','henrikbj','123',1),(6,'Josefin Ericson','josefin.ericson@outlook.com','josefin','123',1),(7,'Daahir Galbeyte','Musse.ahmed@hotmail.com','musse','123',1),(8,'Sakariye Jibril','sakariyejunni5@gmail.com','sakariye','123',1),(9,'Gaspar Perez','gaspariperez@gmail.com','gaspar','123',1),(10,'Philip Börlin','philip.borlin@gmail.com','philip','123',1),(11,'Boss','boss@boss.com','boss','123',1),(12,'Consultant','consultant@user.com','consultant','123',0),(13,'User','user@user.com','user','123',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -305,4 +282,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-24 15:52:48
+-- Dump completed on 2015-04-28 11:52:20

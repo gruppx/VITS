@@ -41,7 +41,7 @@ public class Validation {
                     
                     if(username.equals(user) && password.equals(pass)){
                         if(status == 1){
-                            JOptionPane.showMessageDialog(null, "Inloggad som chef!");
+                            JOptionPane.showMessageDialog(null, "Logged in as boss!");
                             if(Login.Internet() == false){
                             mainFrameBoss.setVisible(true);
                             mainFrameBoss.NoInternetAccess();
@@ -68,14 +68,14 @@ public class Validation {
                             mainFrameConsultant.setLoggedInConsultantInfo(name, String.valueOf(id));
                             }
                             
-                            JOptionPane.showMessageDialog(null, "Inloggad som konsult!");           
+                            JOptionPane.showMessageDialog(null, "Logged in as consultant!");           
                             mainFrameConsultant.setVisible(true);                         
                             logInStatus = true;
                         }                        
                     }
                 }
                 else {
-                    JOptionPane.showMessageDialog(null, "Fel användarnamn eller lösenord!");
+                    JOptionPane.showMessageDialog(null, "Wrong password or username!");
                 }
             }
             catch(Exception e){
@@ -83,7 +83,7 @@ public class Validation {
             }     
         }
         else{
-            JOptionPane.showMessageDialog(null, "Fälten får inte vara tomma.");
+            JOptionPane.showMessageDialog(null, "The fields cannot be empty!");
         }
         return logInStatus;
     }
