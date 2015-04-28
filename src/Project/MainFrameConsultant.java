@@ -27,6 +27,7 @@ public class MainFrameConsultant extends javax.swing.JFrame {
     AddTravelAdvances addTravelAdvances;   
     FillReport fillReport;
     WriteTravelOrdre writeTravelOrdre;
+    Search Search;
     
     
     public MainFrameConsultant() {
@@ -60,6 +61,7 @@ public class MainFrameConsultant extends javax.swing.JFrame {
         label_loggedInName = new javax.swing.JLabel();
         label_loggedInID = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        btn_Search = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         txt_Date = new javax.swing.JMenu();
         txt_Time = new javax.swing.JMenu();
@@ -73,11 +75,11 @@ public class MainFrameConsultant extends javax.swing.JFrame {
         desktopPanel.setLayout(desktopPanelLayout);
         desktopPanelLayout.setHorizontalGroup(
             desktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 855, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         desktopPanelLayout.setVerticalGroup(
             desktopPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 424, Short.MAX_VALUE)
+            .addGap(0, 581, Short.MAX_VALUE)
         );
 
         btn_newTravelAdvance.setText("Write new travel advance");
@@ -109,6 +111,13 @@ public class MainFrameConsultant extends javax.swing.JFrame {
             }
         });
 
+        btn_Search.setText("Search");
+        btn_Search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_SearchActionPerformed(evt);
+            }
+        });
+
         jMenuBar1.add(txt_Date);
         jMenuBar1.add(txt_Time);
 
@@ -128,10 +137,11 @@ public class MainFrameConsultant extends javax.swing.JFrame {
                         .addComponent(btn_newReport)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_Search))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(label_loggedInName, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 381, Short.MAX_VALUE)
                         .addComponent(label_loggedInID, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -146,10 +156,11 @@ public class MainFrameConsultant extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_newTravelAdvance)
                     .addComponent(btn_newReport)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(btn_Search))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(desktopPanel)
-                .addContainerGap())
+                .addComponent(desktopPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -169,6 +180,13 @@ public class MainFrameConsultant extends javax.swing.JFrame {
 hideAllFrames();
 showWriteTravelOrdre();       
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btn_SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SearchActionPerformed
+        hideAllFrames();
+        showSearch();
+        
+// TODO add your handling code here:
+    }//GEN-LAST:event_btn_SearchActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -212,6 +230,8 @@ showWriteTravelOrdre();
         desktopPanel.add(fillReport);
         writeTravelOrdre = new WriteTravelOrdre();
         desktopPanel.add(writeTravelOrdre);
+        Search = new Search();
+        desktopPanel.add(Search);
     }   
     
     private void showAddTravelAdvances(){
@@ -243,17 +263,31 @@ showWriteTravelOrdre();
         }
     }
     
+    private void showSearch(){
+    
+        Search.show();
+        try{
+            Search.setMaximum(true);
+            Search.setSelected(rootPaneCheckingEnabled);
+        } catch (PropertyVetoException e ) {
+        JOptionPane.showMessageDialog(null, e.getMessage());    //ev.errormeddelande
+        }
+    }
+    
     private void hideAllFrames(){        
         try {  
                 addTravelAdvances.hide();
                 fillReport.hide();
                 writeTravelOrdre.hide();
+                Search.hide();
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }    
         
     }
+    
+    
     
     public void NoInternet(){
     
@@ -306,6 +340,7 @@ showWriteTravelOrdre();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Search;
     private javax.swing.JButton btn_newReport;
     private javax.swing.JButton btn_newTravelAdvance;
     private javax.swing.JDesktopPane desktopPanel;

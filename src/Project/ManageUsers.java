@@ -52,8 +52,6 @@ public class ManageUsers extends javax.swing.JInternalFrame {
         fieldStatus = new java.awt.TextField();
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        lbl = new javax.swing.JLabel();
         jLabel_NewUser = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel_AddUserName = new javax.swing.JLabel();
@@ -211,15 +209,6 @@ public class ManageUsers extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jButton4.setText("jButton4");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        lbl.setText("jLabel7");
-
         jLabel_NewUser.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel_NewUser.setText("Add a new user:");
 
@@ -315,18 +304,10 @@ public class ManageUsers extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jButton4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(lbl))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel_NewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_NewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -339,14 +320,11 @@ public class ManageUsers extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton4)
-                        .addGap(20, 20, 20)
-                        .addComponent(lbl)
-                        .addGap(18, 18, 18)
+                        .addGap(75, 75, 75)
                         .addComponent(jLabel_NewUser)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         pack();
@@ -397,19 +375,6 @@ if(evt.getKeyCode() ==KeyEvent.VK_ENTER){
         
 }
     }//GEN-LAST:event_fieldPasswordKeyPressed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
- try{
-     int traktamente3 = db.getID("select amount from allowance where country = 'finland'");
-     lbl.setText((String.valueOf(traktamente3)));
-     
-     
-       }
-       catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, e);
-        }        
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void box_StatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_box_StatusActionPerformed
         /*Object SelectedItem = box_Status.getSelectedItem();
@@ -569,7 +534,6 @@ JOptionPane.showMessageDialog(null, e.getMessage());
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton_AddUserSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -587,7 +551,6 @@ JOptionPane.showMessageDialog(null, e.getMessage());
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private java.awt.Label label3;
-    private javax.swing.JLabel lbl;
     private javax.swing.JPasswordField txt_Password;
     private javax.swing.JTextField txt_UserEmail;
     private javax.swing.JTextField txt_UserName;
