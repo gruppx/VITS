@@ -7,6 +7,7 @@ package Project;
 
 import static Project.ManageDocuments.db;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
@@ -355,11 +356,12 @@ if(evt.getKeyCode() ==KeyEvent.VK_ENTER){
     }//GEN-LAST:event_jTextField_infoKeyPressed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
- try{
+ Connection myConn = null;
+        try{
      String query = "select amount from allowance where country = 'finland'";
      
-     db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
-            Statement statement = db.myConn.createStatement();
+     myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            Statement statement = myConn.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
                 int tID = rs.getInt(1);

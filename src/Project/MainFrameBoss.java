@@ -26,7 +26,7 @@ public class MainFrameBoss extends javax.swing.JFrame {
     AddTravelAdvances addTravelAdvances;
     FillReport fillReport;
     ManageUsers manageUser;
-    ManageDocuments newReportsTrAd;
+    ManageDocuments manageDocuments;
     Search search;
     WriteTravelOrdre writeTravelOrdre;
     String UserID;
@@ -39,11 +39,6 @@ public class MainFrameBoss extends javax.swing.JFrame {
         CurrentDate();
         
         db = new ConnectionClass();
-        try {
-            db.ConnectToDb();
-        } catch (SQLException ex) {
-            Logger.getLogger(MainFrameBoss.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     
@@ -187,14 +182,14 @@ public class MainFrameBoss extends javax.swing.JFrame {
         });
 
         label_loggedInBossID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        label_loggedInBossID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        label_loggedInBossID.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         label_loggedInBossID.setLabelFor(label_loggedInBossID);
-        label_loggedInBossID.setText("jLabel1");
+        label_loggedInBossID.setText("ID");
         label_loggedInBossID.setToolTipText("");
 
         label_loggedInName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label_loggedInName.setLabelFor(label_loggedInName);
-        label_loggedInName.setText("jLabel1");
+        label_loggedInName.setText("Name");
 
         jButton2.setText("Write new travel order");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -220,10 +215,8 @@ public class MainFrameBoss extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(label_loggedInName, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(label_loggedInBossID, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(label_loggedInBossID, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_manageDocuments)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_manageUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -235,17 +228,18 @@ public class MainFrameBoss extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_writeNewTravelAdvance)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
-                        .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 225, Short.MAX_VALUE)
+                        .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(label_loggedInName, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_loggedInBossID)
-                    .addComponent(label_loggedInName))
+                .addComponent(label_loggedInName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_manageDocuments)
@@ -254,7 +248,8 @@ public class MainFrameBoss extends javax.swing.JFrame {
                     .addComponent(btn_search)
                     .addComponent(btn_addAssignment)
                     .addComponent(btn_manageUsers)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(label_loggedInBossID))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(desktopPanel))
         );
@@ -284,8 +279,8 @@ public class MainFrameBoss extends javax.swing.JFrame {
     private void btn_manageDocumentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_manageDocumentsActionPerformed
         hideAllFrames();
         showNewReports();
-        newReportsTrAd.updateReportList();
-        newReportsTrAd.updateTravelAdvancesList();
+        manageDocuments.updateReportList();
+        manageDocuments.updateTravelAdvancesList();
     }//GEN-LAST:event_btn_manageDocumentsActionPerformed
 
     private void btn_writeNewReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_writeNewReportActionPerformed
@@ -299,8 +294,8 @@ public class MainFrameBoss extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_searchActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-hideAllFrames();
-showWriteTravelOrdre();         
+        hideAllFrames();
+        showWriteTravelOrdre();         
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -352,8 +347,8 @@ showWriteTravelOrdre();
         desktopPanel.add(fillReport);
         manageUser = new ManageUsers();
         desktopPanel.add(manageUser);
-        newReportsTrAd = new ManageDocuments();
-        desktopPanel.add(newReportsTrAd);
+        manageDocuments = new ManageDocuments();
+        desktopPanel.add(manageDocuments);
         search = new Search();
         desktopPanel.add(search);
         writeTravelOrdre = new WriteTravelOrdre();
@@ -414,10 +409,10 @@ showWriteTravelOrdre();
            
     }
     private void showNewReports(){
-        newReportsTrAd.show();
+        manageDocuments.show();
         try {
-            newReportsTrAd.setMaximum(true);
-            newReportsTrAd.setSelected(rootPaneCheckingEnabled);
+            manageDocuments.setMaximum(true);
+            manageDocuments.setSelected(rootPaneCheckingEnabled);
         } catch (PropertyVetoException e) {
           JOptionPane.showMessageDialog(null, e.getMessage());    // Ev. errormeddelande
         }
@@ -451,7 +446,7 @@ showWriteTravelOrdre();
                 addTravelAdvances.hide();
                 fillReport.hide();
                 manageUser.hide();
-                newReportsTrAd.hide();
+                manageDocuments.hide();
                 writeTravelOrdre.hide();
         }
         catch(Exception e){

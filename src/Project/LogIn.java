@@ -185,10 +185,10 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_loginActionPerformed
 
     private void pass_loginPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pass_loginPasswordKeyPressed
-if(evt.getKeyCode() ==KeyEvent.VK_ENTER){      
-    String username = txt_loginUser.getText();
-        String password = pass_loginPassword.getText();
-        
+        if(evt.getKeyCode() ==KeyEvent.VK_ENTER){      
+            String username = txt_loginUser.getText();
+                String password = pass_loginPassword.getText();
+
         if(Validation.logInCheck(username, password)){
             this.dispose();
         }

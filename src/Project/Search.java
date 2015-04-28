@@ -374,6 +374,7 @@ public class Search extends javax.swing.JInternalFrame {
                 .addContainerGap(133, Short.MAX_VALUE))
         );
 
+        list_result.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         list_result.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 list_resultMouseClicked(evt);
@@ -833,7 +834,7 @@ public class Search extends javax.swing.JInternalFrame {
             numOfAlternatives = db.getCount(alternative);
             while(search.next()) //Använd ALLTID while av denna typ! annars stöter du på "after end och result set"
             {
-            DLM.addElement(search.getString(column));
+                DLM.addElement(search.getString(column));
             }
             list_result.setModel(DLM);
         }

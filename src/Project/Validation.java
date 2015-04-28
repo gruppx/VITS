@@ -5,6 +5,7 @@
  */
 package Project;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -17,17 +18,18 @@ public class Validation {
     static ConnectionClass db = new ConnectionClass();
     
     static public boolean logInCheck(String username, String password){   
-        db.myConn = null;
-        db.myStmt = null;
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
         
         boolean logInStatus = false;
         
         String query = "SELECT * FROM users where username ='" + username + "' and password = '" + password + "'";
         if(username.length() != 0 && password.length() != 0){
             try {               
-                db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
-                Statement statement = db.myConn.createStatement();
-                ResultSet rs = statement.executeQuery(query);
+                myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+                
+                ResultSet rs = myConn.createStatement().executeQuery(query);
                 
                 if(rs.next()) {
                     int id = rs.getInt(1);

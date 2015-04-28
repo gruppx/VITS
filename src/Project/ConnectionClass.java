@@ -21,14 +21,17 @@ import javax.swing.JOptionPane;
 public class ConnectionClass {
     
     
-    Connection myConn = null;
-    Statement myStmt = null;
-    ResultSet myRs = null;
+    
+    
     String user = "root";
     String pass = "masterkey";
     
     
     public void ConnectToDb() throws SQLException{
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        
         try {
         myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
         myStmt = myConn.createStatement();
@@ -53,10 +56,24 @@ public class ConnectionClass {
         }
     }
     
+    public void closeConnection(){
+        Connection myConn = null;
+        try{
+            if(myConn != null){
+                myConn.close();
+            }
+        }
+        catch(Exception e){
+          JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        
+    }
+    
     public void query(String q){
-   
-     myConn = null;
-     myStmt = null;
+        Connection myConn = null;
+
+        Statement myStmt = null;
+        ResultSet myRs = null;
      
       try{
         
@@ -69,39 +86,51 @@ public class ConnectionClass {
       catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
       }
+      
     
-}//test
+}
+    
      public ResultSet getColumn(String query){
-        ResultSet set = null;
+         Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        
+        
         try{
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
-            Statement stat = myConn.createStatement();
-            set = stat.executeQuery(query);
+            myStmt = myConn.createStatement();
+            myRs = myStmt.executeQuery(query);
            
         }
           catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
       }
-        return set;
+        return myRs;
         //Funktionen används för att hämta en lista på varje row i en viss kolumn. Exempelkod finns under 
         //UpdateUser -> 
     }
      
      public ResultSet getRow(String fromTable, String fromType, String fromObject){
-         ResultSet rs = null;
+         Connection myConn = null;
+         Statement myStmt = null;
+        ResultSet myRs = null;
          try{
-             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
-            Statement stat = myConn.createStatement();
-            rs = stat.executeQuery("select * from "+fromTable+" where "+fromType+"='"+fromObject+"'");
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
+            myStmt = myConn.createStatement();
+            myRs = myStmt.executeQuery("select * from "+fromTable+" where "+fromType+"='"+fromObject+"'");
          }
          catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
       }
          
-         return rs;
+         return myRs;
      }
      
     public int getCount(String fromWhere) throws Exception{
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        
         int count = 0;
        
          try{
@@ -122,9 +151,14 @@ public class ConnectionClass {
     }
 
     public String getString(String query) throws Exception{
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+        
         String getString = "";
         try{
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
+            myStmt = myConn.createStatement();
             myRs = myStmt.executeQuery(query);
             while(myRs.next()){
                 getString = myRs.getString(1);
@@ -136,11 +170,16 @@ public class ConnectionClass {
         return getString;
         //samma funktion som ovan fast denna returnerar ett stringvärde.
     }
+    
    public int getID(String query) throws Exception{
+       Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
        
         int getID = 0;
         try{
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
+            myStmt = myConn.createStatement();
             myRs = myStmt.executeQuery(query);
             while(myRs.next()){
                 getID = myRs.getInt(1);
@@ -154,9 +193,13 @@ public class ConnectionClass {
     }
    
    public int getTraktemente(String country){
+       Connection myConn = null;
+       Statement myStmt = null;
+        ResultSet myRs = null;
        int traktamente = 0;
        try{
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
+            myStmt = myConn.createStatement();
             myRs = myStmt.executeQuery("select amount from allowance where country = '"+country+"'");
             while(myRs.next()){
                 traktamente = myRs.getInt(1);
@@ -170,8 +213,10 @@ public class ConnectionClass {
    /**
     * kör flera sql frågor samtidigt
     */
-   public void executeMultiple(String[] Queries)
-   {
+   public void executeMultiple(String[] Queries)   {
+       Connection myConn = null;
+       Statement myStmt = null;
+        ResultSet myRs = null;
        try
        {
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");

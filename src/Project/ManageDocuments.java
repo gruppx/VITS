@@ -6,6 +6,7 @@
 package Project;
 
 import static Project.Validation.db;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -33,8 +34,9 @@ public class ManageDocuments extends javax.swing.JInternalFrame {
     
     
     public void updateReportList(){
-        db.myConn = null;
-        db.myStmt = null;
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
         
         String currID = LogIn.currentLoggedInID;
         
@@ -43,20 +45,20 @@ public class ManageDocuments extends javax.swing.JInternalFrame {
         
         String cbValue = cb_reports.getSelectedItem().toString();
         
-        String status = "";
+        int status = 0;
         
         if(cbValue.equals("New")){
-            status = "0";
+            status = 0;
             btn_approveReport.setEnabled(true);
             btn_denyReport.setEnabled(true);
         }
         else if(cbValue.equals("Approved")){
-            status = "1";
+            status = 1;
             btn_approveReport.setEnabled(false);
             btn_denyReport.setEnabled(false);
         }
         else if(cbValue.equals("Denied")){
-            status = "2";
+            status = 2;
             btn_approveReport.setEnabled(false);
             btn_denyReport.setEnabled(false);
         }
@@ -67,11 +69,11 @@ public class ManageDocuments extends javax.swing.JInternalFrame {
                 + "FROM Report "
                 + "JOIN Users on Users.UserID = Report.SenderID "
                 + "WHERE Report.ReceiverID = " + currID + " "
-                + "AND Report.Approved = " + status + " "
+                + "AND Report.Approved = '" + status + "' "
                 + "AND Report.Sent = 1";
         try {               
-            db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
-            Statement statement = db.myConn.createStatement();
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            Statement statement = myConn.createStatement();
             ResultSet rs = statement.executeQuery(query);
                                    
             ArrayList<Object[]> data = new ArrayList<>();            
@@ -116,8 +118,9 @@ public class ManageDocuments extends javax.swing.JInternalFrame {
     }
     
     public void updateTravelAdvancesList(){
-        db.myConn = null;
-        db.myStmt = null;
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
         
         String currID = LogIn.currentLoggedInID;
         
@@ -153,8 +156,8 @@ public class ManageDocuments extends javax.swing.JInternalFrame {
                 + "WHERE traveladvances.ReceiverID = " + currID + " "
                 + "AND traveladvances.Approved = "+ status +"";
         try {               
-            db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
-            Statement statement = db.myConn.createStatement();
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            Statement statement = myConn.createStatement();
             ResultSet rs = statement.executeQuery(query);
                                    
             ArrayList<Object[]> data = new ArrayList<>();            

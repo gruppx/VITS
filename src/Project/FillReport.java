@@ -23,6 +23,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -938,10 +939,12 @@ public class FillReport extends javax.swing.JInternalFrame {
             int receiverID = 0;
             int assignmentID = 0;
             String queryAssignment = "select assignmentid from assignment where name = '"+box_Assignment.getSelectedItem().toString()+"'";
-        try {          
+        
+            Connection myConn = null;
+            try {          
              
-            db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
-            Statement statement = db.myConn.createStatement();
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            Statement statement = myConn.createStatement();
             ResultSet getBossMail = statement.executeQuery(query1);
             while(getBossMail.next()){
                 bossEmail = getBossMail.getString(1);
@@ -1207,7 +1210,7 @@ String departureYear = cbx_DYear.getSelectedItem().toString();
         String arrivalMonth = cbx_AMonth.getSelectedItem().toString();
         String arrivalDay = cbx_ADay.getSelectedItem().toString();
 
-      
+      Connection myConn = null;
         
         int departure = Integer.parseInt( departureYear + departureMonth + departureDay);
         int arrival = Integer.parseInt(arrivalYear + arrivalMonth  + arrivalDay );
@@ -1227,8 +1230,8 @@ String departureYear = cbx_DYear.getSelectedItem().toString();
         try{
      String query = "select amount from allowance where country = '"+country2+"'";
      
-     db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
-            Statement statement = db.myConn.createStatement();
+     myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            Statement statement = myConn.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
                 traktamente = rs.getInt(1);
@@ -1330,11 +1333,13 @@ String departureYear = cbx_DYear.getSelectedItem().toString();
 }//räknar ut dagar mellan två datum
     
    private int getTravelAdvance(){
+       Connection myConn = null;
+       
        int amount = 0;
        try{
            String senderID = LogIn.currentLoggedInID;
-            db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
-            Statement statement = db.myConn.createStatement();
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            Statement statement = myConn.createStatement();
             ResultSet rs = statement.executeQuery("select amount from traveladvances where assignmentid = (select assignmentid from report where senderID = "+senderID+") and senderID = "+senderID+";");
             while (rs.next()) {
                 amount = rs.getInt(1);
