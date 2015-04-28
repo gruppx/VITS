@@ -27,37 +27,10 @@ public class ConnectionClass {
     String pass = "masterkey";
     
     
-    public void ConnectToDb() throws SQLException{
-        Connection myConn = null;
-        Statement myStmt = null;
-        ResultSet myRs = null;
-        
-        try {
-        myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
-        myStmt = myConn.createStatement();
-        myRs = myStmt.executeQuery("select * from users");
-        
-        while (myRs.next()){
-            System.out.println(myRs.getString("Name") + ", " + myRs.getString("Email"));  //Visar det som finns i userstabellen i konsollen.
-        }
-        
-        } catch(Exception e){
-            e.printStackTrace();
-        } finally{
-            if(myRs != null){
-                myRs.close();
-            }
-            if(myStmt != null){
-                myStmt.close();
-            }
-            if(myConn != null){
-                myConn.close();
-            }
-        }
-    }
     
-    public void closeConnection(){
-        Connection myConn = null;
+    
+    public void closeConnection(Connection myConn){
+        
         try{
             if(myConn != null){
                 myConn.close();
@@ -67,26 +40,24 @@ public class ConnectionClass {
           JOptionPane.showMessageDialog(null, e.getMessage());
         }
         
+        
     }
     
     public void query(String q){
         Connection myConn = null;
-
-        Statement myStmt = null;
-        ResultSet myRs = null;
-     
       try{
         
-            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
-            myStmt = myConn.createStatement();
-            myStmt.executeUpdate(q);
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");            
+            myConn.createStatement().executeUpdate(q);
             JOptionPane.showMessageDialog(null, "Successful");
             
       }
       catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
       }
-      
+      finally{
+          closeConnection(myConn);
+        }
     
 }
     
@@ -97,14 +68,14 @@ public class ConnectionClass {
         
         
         try{
-            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
-            myStmt = myConn.createStatement();
-            myRs = myStmt.executeQuery(query);
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);            
+            myRs = myConn.createStatement().executeQuery(query);
            
         }
           catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
       }
+        
         return myRs;
         //Funktionen används för att hämta en lista på varje row i en viss kolumn. Exempelkod finns under 
         //UpdateUser -> 
@@ -112,12 +83,10 @@ public class ConnectionClass {
      
      public ResultSet getRow(String fromTable, String fromType, String fromObject){
          Connection myConn = null;
-         Statement myStmt = null;
         ResultSet myRs = null;
          try{
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
-            myStmt = myConn.createStatement();
-            myRs = myStmt.executeQuery("select * from "+fromTable+" where "+fromType+"='"+fromObject+"'");
+            myRs = myConn.createStatement().executeQuery("select * from "+fromTable+" where "+fromType+"='"+fromObject+"'");
          }
          catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
@@ -126,17 +95,15 @@ public class ConnectionClass {
          return myRs;
      }
      
-    public int getCount(String fromWhere) throws Exception{
+    public int getCount(String fromWhere) {
         Connection myConn = null;
-        Statement myStmt = null;
         ResultSet myRs = null;
         
         int count = 0;
        
          try{
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
-            myStmt = myConn.createStatement();
-            myRs = myStmt.executeQuery("select * from "+fromWhere);
+            myRs = myConn.createStatement().executeQuery("select * from "+fromWhere);
          
             while(myRs.next())
             {
@@ -152,14 +119,12 @@ public class ConnectionClass {
 
     public String getString(String query) throws Exception{
         Connection myConn = null;
-        Statement myStmt = null;
         ResultSet myRs = null;
         
         String getString = "";
         try{
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
-            myStmt = myConn.createStatement();
-            myRs = myStmt.executeQuery(query);
+            myRs = myConn.createStatement().executeQuery(query);
             while(myRs.next()){
                 getString = myRs.getString(1);
             }
@@ -167,20 +132,23 @@ public class ConnectionClass {
         catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
       }
+        
+        finally{
+          closeConnection(myConn);
+        }
+        
         return getString;
         //samma funktion som ovan fast denna returnerar ett stringvärde.
     }
     
    public int getID(String query) throws Exception{
        Connection myConn = null;
-        Statement myStmt = null;
         ResultSet myRs = null;
        
         int getID = 0;
         try{
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
-            myStmt = myConn.createStatement();
-            myRs = myStmt.executeQuery(query);
+            myRs = myConn.createStatement().executeQuery(query);
             while(myRs.next()){
                 getID = myRs.getInt(1);
             }
@@ -188,19 +156,21 @@ public class ConnectionClass {
         catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
       }
+        finally{
+          closeConnection(myConn);
+        }
+        
         return getID;
         //FUNKTIONEN används för att returera int värde (exempelvis ett ID).
     }
    
    public int getTraktemente(String country){
        Connection myConn = null;
-       Statement myStmt = null;
         ResultSet myRs = null;
        int traktamente = 0;
        try{
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb", user, pass);
-            myStmt = myConn.createStatement();
-            myRs = myStmt.executeQuery("select amount from allowance where country = '"+country+"'");
+            myRs = myConn.createStatement().executeQuery("select amount from allowance where country = '"+country+"'");
             while(myRs.next()){
                 traktamente = myRs.getInt(1);
             }
@@ -208,6 +178,10 @@ public class ConnectionClass {
         catch(Exception e){
           JOptionPane.showMessageDialog(null, e.getMessage());
       }
+       finally{
+          closeConnection(myConn);
+        }
+       
        return traktamente;
    }
    /**
@@ -215,19 +189,18 @@ public class ConnectionClass {
     */
    public void executeMultiple(String[] Queries)   {
        Connection myConn = null;
-       Statement myStmt = null;
         ResultSet myRs = null;
        try
        {
             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
-            myStmt = myConn.createStatement();
+            
             
             for(String query : Queries)
             {
-                myStmt.addBatch(query);
+                myConn.createStatement().addBatch(query);
             }
             
-            myStmt.executeBatch();
+            myConn.createStatement().executeBatch();
             
             JOptionPane.showMessageDialog(null, ""
                     + "Success");
@@ -236,6 +209,9 @@ public class ConnectionClass {
        {
            JOptionPane.showMessageDialog(null, e.getMessage());
        }
+       finally{
+          closeConnection(myConn);
+        }
    }
     
     

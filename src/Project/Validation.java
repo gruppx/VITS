@@ -82,7 +82,10 @@ public class Validation {
             }
             catch(Exception e){
                 JOptionPane.showMessageDialog(null, e.getMessage());
-            }     
+            }
+            finally{
+                db.closeConnection(myConn);
+            }
         }
         else{
             JOptionPane.showMessageDialog(null, "The fields cannot be empty!");

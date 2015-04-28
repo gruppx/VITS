@@ -65,6 +65,7 @@ public class ManageUsers extends javax.swing.JInternalFrame {
         jButton_AddUserSave = new javax.swing.JButton();
         txt_Password = new javax.swing.JPasswordField();
         jLabel_NewUser = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setTitle("Manage users");
         setToolTipText("");
@@ -82,9 +83,14 @@ public class ManageUsers extends javax.swing.JInternalFrame {
         jLabel1.setText("Users:");
 
         list_names.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        list_names.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                list_namesValueChanged(evt);
+        list_names.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                list_namesMouseReleased(evt);
+            }
+        });
+        list_names.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                list_namesKeyReleased(evt);
             }
         });
         jScrollPane1.setViewportView(list_names);
@@ -130,9 +136,9 @@ public class ManageUsers extends javax.swing.JInternalFrame {
         label3.setText("Status");
 
         jButton2.setText("Update User Information");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -302,17 +308,29 @@ public class ManageUsers extends javax.swing.JInternalFrame {
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
+        jButton3.setText("jButton3");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(123, 123, 123)
+                        .addComponent(jButton3)))
                 .addContainerGap(106, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -323,7 +341,9 @@ public class ManageUsers extends javax.swing.JInternalFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(230, Short.MAX_VALUE))
+                .addGap(65, 65, 65)
+                .addComponent(jButton3)
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         pack();
@@ -332,10 +352,6 @@ public class ManageUsers extends javax.swing.JInternalFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
        deleteUser();
     }//GEN-LAST:event_jButton1MouseClicked
-
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-updateUser();        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2MouseClicked
 
     private void box_StatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_box_StatusActionPerformed
         /*Object SelectedItem = box_Status.getSelectedItem();
@@ -366,27 +382,43 @@ updateUser();        // TODO add your handling code here:
         fillBoxes();
     }//GEN-LAST:event_jButton_AddUserSaveActionPerformed
 
-    private void list_namesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_list_namesValueChanged
-        informationUser();
-    }//GEN-LAST:event_list_namesValueChanged
-
     private void box_Status1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_box_Status1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_box_Status1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String selectedItem = list_names.getSelectedValue().toString();
+        String name = fieldName.getText();
+        String email = fieldMail.getText();
+        String user = fieldUserName.getText();
+        String pass = fieldPassword.getText();
+        String status = box_Status1.getSelectedItem().toString();
+         
+        updateUser(selectedItem, name, email, user, pass, status);
+        fillBoxes();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        fillBoxes();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void list_namesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_list_namesKeyReleased
+        informationUser();
+    }//GEN-LAST:event_list_namesKeyReleased
+
+    private void list_namesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_namesMouseReleased
+        informationUser();
+    }//GEN-LAST:event_list_namesMouseReleased
+
+   
     private void fillBoxes(){
         
         ResultSet names = db.getColumn("select * from users");
-        int numOfUsers;
         try {
-            numOfUsers = db.getCount("users");
             DefaultListModel DLM = new DefaultListModel();
-            for (int i=0; i<numOfUsers; i++) {
-                names.next();
-                
-                DLM.addElement(names.getString("username"));
+            while(names.next()){                
+                DLM.addElement(names.getString("username"));                
                 list_names.setModel(DLM);
-
             }
         }
         catch(Exception e){
@@ -445,44 +477,34 @@ updateUser();        // TODO add your handling code here:
         }
     }
     
-    public void updateUser() {                //Går igenom alla fält och uppdaterar dem med en sql-fråga för varje fält, som körs vid anropning av metoden.     
+    public void updateUser(String selectedItem, String name, String email, String user, String pass, String status) {                //Går igenom alla fält och uppdaterar dem med en sql-fråga för varje fält, som körs vid anropning av metoden.     
 
-        String selectedItem = list_names.getSelectedValue().toString();
+        int uStatus = 0;        
+        if (status.equals("Boss")){
+            uStatus = 1;
+           }
+
+        String sql = "update users set "
+                + "name = '" + name + "', "
+                + "email = '" + email + "', "
+                + "username = '" + user + "', "
+                + "password = '" + pass + "', "
+                + "status = '" + uStatus + "' "
+                + "where username ='" + selectedItem +"'";
         
-        String name = fieldName.getText();
-        String mail = fieldMail.getText();
-        String userName = fieldUserName.getText();
-        String password = fieldPassword.getText();
-        int status = 0;
-        
-        if(box_Status1.getSelectedItem().toString() == "Boss"){
-            status = 1;
-        }
+        if(Validation.validateUser(name, email, user, pass)){
+            try {
 
-        String sqlName = "update users set name = '" + name + "' where username ='" + selectedItem +"'"; 
-        String sqlMail = "update users set email = '" + mail + "' where username ='" + selectedItem +"'"; 
-        String sqluserName = "update users set username = '" + userName + "' where username ='" + selectedItem +"'"; 
-        String sqlPassword = "update users set password = '" + password + "' where username ='" + selectedItem +"'"; 
-        String sqlStatus = "update users set status = '" + status + "' where username ='" + selectedItem +"'";         
-        try {
-
-            db.query(sqlName);
-            db.query(sqlMail);
-            db.query(sqluserName);
-            db.query(sqlPassword);
-            db.query(sqlStatus);
+            db.query(sql);
 
             
-        } catch (Exception e) {
+            } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Meddelande",
                     JOptionPane.ERROR_MESSAGE);
 
+            }
         }
-    
-    
-
         
-
     }
     
     public void addNewUser(String name, String email, String user, String pass, String status){             
@@ -517,6 +539,7 @@ updateUser();        // TODO add your handling code here:
     private javax.swing.JTextField fieldUserName;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton_AddUserSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
