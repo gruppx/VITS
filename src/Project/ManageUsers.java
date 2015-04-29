@@ -7,6 +7,8 @@ package Project;
 
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -16,13 +18,15 @@ import javax.swing.JOptionPane;
  */
 public class ManageUsers extends javax.swing.JInternalFrame {
     ConnectionClass db = new ConnectionClass();
+    
+    private Locale l; 
     /**
      * Creates new form ManageUser
      */
     public ManageUsers() {
         initComponents();
         fillBoxes();
-        
+       initializeLanguage();
     }
 
     /**
@@ -67,12 +71,13 @@ public class ManageUsers extends javax.swing.JInternalFrame {
         jLabel_NewUser = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
 
-        setTitle("Manage users");
-        setToolTipText("");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Project/Bundle"); // NOI18N
+        setTitle(bundle.getString("ManageUsers.title")); // NOI18N
+        setToolTipText(bundle.getString("ManageUsers.toolTipText")); // NOI18N
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton1.setText("Delete User");
+        jButton1.setText(bundle.getString("ManageUsers.jButton1.text")); // NOI18N
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
@@ -80,7 +85,7 @@ public class ManageUsers extends javax.swing.JInternalFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Users:");
+        jLabel1.setText(bundle.getString("ManageUsers.jLabel1.text")); // NOI18N
 
         list_names.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         list_names.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -124,18 +129,18 @@ public class ManageUsers extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setText("Name");
+        jLabel2.setText(bundle.getString("ManageUsers.jLabel2.text")); // NOI18N
 
-        jLabel4.setText("Username");
+        jLabel4.setText(bundle.getString("ManageUsers.jLabel4.text")); // NOI18N
 
-        jLabel5.setText("Password");
+        jLabel5.setText(bundle.getString("ManageUsers.jLabel5.text")); // NOI18N
 
-        jLabel3.setText("Email");
+        jLabel3.setText(bundle.getString("ManageUsers.jLabel3.text")); // NOI18N
 
         label3.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        label3.setText("Status");
+        label3.setText(bundle.getString("ManageUsers.label3.text")); // NOI18N
 
-        jButton2.setText("Update User Information");
+        jButton2.setText(bundle.getString("ManageUsers.jButton2.text")); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -143,7 +148,7 @@ public class ManageUsers extends javax.swing.JInternalFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setText("Update user information:");
+        jLabel6.setText(bundle.getString("ManageUsers.jLabel6.text")); // NOI18N
 
         box_Status1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Consultant", "Boss" }));
         box_Status1.addActionListener(new java.awt.event.ActionListener() {
@@ -219,15 +224,15 @@ public class ManageUsers extends javax.swing.JInternalFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel_AddUserName.setText("Full name:");
+        jLabel_AddUserName.setText(bundle.getString("ManageUsers.jLabel_AddUserName.text")); // NOI18N
 
-        jLabel_AddUserNameEmail.setText("Email:");
+        jLabel_AddUserNameEmail.setText(bundle.getString("ManageUsers.jLabel_AddUserNameEmail.text")); // NOI18N
 
-        jLabel_AddNewUserName.setText("Username:");
+        jLabel_AddNewUserName.setText(bundle.getString("ManageUsers.jLabel_AddNewUserName.text")); // NOI18N
 
-        jLabel_AddPassword.setText("Password:");
+        jLabel_AddPassword.setText(bundle.getString("ManageUsers.jLabel_AddPassword.text")); // NOI18N
 
-        jLabel_AddUserNameStatus.setText("Status:");
+        jLabel_AddUserNameStatus.setText(bundle.getString("ManageUsers.jLabel_AddUserNameStatus.text")); // NOI18N
 
         box_Status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Boss", "Consultant" }));
         box_Status.addActionListener(new java.awt.event.ActionListener() {
@@ -242,7 +247,7 @@ public class ManageUsers extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton_AddUserSave.setText("Save");
+        jButton_AddUserSave.setText(bundle.getString("ManageUsers.jButton_AddUserSave.text")); // NOI18N
         jButton_AddUserSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_AddUserSaveActionPerformed(evt);
@@ -250,7 +255,7 @@ public class ManageUsers extends javax.swing.JInternalFrame {
         });
 
         jLabel_NewUser.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel_NewUser.setText("Add a new user:");
+        jLabel_NewUser.setText(bundle.getString("ManageUsers.jLabel_NewUser.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -308,7 +313,7 @@ public class ManageUsers extends javax.swing.JInternalFrame {
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
-        jButton3.setText("jButton3");
+        jButton3.setText(bundle.getString("ManageUsers.jButton3.text")); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -411,6 +416,7 @@ public class ManageUsers extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_list_namesMouseReleased
 
    
+   
     private void fillBoxes(){
         
         ResultSet names = db.getColumn("select * from users");
@@ -477,6 +483,33 @@ public class ManageUsers extends javax.swing.JInternalFrame {
         }
     }
     
+     private void initializeLanguage(){
+        l = LogIn.getString();
+         
+        ResourceBundle r = ResourceBundle.getBundle("Project/Bundle", l);
+        
+        jLabel_AddUserName.setText(r.getString("ManageUsers.jLabel_AddUserName.text"));
+         jLabel6.setText(r.getString("ManageUsers.jLabel6.text"));
+          jButton2.setText(r.getString("ManageUsers.jButton2.text"));
+           label3.setText(r.getString("ManageUsers.label3.text"));
+            jLabel3.setText(r.getString("ManageUsers.jLabel3.text"));
+             jLabel5.setText(r.getString("ManageUsers.jLabel5.text"));
+              jButton3.setText(r.getString("ManageUsers.jButton3.text"));
+               jLabel4.setText(r.getString("ManageUsers.jLabel4.text"));
+                 jLabel_NewUser.setText(r.getString("ManageUsers.jLabel_NewUser.text"));
+                  jButton_AddUserSave.setText(r.getString("ManageUsers.jButton_AddUserSave.text"));
+                   jLabel2.setText(r.getString("ManageUsers.jLabel2.text"));
+                    jLabel1.setText(r.getString("ManageUsers.jLabel1.text"));
+                     jLabel_AddUserNameStatus.setText(r.getString("ManageUsers.jLabel_AddUserNameStatus.text"));
+                      jButton1.setText(r.getString("ManageUsers.jButton1.text"));
+                       jLabel_AddPassword.setText(r.getString("ManageUsers.jLabel_AddPassword.text"));
+                         jLabel_AddNewUserName.setText(r.getString("ManageUsers.jLabel_AddNewUserName.text"));
+                          jLabel_AddUserNameEmail.setText(r.getString("ManageUsers.jLabel_AddUserNameEmail.text"));
+
+                   
+                 
+    }
+    
     public void updateUser(String selectedItem, String name, String email, String user, String pass, String status) {                //Går igenom alla fält och uppdaterar dem med en sql-fråga för varje fält, som körs vid anropning av metoden.     
 
         int uStatus = 0;        
@@ -506,6 +539,9 @@ public class ManageUsers extends javax.swing.JInternalFrame {
         }
         
     }
+    
+     
+    
     
     public void addNewUser(String name, String email, String user, String pass, String status){             
         int uStatus = 0;        

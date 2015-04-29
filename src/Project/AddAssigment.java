@@ -12,6 +12,8 @@ import java.sql.DriverManager;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -19,6 +21,8 @@ import java.sql.Statement;
  */
 public class AddAssigment extends javax.swing.JInternalFrame {
 ConnectionClass db = new ConnectionClass(); //skapar connection till databas
+
+    private Locale l;//VARJE KLASS
     /**
      * Creates new form NewJInternalFrame
      */
@@ -28,6 +32,7 @@ ConnectionClass db = new ConnectionClass(); //skapar connection till databas
         String info = "";
         
         fillAssignmentCMB();
+        initializeLanguage();//VARJE KLASS 
     }
 
     /**
@@ -87,18 +92,17 @@ ConnectionClass db = new ConnectionClass(); //skapar connection till databas
         Combo_Assigment = new javax.swing.JComboBox();
         jButton_AddAssigment = new javax.swing.JButton();
         Remove_delete = new javax.swing.JButton();
-        lbltest = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
 
-        jButton1.setText("jButton1");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Project/Bundle"); // NOI18N
+        jButton1.setText(bundle.getString("AddAssigment.jButton1.text")); // NOI18N
 
-        setTitle("Add Assigment");
+        setTitle(bundle.getString("AddAssigment.title")); // NOI18N
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel_Name.setText("Name:");
+        jLabel_Name.setText(bundle.getString("AddAssigment.jLabel_Name.text")); // NOI18N
 
-        jLabel_info.setText("Info:");
+        jLabel_info.setText(bundle.getString("AddAssigment.jLabel_info.text")); // NOI18N
 
         jTextField_info.setColumns(20);
         jTextField_info.setRows(5);
@@ -138,11 +142,11 @@ ConnectionClass db = new ConnectionClass(); //skapar connection till databas
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel_Name.getAccessibleContext().setAccessibleName("jL-Name");
+        jLabel_Name.getAccessibleContext().setAccessibleName(bundle.getString("AddAssigment.jLabel_Name.AccessibleContext.accessibleName")); // NOI18N
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        ShowInfo.setText("Show info");
+        ShowInfo.setText(bundle.getString("AddAssigment.ShowInfo.text")); // NOI18N
         ShowInfo.setName("jButton_showInfo"); // NOI18N
         ShowInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,14 +156,14 @@ ConnectionClass db = new ConnectionClass(); //skapar connection till databas
 
         Combo_Assigment.setName("assignmentsCMB"); // NOI18N
 
-        jButton_AddAssigment.setText("Add");
+        jButton_AddAssigment.setText(bundle.getString("AddAssigment.jButton_AddAssigment.text")); // NOI18N
         jButton_AddAssigment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_AddAssigmentActionPerformed(evt);
             }
         });
 
-        Remove_delete.setText("Remove");
+        Remove_delete.setText(bundle.getString("AddAssigment.Remove_delete.text")); // NOI18N
         Remove_delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Remove_deleteActionPerformed(evt);
@@ -196,31 +200,15 @@ ConnectionClass db = new ConnectionClass(); //skapar connection till databas
                 .addContainerGap())
         );
 
-        lbltest.setText("jLabel1");
-
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(16, 16, 16)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbltest)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -230,11 +218,7 @@ ConnectionClass db = new ConnectionClass(); //skapar connection till databas
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbltest)
-                    .addComponent(jButton2))
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
 
         setBounds(0, 0, 668, 398);
@@ -354,26 +338,25 @@ if(evt.getKeyCode() ==KeyEvent.VK_ENTER){
 
 }
     }//GEN-LAST:event_jTextField_infoKeyPressed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
- Connection myConn = null;
-        try{
-     String query = "select amount from allowance where country = 'finland'";
-     
-     myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
-            Statement statement = myConn.createStatement();
-            ResultSet rs = statement.executeQuery(query);
-            while (rs.next()) {
-                int tID = rs.getInt(1);
-                lbltest.setText((String.valueOf(tID)));
-            }
+           private void initializeLanguage(){//HELA METODEN I VARJE KLASS MODIFIERAT
+               
+            l = LogIn.getString();
+         
+        ResourceBundle r = ResourceBundle.getBundle("Project/Bundle", l);{
+               
+          jButton_AddAssigment.setText(r.getString("AddAssigment.jButton_AddAssigment.text"));
+           ShowInfo.setText(r.getString("AddAssigment.ShowInfo.text"));
+            jLabel_info.setText(r.getString("AddAssigment.jLabel_info.text"));
+             jLabel_Name.setText(r.getString("AddAssigment.jLabel_Name.AccessibleContext.accessibleName"));
+              jLabel_Name.setText(r.getString("AddAssigment.jLabel_Name.text")); 
+               jButton1.setText(r.getString("AddAssigment.jButton1.text"));
+                 Remove_delete.setText(r.getString("AddAssigment.Remove_delete.text"));
+        
+       
+           
+           }
+           
        }
-       catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, e);
-        }     
-    }//GEN-LAST:event_jButton2ActionPerformed
-
 
     /**
      * fyller comboboxen med alla assigment
@@ -399,6 +382,7 @@ if(evt.getKeyCode() ==KeyEvent.VK_ENTER){
             JOptionPane.showMessageDialog(null, e.getMessage());
         
         }
+       
     }
     
 
@@ -407,7 +391,6 @@ if(evt.getKeyCode() ==KeyEvent.VK_ENTER){
     private javax.swing.JButton Remove_delete;
     private javax.swing.JButton ShowInfo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton_AddAssigment;
     private javax.swing.JLabel jLabel_Name;
     private javax.swing.JLabel jLabel_info;
@@ -416,6 +399,5 @@ if(evt.getKeyCode() ==KeyEvent.VK_ENTER){
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField_Name;
     private javax.swing.JTextArea jTextField_info;
-    private javax.swing.JLabel lbltest;
     // End of variables declaration//GEN-END:variables
 }

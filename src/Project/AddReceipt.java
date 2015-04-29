@@ -15,6 +15,8 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JFrame;
 
 
@@ -25,11 +27,14 @@ import javax.swing.JFrame;
  */
 public class AddReceipt extends javax.swing.JFrame {
      ConnectionClass db = new ConnectionClass();
+     
+     private Locale l;
     /**
      * Creates new form AddReciept
      */
     public AddReceipt() {
         initComponents();
+        initializeLanguage();
      
     }
 
@@ -52,9 +57,10 @@ public class AddReceipt extends javax.swing.JFrame {
         txt_FileName = new javax.swing.JTextField();
         btn_SubmitReciept = new javax.swing.JButton();
 
-        jLabel1.setText("Select reciept");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Project/Bundle"); // NOI18N
+        jLabel1.setText(bundle.getString("AddReceipt.jLabel1.text")); // NOI18N
 
-        btn_SelectReciept.setText("Attach");
+        btn_SelectReciept.setText(bundle.getString("AddReceipt.btn_SelectReciept.text")); // NOI18N
         btn_SelectReciept.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_SelectRecieptActionPerformed(evt);
@@ -72,18 +78,18 @@ public class AddReceipt extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTextArea1);
 
-        jLabel2.setText("Receipt type ");
+        jLabel2.setText(bundle.getString("AddReceipt.jLabel2.text")); // NOI18N
 
-        jLabel3.setText("Info");
+        jLabel3.setText(bundle.getString("AddReceipt.jLabel3.text")); // NOI18N
 
-        txt_FileName.setText("Path");
+        txt_FileName.setText(bundle.getString("AddReceipt.txt_FileName.text")); // NOI18N
         txt_FileName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_FileNameActionPerformed(evt);
             }
         });
 
-        btn_SubmitReciept.setText("Submit");
+        btn_SubmitReciept.setText(bundle.getString("AddReceipt.btn_SubmitReciept.text")); // NOI18N
         btn_SubmitReciept.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_SubmitRecieptActionPerformed(evt);
@@ -179,12 +185,22 @@ public class AddReceipt extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_SubmitRecieptActionPerformed
     }
     private void jTextArea1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyPressed
-    
-           
-           
+          
     }//GEN-LAST:event_jTextArea1KeyPressed
       
-    
+    private void initializeLanguage(){
+        l = LogIn.getString();
+         
+        ResourceBundle r = ResourceBundle.getBundle("Project/Bundle", l);
+        
+        txt_FileName.setText(r.getString("AddReceipt.txt_FileName.text"));
+         jLabel3.setText(r.getString("AddReceipt.jLabel3.text"));
+          jLabel2.setText(r.getString("AddReceipt.jLabel2.text"));
+           btn_SelectReciept.setText(r.getString("AddReceipt.btn_SelectReciept.text"));
+            jLabel1.setText(r.getString("AddReceipt.jLabel1.text"));
+              btn_SubmitReciept.setText(r.getString("AddReceipt.btn_SubmitReciept.text"));
+                        
+    }
     /**
      * @param args the command line arguments
      */

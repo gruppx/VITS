@@ -15,6 +15,8 @@ import static java.lang.Thread.sleep;
 import java.sql.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -28,6 +30,7 @@ public class MainFrameConsultant extends javax.swing.JFrame {
     FillReport fillReport;
     WriteTravelOrdre writeTravelOrdre;
     
+    private Locale l; 
     
     public MainFrameConsultant() {
         initComponents();
@@ -35,7 +38,7 @@ public class MainFrameConsultant extends javax.swing.JFrame {
         CurrentDate();
         
         db = new ConnectionClass();
-        
+        initializeLanguage();
     }
     
     
@@ -76,14 +79,15 @@ public class MainFrameConsultant extends javax.swing.JFrame {
             .addGap(0, 429, Short.MAX_VALUE)
         );
 
-        btn_newTravelAdvance.setText("Write new travel advance");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Project/Bundle"); // NOI18N
+        btn_newTravelAdvance.setText(bundle.getString("MainFrameConsultant.btn_newTravelAdvance.text")); // NOI18N
         btn_newTravelAdvance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_newTravelAdvanceActionPerformed(evt);
             }
         });
 
-        btn_newReport.setText("Write new report");
+        btn_newReport.setText(bundle.getString("MainFrameConsultant.btn_newReport.text")); // NOI18N
         btn_newReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_newReportActionPerformed(evt);
@@ -91,14 +95,14 @@ public class MainFrameConsultant extends javax.swing.JFrame {
         });
 
         label_loggedInName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        label_loggedInName.setText("Name");
+        label_loggedInName.setText(bundle.getString("MainFrameConsultant.label_loggedInName.text")); // NOI18N
 
         label_loggedInID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label_loggedInID.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        label_loggedInID.setText("ID");
-        label_loggedInID.setToolTipText("");
+        label_loggedInID.setText(bundle.getString("MainFrameConsultant.label_loggedInID.text")); // NOI18N
+        label_loggedInID.setToolTipText(bundle.getString("MainFrameConsultant.label_loggedInID.toolTipText")); // NOI18N
 
-        jButton1.setText("Write new travel ordre");
+        jButton1.setText(bundle.getString("MainFrameConsultant.jButton1.text")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -257,6 +261,18 @@ showWriteTravelOrdre();
     
     }
     
+     private void initializeLanguage(){
+        l = LogIn.getString();
+         
+        ResourceBundle r = ResourceBundle.getBundle("Project/Bundle", l);
+        
+        btn_newReport.setText(r.getString("MainFrameConsultant.btn_newReport.text"));
+         btn_newTravelAdvance.setText(r.getString("MainFrameConsultant.btn_newTravelAdvance.text"));
+          jButton1.setText(r.getString("MainFrameConsultant.jButton1.text"));
+           label_loggedInID.setText(r.getString("MainFrameConsultant.label_loggedInID.text"));
+            label_loggedInName.setText(r.getString("MainFrameConsultant.label_loggedInName.text"));
+             
+    }
     
     
     

@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,12 +25,14 @@ public class ManageDocuments extends javax.swing.JInternalFrame {
 
     static ConnectionClass db = new ConnectionClass();
     
+     private Locale l; 
     
     /**
      * Creates new form BossFrame
      */
     public ManageDocuments() {
         initComponents();
+        initializeLanguage();
         
     }
     
@@ -287,9 +291,19 @@ public class ManageDocuments extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }     
     }
-    
-    
-
+    private void initializeLanguage(){
+        l = LogIn.getString();
+         
+        ResourceBundle r = ResourceBundle.getBundle("Project/Bundle", l);
+        
+        label_listTravelAdvance.setText(r.getString("ManageDocuments.label_listTravelAdvance.text"));
+         btn_approveTravelAdvance.setText(r.getString("ManageDocuments.btn_approveTravelAdvance.text"));
+          btn_denyTravelAdvance.setText(r.getString("ManageDocuments.btn_denyTravelAdvance.text"));
+           btn_denyReport.setText(r.getString("ManageDocuments.btn_denyReport.text"));
+            btn_approveReport.setText(r.getString("ManageDocuments.btn_approveReport.text"));
+             label_listReports.setText(r.getString("ManageDocuments.label_listReports.text"));
+    }
+               
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -312,19 +326,20 @@ public class ManageDocuments extends javax.swing.JInternalFrame {
         cb_reports = new javax.swing.JComboBox();
         cb_travelAdvances = new javax.swing.JComboBox();
 
-        setTitle("Manage documents");
-        setToolTipText("");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Project/Bundle"); // NOI18N
+        setTitle(bundle.getString("ManageDocuments.title")); // NOI18N
+        setToolTipText(bundle.getString("ManageDocuments.toolTipText")); // NOI18N
 
-        label_listReports.setText("Reports");
+        label_listReports.setText(bundle.getString("ManageDocuments.label_listReports.text")); // NOI18N
 
-        btn_approveReport.setText("Approve");
+        btn_approveReport.setText(bundle.getString("ManageDocuments.btn_approveReport.text")); // NOI18N
         btn_approveReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_approveReportActionPerformed(evt);
             }
         });
 
-        btn_denyReport.setText("Deny");
+        btn_denyReport.setText(bundle.getString("ManageDocuments.btn_denyReport.text")); // NOI18N
         btn_denyReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_denyReportActionPerformed(evt);
@@ -357,21 +372,21 @@ public class ManageDocuments extends javax.swing.JInternalFrame {
         ));
         jScrollPane3.setViewportView(table_travelAdvanceList);
 
-        btn_denyTravelAdvance.setText("Deny");
+        btn_denyTravelAdvance.setText(bundle.getString("ManageDocuments.btn_denyTravelAdvance.text")); // NOI18N
         btn_denyTravelAdvance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_denyTravelAdvanceActionPerformed(evt);
             }
         });
 
-        btn_approveTravelAdvance.setText("Approve");
+        btn_approveTravelAdvance.setText(bundle.getString("ManageDocuments.btn_approveTravelAdvance.text")); // NOI18N
         btn_approveTravelAdvance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_approveTravelAdvanceActionPerformed(evt);
             }
         });
 
-        label_listTravelAdvance.setText("Travel advances");
+        label_listTravelAdvance.setText(bundle.getString("ManageDocuments.label_listTravelAdvance.text")); // NOI18N
 
         cb_reports.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "New", "Approved", "Denied" }));
         cb_reports.addActionListener(new java.awt.event.ActionListener() {

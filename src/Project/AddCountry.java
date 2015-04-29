@@ -9,6 +9,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import java.awt.Desktop;
 import java.net.URI;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 /**
@@ -18,6 +20,8 @@ import java.net.URI;
 public class AddCountry extends javax.swing.JFrame {
     ConnectionClass db = new ConnectionClass();
     
+    private Locale l;
+    
     /**
      * Creates new form AddCountry
      */
@@ -25,7 +29,7 @@ public class AddCountry extends javax.swing.JFrame {
         initComponents();
         String CountryName = "";
         String Amount = "";
-        
+        initializeLanguage();
     }
 
     /**
@@ -47,7 +51,8 @@ public class AddCountry extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setText("Country Name:");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Project/Bundle"); // NOI18N
+        jLabel1.setText(bundle.getString("AddCountry.jLabel1.text")); // NOI18N
 
         txt_CountryName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -55,7 +60,7 @@ public class AddCountry extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Amount:");
+        jLabel2.setText(bundle.getString("AddCountry.jLabel2.text")); // NOI18N
 
         txt_Amount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -63,14 +68,14 @@ public class AddCountry extends javax.swing.JFrame {
             }
         });
 
-        btn_AddCountry.setText("Add");
+        btn_AddCountry.setText(bundle.getString("AddCountry.btn_AddCountry.text")); // NOI18N
         btn_AddCountry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_AddCountryActionPerformed(evt);
             }
         });
 
-        lbl_link.setText("Link to  foreign allowance");
+        lbl_link.setText(bundle.getString("AddCountry.lbl_link.text")); // NOI18N
         lbl_link.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lbl_linkMousePressed(evt);
@@ -179,7 +184,18 @@ if(evt.getKeyCode() ==KeyEvent.VK_ENTER){
       }
 
     }//GEN-LAST:event_lbl_linkMousePressed
-
+        
+    private void initializeLanguage(){
+        l = LogIn.getString();
+         
+        ResourceBundle r = ResourceBundle.getBundle("Project/Bundle", l);
+        
+        btn_AddCountry.setText(r.getString("AddCountry.btn_AddCountry.text"));
+         jLabel2.setText(r.getString("AddCountry.jLabel2.text"));
+          jLabel1.setText(r.getString("AddCountry.jLabel1.text"));
+           lbl_link.setText(r.getString("AddCountry.lbl_link.text"));            
+    }
+    
     /**
      * @param args the command line arguments
      */

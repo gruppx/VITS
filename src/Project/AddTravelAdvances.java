@@ -3,6 +3,8 @@ package Project;
 
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,6 +13,9 @@ import javax.swing.JOptionPane;
  */
 public class AddTravelAdvances extends javax.swing.JInternalFrame {
     ConnectionClass db = new ConnectionClass();
+    
+    private Locale l;
+    
     /**
      * Creates new form NewJInternalFrame
      */
@@ -18,6 +23,7 @@ public class AddTravelAdvances extends javax.swing.JInternalFrame {
         initComponents();
         fillBoxes();
         fillBoss();
+        initializeLanguage();
     }
 
     /**
@@ -39,16 +45,17 @@ public class AddTravelAdvances extends javax.swing.JInternalFrame {
         txt_info = new javax.swing.JTextArea();
         btn_send = new javax.swing.JButton();
 
-        setTitle("Write new travel advance");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Project/Bundle"); // NOI18N
+        setTitle(bundle.getString("AddTravelAdvances.title")); // NOI18N
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         cbox_assignment.setMaximumRowCount(999);
-        cbox_assignment.setToolTipText("");
+        cbox_assignment.setToolTipText(bundle.getString("AddTravelAdvances.cbox_assignment.toolTipText")); // NOI18N
 
-        jLabel1.setText("Amount:");
+        jLabel1.setText(bundle.getString("AddTravelAdvances.jLabel1.text")); // NOI18N
 
-        jLabel2.setText("Reason for travel advance:");
+        jLabel2.setText(bundle.getString("AddTravelAdvances.jLabel2.text")); // NOI18N
 
         txt_info.setColumns(20);
         txt_info.setRows(5);
@@ -59,7 +66,7 @@ public class AddTravelAdvances extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(txt_info);
 
-        btn_send.setText("Send");
+        btn_send.setText(bundle.getString("AddTravelAdvances.btn_send.text")); // NOI18N
         btn_send.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_sendActionPerformed(evt);
@@ -162,6 +169,7 @@ int travelID;
 
 
 }
+
     }//GEN-LAST:event_txt_infoKeyPressed
 
     private void fillBoxes(){
@@ -176,6 +184,19 @@ int travelID;
           JOptionPane.showMessageDialog(null, e.getMessage());
       }
     }
+    
+    private void initializeLanguage(){
+        l = LogIn.getString();
+         
+        ResourceBundle r = ResourceBundle.getBundle("Project/Bundle", l);
+        
+        btn_send.setText(r.getString("AddTravelAdvances.btn_send.text"));
+         jLabel2.setText(r.getString("AddTravelAdvances.jLabel2.text"));
+          jLabel1.setText(r.getString("AddTravelAdvances.jLabel1.text"));
+          
+            
+    }
+    
     
     private void fillBoss(){
         cbox_boss.removeAllItems();

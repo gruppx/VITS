@@ -15,6 +15,8 @@ import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -25,12 +27,16 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Search extends javax.swing.JInternalFrame {
     ConnectionClass db = new ConnectionClass();
+    
+    private Locale l;
+    
     /**
      * Creates new form InternalFrameSearch
      */
     public Search() {
         initComponents();
         searchIt();
+        initializeLanguage();
         
     }
 
@@ -109,7 +115,8 @@ public class Search extends javax.swing.JInternalFrame {
         labelArrival = new javax.swing.JLabel();
         labelCountry = new javax.swing.JLabel();
 
-        setTitle("Search");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Project/Bundle"); // NOI18N
+        setTitle(bundle.getString("Search.title")); // NOI18N
 
         txt_search.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -117,9 +124,9 @@ public class Search extends javax.swing.JInternalFrame {
             }
         });
 
-        label_searchConsultant.setText("Search:");
+        label_searchConsultant.setText(bundle.getString("Search.label_searchConsultant.text")); // NOI18N
 
-        btn_saveReportToPDF.setText("Save to PDF");
+        btn_saveReportToPDF.setText(bundle.getString("Search.btn_saveReportToPDF.text")); // NOI18N
         btn_saveReportToPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_saveReportToPDFActionPerformed(evt);
@@ -136,31 +143,31 @@ public class Search extends javax.swing.JInternalFrame {
         panel_user.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("User information");
+        jLabel2.setText(bundle.getString("Search.jLabel2.text")); // NOI18N
 
-        jLabel3.setText("User ID:");
+        jLabel3.setText(bundle.getString("Search.jLabel3.text")); // NOI18N
 
-        jLabel4.setText("Full name:");
+        jLabel4.setText(bundle.getString("Search.jLabel4.text")); // NOI18N
 
-        jLabel5.setText("Email:");
+        jLabel5.setText(bundle.getString("Search.jLabel5.text")); // NOI18N
 
-        jLabel6.setText("Username:");
+        jLabel6.setText(bundle.getString("Search.jLabel6.text")); // NOI18N
 
-        jLabel7.setText("Password:");
+        jLabel7.setText(bundle.getString("Search.jLabel7.text")); // NOI18N
 
-        jLabel8.setText("Status:");
+        jLabel8.setText(bundle.getString("Search.jLabel8.text")); // NOI18N
 
-        txt_userID.setText("jLabel9");
+        txt_userID.setText(bundle.getString("Search.txt_userID.text")); // NOI18N
 
-        txt_name.setText("jLabel10");
+        txt_name.setText(bundle.getString("Search.txt_name.text")); // NOI18N
 
-        txt_email.setText("jLabel11");
+        txt_email.setText(bundle.getString("Search.txt_email.text")); // NOI18N
 
-        txt_username.setText("jLabel12");
+        txt_username.setText(bundle.getString("Search.txt_username.text")); // NOI18N
 
-        txt_password.setText("jLabel13");
+        txt_password.setText(bundle.getString("Search.txt_password.text")); // NOI18N
 
-        txt_status.setText("jLabel14");
+        txt_status.setText(bundle.getString("Search.txt_status.text")); // NOI18N
 
         javax.swing.GroupLayout panel_userLayout = new javax.swing.GroupLayout(panel_user);
         panel_user.setLayout(panel_userLayout);
@@ -223,35 +230,35 @@ public class Search extends javax.swing.JInternalFrame {
         panel_report.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         label_reportInformation.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        label_reportInformation.setText("Report information:");
+        label_reportInformation.setText(bundle.getString("Search.label_reportInformation.text")); // NOI18N
 
-        jLabel9.setText("Report ID:");
+        jLabel9.setText(bundle.getString("Search.jLabel9.text")); // NOI18N
 
-        jLabel10.setText("Sender ID:");
+        jLabel10.setText(bundle.getString("Search.jLabel10.text")); // NOI18N
 
-        jLabel11.setText("Receiver ID:");
+        jLabel11.setText(bundle.getString("Search.jLabel11.text")); // NOI18N
 
-        jLabel12.setText("Date:");
+        jLabel12.setText(bundle.getString("Search.jLabel12.text")); // NOI18N
 
-        jLabel13.setText("Sent:");
+        jLabel13.setText(bundle.getString("Search.jLabel13.text")); // NOI18N
 
-        jLabel14.setText("Approved:");
+        jLabel14.setText(bundle.getString("Search.jLabel14.text")); // NOI18N
 
-        jLabel15.setText("Assignment:");
+        jLabel15.setText(bundle.getString("Search.jLabel15.text")); // NOI18N
 
-        txt_reportID.setText("jLabel21");
+        txt_reportID.setText(bundle.getString("Search.txt_reportID.text")); // NOI18N
 
-        txt_senderID.setText("jLabel22");
+        txt_senderID.setText(bundle.getString("Search.txt_senderID.text")); // NOI18N
 
-        txt_receiverID.setText("jLabel23");
+        txt_receiverID.setText(bundle.getString("Search.txt_receiverID.text")); // NOI18N
 
-        txt_date.setText("jLabel24");
+        txt_date.setText(bundle.getString("Search.txt_date.text")); // NOI18N
 
-        txt_sent.setText("jLabel25");
+        txt_sent.setText(bundle.getString("Search.txt_sent.text")); // NOI18N
 
-        txt_approved.setText("jLabel26");
+        txt_approved.setText(bundle.getString("Search.txt_approved.text")); // NOI18N
 
-        txt_assignment.setText("jLabel27");
+        txt_assignment.setText(bundle.getString("Search.txt_assignment.text")); // NOI18N
 
         javax.swing.GroupLayout panel_reportLayout = new javax.swing.GroupLayout(panel_report);
         panel_report.setLayout(panel_reportLayout);
@@ -320,19 +327,19 @@ public class Search extends javax.swing.JInternalFrame {
         panel_assignment.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel17.setText("Assignment information:");
+        jLabel17.setText(bundle.getString("Search.jLabel17.text")); // NOI18N
 
-        jLabel18.setText("Assignment ID:");
+        jLabel18.setText(bundle.getString("Search.jLabel18.text")); // NOI18N
 
-        jLabel19.setText("Name:");
+        jLabel19.setText(bundle.getString("Search.jLabel19.text")); // NOI18N
 
-        jLabel20.setText("Info:");
+        jLabel20.setText(bundle.getString("Search.jLabel20.text")); // NOI18N
 
-        txt_assID.setText("jLabel28");
+        txt_assID.setText(bundle.getString("Search.txt_assID.text")); // NOI18N
 
-        txt_aName.setText("jLabel29");
+        txt_aName.setText(bundle.getString("Search.txt_aName.text")); // NOI18N
 
-        txt_aInfo.setText("jLabel30");
+        txt_aInfo.setText(bundle.getString("Search.txt_aInfo.text")); // NOI18N
 
         javax.swing.GroupLayout panel_assignmentLayout = new javax.swing.GroupLayout(panel_assignment);
         panel_assignment.setLayout(panel_assignmentLayout);
@@ -408,35 +415,35 @@ public class Search extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Travel ordre information:");
+        jLabel1.setText(bundle.getString("Search.jLabel1.text")); // NOI18N
 
-        jLabel16.setText("Travel Ordre ID:");
+        jLabel16.setText(bundle.getString("Search.jLabel16.text")); // NOI18N
 
-        jLabel21.setText("User ID:");
+        jLabel21.setText(bundle.getString("Search.jLabel21.text")); // NOI18N
 
-        jLabel22.setText("Name:");
+        jLabel22.setText(bundle.getString("Search.jLabel22.text")); // NOI18N
 
-        jLabel23.setText("Email:");
+        jLabel23.setText(bundle.getString("Search.jLabel23.text")); // NOI18N
 
-        jLabel24.setText("Departure date:");
+        jLabel24.setText(bundle.getString("Search.jLabel24.text")); // NOI18N
 
-        jLabel25.setText("Arrival date:");
+        jLabel25.setText(bundle.getString("Search.jLabel25.text")); // NOI18N
 
-        jLabel26.setText("Country:");
+        jLabel26.setText(bundle.getString("Search.jLabel26.text")); // NOI18N
 
-        labelTID.setText("jLabel27");
+        labelTID.setText(bundle.getString("Search.labelTID.text")); // NOI18N
 
-        labelUID.setText("jLabel28");
+        labelUID.setText(bundle.getString("Search.labelUID.text")); // NOI18N
 
-        labelName.setText("jLabel29");
+        labelName.setText(bundle.getString("Search.labelName.text")); // NOI18N
 
-        labelEmail.setText("jLabel30");
+        labelEmail.setText(bundle.getString("Search.labelEmail.text")); // NOI18N
 
-        labelDeparture.setText("jLabel31");
+        labelDeparture.setText(bundle.getString("Search.labelDeparture.text")); // NOI18N
 
-        labelArrival.setText("jLabel32");
+        labelArrival.setText(bundle.getString("Search.labelArrival.text")); // NOI18N
 
-        labelCountry.setText("jLabel33");
+        labelCountry.setText(bundle.getString("Search.labelCountry.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -737,7 +744,68 @@ public class Search extends javax.swing.JInternalFrame {
         searchIt();
     }//GEN-LAST:event_cbox_alternativeActionPerformed
 
-    
+    private void initializeLanguage(){
+        l = LogIn.getString();
+         
+        ResourceBundle r = ResourceBundle.getBundle("Project/Bundle", l);
+        
+        txt_sent.setText(r.getString("Search.txt_sent.text"));
+         txt_date.setText(r.getString("Search.txt_date.text"));
+          labelCountry.setText(r.getString("Search.labelCountry.text"));
+           labelArrival.setText(r.getString("Search.labelArrival.text"));
+            txt_receiverID.setText(r.getString("Search.txt_receiverID.text"));
+             labelDeparture.setText(r.getString("Search.labelDeparture.text"));
+              txt_senderID.setText(r.getString("Search.txt_senderID.text"));
+               labelEmail.setText(r.getString("Search.labelEmail.text"));
+                 txt_reportID.setText(r.getString("Search.txt_reportID.text"));
+                  jLabel15.setText(r.getString("Search.jLabel15.text"));
+                   jLabel14.setText(r.getString("Search.jLabel14.text"));
+                   
+                   
+        jLabel13.setText(r.getString("Search.jLabel13.text"));
+         jLabel12.setText(r.getString("Search.jLabel12.text"));
+          jLabel11.setText(r.getString("Search.jLabel11.text"));
+           jLabel10.setText(r.getString("Search.jLabel10.text"));
+            jLabel9.setText(r.getString("Search.jLabel9.text"));
+             labelName.setText(r.getString("Search.labelName.text"));
+              labelUID.setText(r.getString("Search.labelUID.text"));
+               labelTID.setText(r.getString("Search.labelTID.text"));
+                 jLabel26.setText(r.getString("Search.jLabel26.text"));
+                  jLabel25.setText(r.getString("Search.jLabel25.text"));
+                   jLabel24.setText(r.getString("Search.jLabel24.text")); 
+                    jLabel23.setText(r.getString("Search.jLabel23.text"));
+                    jLabel22.setText(r.getString("Search.jLabel22.text"));
+                     label_reportInformation.setText(r.getString("Search.label_reportInformation.text"));
+                      jLabel21.setText(r.getString("Search.jLabel21.text"));
+                       jLabel16.setText(r.getString("Search.jLabel16.text"));
+                        txt_status.setText(r.getString("Search.txt_status.text"));
+                         txt_password.setText(r.getString("Search.txt_password.text"));
+                          txt_username.setText(r.getString("Search.txt_username.text"));
+                            txt_email.setText(r.getString("Search.txt_email.text"));              
+                              txt_name.setText(r.getString("Search.txt_name.text"));
+                                txt_userID.setText(r.getString("Search.txt_userID.text"));
+                                jLabel8.setText(r.getString("Search.jLabel8.text"));
+                                 jLabel7.setText(r.getString("Search.jLabel7.text"));
+                                  jLabel1.setText(r.getString("Search.jLabel1.text"));
+                                   jLabel6.setText(r.getString("Search.jLabel6.text"));
+                                     txt_aInfo.setText(r.getString("Search.txt_aInfo.text"));              
+                                       jLabel5.setText(r.getString("Search.jLabel5.text"));
+                                          txt_aName.setText(r.getString("Search.txt_aName.text"));
+                                            jLabel4.setText(r.getString("Search.jLabel4.text"));
+                                             jLabel3.setText(r.getString("Search.jLabel3.text"));
+                                              jLabel2.setText(r.getString("Search.jLabel2.text"));
+                                              btn_saveReportToPDF.setText(r.getString("Search.btn_saveReportToPDF.text"));
+                                                 label_searchConsultant.setText(r.getString("Search.label_searchConsultant.text"));              
+                                                    txt_assID.setText(r.getString("Search.txt_assID.text"));
+                                                 jLabel20.setText(r.getString("Search.jLabel20.text"));
+                                                jLabel19.setText(r.getString("Search.jLabel19.text"));
+                                                   jLabel18.setText(r.getString("Search.jLabel18.text"));
+                                                   jLabel17.setText(r.getString("Search.jLabel17.text"));
+                                                      txt_assignment.setText(r.getString("Search.txt_assignment.text"));              
+                                                         txt_approved.setText(r.getString("Search.txt_approved.text"));
+
+                 
+    }
     
     
     private void getAssignments(){

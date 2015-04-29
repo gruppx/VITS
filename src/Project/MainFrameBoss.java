@@ -17,6 +17,8 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class MainFrameBoss extends javax.swing.JFrame {  
     ConnectionClass db;
@@ -31,12 +33,15 @@ public class MainFrameBoss extends javax.swing.JFrame {
     WriteTravelOrdre writeTravelOrdre;
     String UserID;
     String UserName;
-       
+    
+    private Locale l; 
+    
     public MainFrameBoss() {
         initComponents();
         
         addAllFramesToPane();
         CurrentDate();
+        initializeLanguage();
         
         db = new ConnectionClass();
     }
@@ -139,42 +144,43 @@ public class MainFrameBoss extends javax.swing.JFrame {
             .addGap(0, 608, Short.MAX_VALUE)
         );
 
-        btn_manageDocuments.setText("Manage documents");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Project/Bundle"); // NOI18N
+        btn_manageDocuments.setText(bundle.getString("MainFrameBoss.btn_manageDocuments.text")); // NOI18N
         btn_manageDocuments.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_manageDocumentsActionPerformed(evt);
             }
         });
 
-        btn_writeNewReport.setText("Write new report");
+        btn_writeNewReport.setText(bundle.getString("MainFrameBoss.btn_writeNewReport.text")); // NOI18N
         btn_writeNewReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_writeNewReportActionPerformed(evt);
             }
         });
 
-        btn_writeNewTravelAdvance.setText("Write new travel advance");
+        btn_writeNewTravelAdvance.setText(bundle.getString("MainFrameBoss.btn_writeNewTravelAdvance.text")); // NOI18N
         btn_writeNewTravelAdvance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_writeNewTravelAdvanceActionPerformed(evt);
             }
         });
 
-        btn_search.setText("Search");
+        btn_search.setText(bundle.getString("MainFrameBoss.btn_search.text")); // NOI18N
         btn_search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_searchActionPerformed(evt);
             }
         });
 
-        btn_addAssignment.setText("Add assignment");
+        btn_addAssignment.setText(bundle.getString("MainFrameBoss.btn_addAssignment.text")); // NOI18N
         btn_addAssignment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_addAssignmentActionPerformed(evt);
             }
         });
 
-        btn_manageUsers.setText("Manage users");
+        btn_manageUsers.setText(bundle.getString("MainFrameBoss.btn_manageUsers.text")); // NOI18N
         btn_manageUsers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_manageUsersActionPerformed(evt);
@@ -184,14 +190,14 @@ public class MainFrameBoss extends javax.swing.JFrame {
         label_loggedInBossID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label_loggedInBossID.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         label_loggedInBossID.setLabelFor(label_loggedInBossID);
-        label_loggedInBossID.setText("ID");
-        label_loggedInBossID.setToolTipText("");
+        label_loggedInBossID.setText(bundle.getString("MainFrameBoss.label_loggedInBossID.text")); // NOI18N
+        label_loggedInBossID.setToolTipText(bundle.getString("MainFrameBoss.label_loggedInBossID.toolTipText")); // NOI18N
 
         label_loggedInName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label_loggedInName.setLabelFor(label_loggedInName);
-        label_loggedInName.setText("Name");
+        label_loggedInName.setText(bundle.getString("MainFrameBoss.label_loggedInName.text")); // NOI18N
 
-        jButton2.setText("Write new travel order");
+        jButton2.setText(bundle.getString("MainFrameBoss.jButton2.text")); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -254,8 +260,8 @@ public class MainFrameBoss extends javax.swing.JFrame {
                 .addComponent(desktopPanel))
         );
 
-        label_loggedInBossID.getAccessibleContext().setAccessibleName("txt_loggedInName");
-        label_loggedInName.getAccessibleContext().setAccessibleName("txt_loggedInID");
+        label_loggedInBossID.getAccessibleContext().setAccessibleName(bundle.getString("MainFrameBoss.label_loggedInBossID.AccessibleContext.accessibleName")); // NOI18N
+        label_loggedInName.getAccessibleContext().setAccessibleName(bundle.getString("MainFrameBoss.label_loggedInName.AccessibleContext.accessibleName")); // NOI18N
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -297,7 +303,26 @@ public class MainFrameBoss extends javax.swing.JFrame {
         hideAllFrames();
         showWriteTravelOrdre();         
     }//GEN-LAST:event_jButton2ActionPerformed
-
+        
+    private void initializeLanguage(){
+        l = LogIn.getString();
+         
+        ResourceBundle r = ResourceBundle.getBundle("Project/Bundle", l);
+        
+        btn_writeNewReport.setText(r.getString("MainFrameBoss.btn_writeNewReport.text"));
+         btn_manageDocuments.setText(r.getString("MainFrameBoss.btn_manageDocuments.text"));
+          jButton2.setText(r.getString("MainFrameBoss.jButton2.text"));
+           label_loggedInName.setText(r.getString("MainFrameBoss.label_loggedInName.AccessibleContext.accessibleName"));
+            label_loggedInName.setText(r.getString("MainFrameBoss.label_loggedInName.text"));
+             label_loggedInBossID.setText(r.getString("MainFrameBoss.label_loggedInBossID.AccessibleContext.accessibleName"));
+              label_loggedInBossID.setText(r.getString("MainFrameBoss.label_loggedInBossID.text"));
+               btn_manageUsers.setText(r.getString("MainFrameBoss.btn_manageUsers.text"));
+                 btn_addAssignment.setText(r.getString("MainFrameBoss.btn_manageDocuments.text"));
+                  btn_search.setText(r.getString("MainFrameBoss.btn_search.text"));
+                   btn_writeNewTravelAdvance.setText(r.getString("MainFrameBoss.btn_search.text"));
+                   
+                 
+    }
     /**
      * @param args the command line arguments
      */
