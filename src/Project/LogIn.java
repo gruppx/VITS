@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -23,11 +25,12 @@ public class LogIn extends javax.swing.JFrame {
     
     
     public static String currentLoggedInID;
-    
+    private static Locale l;
     public LogIn() {
         initComponents();
         Internet();
         this.getRootPane().setDefaultButton(btn_login);
+        l = new Locale("sv","SE");
     }
 
     /**
@@ -48,6 +51,8 @@ public class LogIn extends javax.swing.JFrame {
         label_welcome = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        BtnSwedish = new javax.swing.JButton();
+        BtnEnglish = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,11 +62,12 @@ public class LogIn extends javax.swing.JFrame {
             }
         });
 
-        label_loginUsername.setText("Username");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Project/Bundle"); // NOI18N
+        label_loginUsername.setText(bundle.getString("LogIn.label_loginUsername.text")); // NOI18N
 
-        label_loginPassword.setText("Password");
+        label_loginPassword.setText(bundle.getString("LogIn.label_loginPassword.text")); // NOI18N
 
-        btn_login.setText("Log in");
+        btn_login.setText(bundle.getString("LogIn.btn_login.text")); // NOI18N
         btn_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_loginActionPerformed(evt);
@@ -69,12 +75,28 @@ public class LogIn extends javax.swing.JFrame {
         });
 
         label_offline.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        label_offline.setText("You do not have internet");
+        label_offline.setText(bundle.getString("LogIn.label_offline.text")); // NOI18N
 
         label_welcome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        label_welcome.setText("Welcome to");
+        label_welcome.setText(bundle.getString("LogIn.label_welcome.text")); // NOI18N
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/logga2.gif"))); // NOI18N
+
+        BtnSwedish.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/se.png"))); // NOI18N
+        BtnSwedish.setText(bundle.getString("LogIn.BtnSwedish.text")); // NOI18N
+        BtnSwedish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSwedishActionPerformed(evt);
+            }
+        });
+
+        BtnEnglish.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project/uk-small.jpg"))); // NOI18N
+        BtnEnglish.setText(bundle.getString("LogIn.BtnEnglish.text")); // NOI18N
+        BtnEnglish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEnglishActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,13 +126,20 @@ public class LogIn extends javax.swing.JFrame {
                             .addComponent(txt_loginUser, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(label_loginUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(pass_loginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addGap(130, 130, 130)
+                .addComponent(BtnSwedish, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(BtnEnglish, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(label_welcome)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_welcome)
+                    .addComponent(BtnSwedish, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnEnglish, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
@@ -130,7 +159,7 @@ public class LogIn extends javax.swing.JFrame {
                         .addComponent(btn_login)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label_offline, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -196,6 +225,35 @@ public class LogIn extends javax.swing.JFrame {
 }
     }//GEN-LAST:event_pass_loginPasswordKeyPressed
 
+    private void BtnSwedishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSwedishActionPerformed
+        // TODO add your handling code here:
+        l = new Locale("sv","SE");
+        ResourceBundle r = ResourceBundle.getBundle("Project/Bundle", l);
+        
+        label_welcome.setText(r.getString("LogIn.label_welcome.text"));
+         label_offline.setText(r.getString("LogIn.label_offline.text"));
+          btn_login.setText(r.getString("LogIn.btn_login.text"));
+           label_loginPassword.setText(r.getString("LogIn.label_loginPassword.text"));
+            label_loginUsername.setText(r.getString("LogIn.label_loginUsername.text"));
+    }//GEN-LAST:event_BtnSwedishActionPerformed
+
+    private void BtnEnglishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEnglishActionPerformed
+        // TODO add your handling code here:
+        l = new Locale("en","US");
+        ResourceBundle r = ResourceBundle.getBundle("Project/Bundle", l);
+        
+        label_welcome.setText(r.getString("LogIn.label_welcome.text"));
+         label_offline.setText(r.getString("LogIn.label_offline.text"));
+          btn_login.setText(r.getString("LogIn.btn_login.text"));
+           label_loginPassword.setText(r.getString("LogIn.label_loginPassword.text"));
+            label_loginUsername.setText(r.getString("LogIn.label_loginUsername.text"));
+        
+    }//GEN-LAST:event_BtnEnglishActionPerformed
+    
+    
+        public static Locale getString(){
+            return l;
+        }
     /**
      * @param args the command line arguments
      */
@@ -229,9 +287,13 @@ public class LogIn extends javax.swing.JFrame {
                 new LogIn().setVisible(true);
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnEnglish;
+    private javax.swing.JButton BtnSwedish;
     private javax.swing.JButton btn_login;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
