@@ -25,7 +25,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.Locale;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -55,6 +57,8 @@ public class FillReport extends javax.swing.JInternalFrame {
     int vacationDays = 0;
     String country = "";
     public int traktamente2 = 0;
+    
+    private Locale l;
     /**
      * Creates new form FillReport
      */
@@ -66,6 +70,7 @@ public class FillReport extends javax.swing.JInternalFrame {
         fillDay();
         fillMonth();
         fillYear();
+        initializeLanguage();
     }
 
     /**
@@ -145,9 +150,10 @@ public class FillReport extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Write new report");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Project/Bundle"); // NOI18N
+        setTitle(bundle.getString("FillReport.title")); // NOI18N
 
-        jLabel4.setText("-");
+        jLabel4.setText(bundle.getString("FillReport.jLabel4.text")); // NOI18N
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -158,13 +164,13 @@ public class FillReport extends javax.swing.JInternalFrame {
         });
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel14.setText("Arrival Date:");
+        jLabel14.setText(bundle.getString("FillReport.jLabel14.text")); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("Departure Date: ");
+        jLabel9.setText(bundle.getString("FillReport.jLabel9.text")); // NOI18N
 
         vacationdays.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        vacationdays.setText("Vacation Days:");
+        vacationdays.setText(bundle.getString("FillReport.vacationdays.text")); // NOI18N
 
         txt_VacationDays.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -177,10 +183,10 @@ public class FillReport extends javax.swing.JInternalFrame {
         box_FromCountry.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("To:");
+        jLabel5.setText(bundle.getString("FillReport.jLabel5.text")); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("From:");
+        jLabel3.setText(bundle.getString("FillReport.jLabel3.text")); // NOI18N
 
         txt_kilometers.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -189,7 +195,7 @@ public class FillReport extends javax.swing.JInternalFrame {
         });
 
         lbl_mil.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lbl_mil.setText("Mil:");
+        lbl_mil.setText(bundle.getString("FillReport.lbl_mil.text")); // NOI18N
 
         combobox_car.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Own car", "Company car (diesel)", "Company car (other)" }));
 
@@ -201,18 +207,18 @@ public class FillReport extends javax.swing.JInternalFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setText("Transport:");
+        jLabel6.setText(bundle.getString("FillReport.jLabel6.text")); // NOI18N
 
-        jButton2.setText("Add trip");
+        jButton2.setText(bundle.getString("FillReport.jButton2.text")); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        lbltest.setText("jLabel8");
+        lbltest.setText(bundle.getString("FillReport.lbltest.text")); // NOI18N
 
-        testdate.setText("jLabel10");
+        testdate.setText(bundle.getString("FillReport.testdate.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -325,7 +331,7 @@ public class FillReport extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(txt_reportInfo);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel12.setText("Info:");
+        jLabel12.setText(bundle.getString("FillReport.jLabel12.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -351,7 +357,7 @@ public class FillReport extends javax.swing.JInternalFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         ASS.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        ASS.setText("Assignments:");
+        ASS.setText(bundle.getString("FillReport.ASS.text")); // NOI18N
 
         box_Assignment.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -379,16 +385,16 @@ public class FillReport extends javax.swing.JInternalFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Boss");
+        jLabel1.setText(bundle.getString("FillReport.jLabel1.text")); // NOI18N
 
-        btn_AddCountry.setText("Add Country");
+        btn_AddCountry.setText(bundle.getString("FillReport.btn_AddCountry.text")); // NOI18N
         btn_AddCountry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_AddCountryActionPerformed(evt);
             }
         });
 
-        btn_Kvitto.setText("Add Reciept");
+        btn_Kvitto.setText(bundle.getString("FillReport.btn_Kvitto.text")); // NOI18N
         btn_Kvitto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_KvittoActionPerformed(evt);
@@ -424,7 +430,7 @@ public class FillReport extends javax.swing.JInternalFrame {
 
         jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        checkbox_freeFood.setText("Free food (85%)");
+        checkbox_freeFood.setText(bundle.getString("FillReport.checkbox_freeFood.text")); // NOI18N
         checkbox_freeFood.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 checkbox_freeFoodMouseClicked(evt);
@@ -435,9 +441,9 @@ public class FillReport extends javax.swing.JInternalFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Reduced daily amounts:");
+        jLabel2.setText(bundle.getString("FillReport.jLabel2.text")); // NOI18N
 
-        checkbox_dinnerAndLunch.setText("Dinner and lunch (70%)");
+        checkbox_dinnerAndLunch.setText(bundle.getString("FillReport.checkbox_dinnerAndLunch.text")); // NOI18N
         checkbox_dinnerAndLunch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 checkbox_dinnerAndLunchMouseClicked(evt);
@@ -447,7 +453,7 @@ public class FillReport extends javax.swing.JInternalFrame {
             }
         });
 
-        checkbox_dinnerOrLunch.setText("Dinner or lunch (35%)");
+        checkbox_dinnerOrLunch.setText(bundle.getString("FillReport.checkbox_dinnerOrLunch.text")); // NOI18N
         checkbox_dinnerOrLunch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 checkbox_dinnerOrLunchMouseClicked(evt);
@@ -457,7 +463,7 @@ public class FillReport extends javax.swing.JInternalFrame {
             }
         });
 
-        checkbox_breakfast.setText("Breakfast (15%)");
+        checkbox_breakfast.setText(bundle.getString("FillReport.checkbox_breakfast.text")); // NOI18N
         checkbox_breakfast.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 checkbox_breakfastMouseClicked(evt);
@@ -468,7 +474,7 @@ public class FillReport extends javax.swing.JInternalFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Days:");
+        jLabel7.setText(bundle.getString("FillReport.jLabel7.text")); // NOI18N
 
         txt_freeFood.setEnabled(false);
         txt_freeFood.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -498,7 +504,7 @@ public class FillReport extends javax.swing.JInternalFrame {
             }
         });
 
-        lbl_test2.setText("jLabel8");
+        lbl_test2.setText(bundle.getString("FillReport.lbl_test2.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -557,7 +563,7 @@ public class FillReport extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setText("Trips (destination):");
+        jLabel8.setText(bundle.getString("FillReport.jLabel8.text")); // NOI18N
 
         jScrollPane2.setViewportView(list_trips);
 
@@ -586,7 +592,7 @@ public class FillReport extends javax.swing.JInternalFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btn_Submit.setText("Submit");
+        btn_Submit.setText(bundle.getString("FillReport.btn_Submit.text")); // NOI18N
         btn_Submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_SubmitActionPerformed(evt);
@@ -614,11 +620,11 @@ public class FillReport extends javax.swing.JInternalFrame {
 
         labelreceipt.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel10.setText("Receipt Type");
+        jLabel10.setText(bundle.getString("FillReport.jLabel10.text")); // NOI18N
 
         cbx_receiptType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Food", "Drinks", "Residence", "Transport" }));
 
-        jLabel11.setText("Amount");
+        jLabel11.setText(bundle.getString("FillReport.jLabel11.text")); // NOI18N
 
         txt_Amount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -626,7 +632,7 @@ public class FillReport extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel13.setText("Path:");
+        jLabel13.setText(bundle.getString("FillReport.jLabel13.text")); // NOI18N
 
         path.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -635,7 +641,7 @@ public class FillReport extends javax.swing.JInternalFrame {
         });
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel15.setText("Receipt");
+        jLabel15.setText(bundle.getString("FillReport.jLabel15.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -685,14 +691,14 @@ public class FillReport extends javax.swing.JInternalFrame {
 
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton1.setText("Upload Receipt");
+        jButton1.setText(bundle.getString("FillReport.jButton1.text")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Save Receipt");
+        jButton3.setText(bundle.getString("FillReport.jButton3.text")); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -1365,7 +1371,45 @@ String departureYear = cbx_DYear.getSelectedItem().toString();
        return receipts;
    }
   
-    
+   private void initializeLanguage(){
+        l = LogIn.getString();
+         
+        ResourceBundle r = ResourceBundle.getBundle("Project/Bundle", l);
+        
+        lbl_test2.setText(r.getString("FillReport.lbl_test2.text"));       
+          jLabel7.setText(r.getString("FillReport.jLabel7.text"));
+           checkbox_breakfast.setText(r.getString("FillReport.checkbox_breakfast.text"));
+            checkbox_dinnerOrLunch.setText(r.getString("FillReport.checkbox_dinnerOrLunch.text"));
+             checkbox_dinnerAndLunch.setText(r.getString("FillReport.checkbox_dinnerAndLunch.text"));
+              jLabel2.setText(r.getString("FillReport.jLabel2.text"));
+               checkbox_freeFood.setText(r.getString("FillReport.checkbox_freeFood.text"));
+                 btn_Kvitto.setText(r.getString("FillReport.btn_Kvitto.text"));
+                  btn_AddCountry.setText(r.getString("FillReport.btn_AddCountry.text"));
+                   jButton3.setText(r.getString("FillReport.jButton3.text"));
+                    jLabel1.setText(r.getString("FillReport.jLabel1.text"));
+                    ASS.setText(r.getString("FillReport.ASS.text"));
+                       jLabel12.setText(r.getString("FillReport.jLabel12.text"));
+                        jButton1.setText(r.getString("FillReport.jButton1.text"));
+                         jLabel15.setText(r.getString("FillReport.jLabel15.text"));
+                          jLabel13.setText(r.getString("FillReport.jLabel13.text"));
+                           jLabel11.setText(r.getString("FillReport.jLabel11.text"));
+                            jLabel10.setText(r.getString("FillReport.jLabel10.text"));
+                             testdate.setText(r.getString("FillReport.testdate.text"));
+                               lbltest.setText(r.getString("FillReport.lbltest.text"));
+                                jButton2.setText(r.getString("FillReport.jButton2.text"));
+                                 jLabel6.setText(r.getString("FillReport.jLabel6.text"));
+                                 
+                       lbl_mil.setText(r.getString("FillReport.lbl_mil.text"));
+                        jLabel3.setText(r.getString("FillReport.jLabel3.text"));
+                         jLabel5.setText(r.getString("FillReport.jLabel5.text"));
+                          vacationdays.setText(r.getString("FillReport.vacationdays.text"));
+                           btn_Submit.setText(r.getString("FillReport.btn_Submit.text"));
+                            jLabel9.setText(r.getString("FillReport.jLabel9.text"));
+                             jLabel14.setText(r.getString("FillReport.jLabel14.text"));
+                              
+                                                             
+                                 
+   }
     /**
      * @param args the command line arguments
      */
