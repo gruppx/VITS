@@ -57,8 +57,10 @@ public class FillReport extends javax.swing.JInternalFrame {
     int vacationDays = 0;
     String country = "";
     public int traktamente2 = 0;
-    
-    private Locale l;
+    int amountOfReceipts = 1;
+    int tripID1 = 0;
+    int reportID = 0;
+     DefaultListModel DLM = new DefaultListModel();
     /**
      * Creates new form FillReport
      */
@@ -1018,19 +1020,22 @@ public class FillReport extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, e);
         }
         
-
-    
     }
     
     private void btn_SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SubmitActionPerformed
-       CreateReport();
-       travelAdvances = 0;
-       receipts = 0;
+  CreateReport();
+       setTrips();
+       updateReceiptsID();
+    
        days = days - vacationDays;
        result = ((traktamente * days) + car);
        
        result = result - (receipts - travelAdvances - reducedAmount);
-  
+       DLM.removeAllElements();
+       list_trips.removeAll();
+       
+      
+  amountOfReceipts = 0;
     }//GEN-LAST:event_btn_SubmitActionPerformed
 
     private void btn_AddCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddCountryActionPerformed
@@ -1222,9 +1227,18 @@ String departureYear = cbx_DYear.getSelectedItem().toString();
         int arrival = Integer.parseInt(arrivalYear + arrivalMonth  + arrivalDay );
         try
         {
+            int vDays;
+            if(txt_VacationDays.getText().equals(""))
+            {
+                vDays = 0;
+            }
+            else
+            {
+                vDays = Integer.parseInt(txt_VacationDays.getText().toString());
+            }
             String currID = LogIn.currentLoggedInID;
              db.query("insert into Trip (FromCountry, ToCountry, Transport, DepartureDate, ArrivalDate, VacationDays, UserID, AssignmentID) values ('"+box_FromCountry.getSelectedItem()+"', "
-                + "'"+box_ToCountry.getSelectedItem()+"' , '"+cbx_Transport.getSelectedItem()+"' , '"+departure+"', '"+arrival+"', '"+txt_VacationDays.getText()+"', " + currID + ", 1)");
+                + "'"+box_ToCountry.getSelectedItem().toString()+"' , '"+cbx_Transport.getSelectedItem().toString()+"' , '"+departure+"', '"+arrival+"', '"+vDays+"', " + currID + ", 1)");
         
         }
          /*db.query("insert into allowance(Country, Amount) values ('"+txt_CountryName.getText()+"', '"+txt_Amount.getText()+"')");*/
@@ -1243,8 +1257,8 @@ String departureYear = cbx_DYear.getSelectedItem().toString();
                 traktamente = rs.getInt(1);
                 lbltest.setText(String.valueOf(traktamente));
             }
-            DefaultListModel DLM = new DefaultListModel();
-            ResultSet addTrips = db.getColumn("select * from trips where reportid is null");
+           
+            ResultSet addTrips = db.getColumn("select * from trip where reportid is null");
             
             while(addTrips.next()) //Använd ALLTID while av denna typ! annars stöter du på "after end och result set"
             {
@@ -1276,21 +1290,53 @@ String departureYear = cbx_DYear.getSelectedItem().toString();
     }//GEN-LAST:event_pathActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       
+      
+          amountOfReceipts = amountOfReceipts + 1;
+        String getTripID = "select tripid from trip where tocountry = '"+list_trips.getSelectedValue().toString()+"'";
       try
-        {
-        db.query("insert into Receipt (TripID, Type, Amount, ReportID, Picture) values (1 , "
-    
-             + "'"+cbx_receiptType.getSelectedItem()+"' , '"+txt_Amount.getText()+"' , 1, '"+person_image+"')"); 
-        }
+        {      
+            db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            Statement statement = db.myConn.createStatement();
+            ResultSet getTrip = statement.executeQuery(getTripID);
+            while(getTrip.next()){
+                tripID1 =  getTrip.getInt(1);
+            }
+            db.query("insert into receipt (tripid, type, amount) values("+tripID1+", '"+cbx_receiptType.getSelectedItem().toString()+
+                    "', "+txt_Amount.getText()+")");
+        }       
          catch(Exception e)
         {
             JOptionPane.showMessageDialog(null, e);
         }
 
 
+      txt_Amount.setText("");
+      path.setText("");
+       
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
+      private void updateReceiptsID(){
+        int receiptID = 0;
+        try
+        {
+            String query = "select receiptid from receipt where reportid is null";
+            db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            Statement statement = db.myConn.createStatement();
+            ResultSet getReceipt = statement.executeQuery(query);
+           for (int i = 1; i>=amountOfReceipts; i++){
+            while(getReceipt.next()){
+                receiptID =  getReceipt.getInt(i);
+            }
+         String query1 = "update receipt set reportid = "+reportID+" where receiptid = "+receiptID;
+            db.query(query1);   
+           }
+        }
+            catch(Exception e){
+                       JOptionPane.showMessageDialog(null, e);
+                    }
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
      try{                                                 
             
@@ -1337,6 +1383,34 @@ String departureYear = cbx_DYear.getSelectedItem().toString();
 {
 	return (int)((date2.getTime()-date.getTime())/(1000*60*60*24));
 }//räknar ut dagar mellan två datum
+    
+    private void setTrips(){
+       String getLastInc = "select reportid from report order by reportid desc limit 1";
+       int tripID = 0;
+      // String qUpdateTrips = "update trips set reportid = " + reportid + " where tripid = ";
+        try{
+            db.myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vitsdb","root","masterkey");
+            Statement statement = db.myConn.createStatement();
+            ResultSet lastInc = statement.executeQuery(getLastInc);
+            while(lastInc.next()){
+                reportID = lastInc.getInt(1);
+            }
+            ResultSet tID = statement.executeQuery("select tripid from trip where reportid is null");
+            for (int i = 1; i<DLM.getSize(); i++ ){
+               while(tID.next())
+               {
+                tripID = tID.getInt(i);
+                db.query("update trip set reportid = "+reportID+" where tripid = "+tripID);
+               }
+            }
+            
+            
+        }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
     
    private int getTravelAdvance(){
        Connection myConn = null;
